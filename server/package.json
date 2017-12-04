@@ -1,0 +1,28 @@
+{
+  "name": "smartbudget-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "budgetServer.js",
+  "scripts": {
+    "dev": "nodemon budgetServer.js",
+    "serve": "node budgetServer.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "connect-history-api-fallback": "^1.5.0",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "jsonwebtoken": "^8.1.0",
+    "moment": "^2.19.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.0",
+    "pg-promise": "^7.0.3",
+    "sql-template-strings": "^2.2.2"
+  }
+}
