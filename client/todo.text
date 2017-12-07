@@ -1,9 +1,5 @@
 To-Do:
 ------------------------------
-Mobile
-  Add turnover
-  Show turnover
-  Edit turnover
 Charts
   Net Worth
   Spending
@@ -20,18 +16,6 @@ TransactionTable
     -> add imported_date to Turnover table -> adjust select/model
     -> import filter at transactions
     -> automatic category assignment
-
-
-
-Issues:
-------------------------------
-- Cant select budgetitem right away
-
-Refactoring:
--------------------------------
-- Handle SelectedCategory and Inspector better
-
-
 
 
 

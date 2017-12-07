@@ -24,11 +24,15 @@
         <div class="accounts-toolbar-left">
           <button @click="addRow()" class="add-transaction button">
             <i class="fa fa-plus-circle"></i>
-            Add a transaction
+            Add a turnover
           </button>
           <button @click="deleteTurnover()" class="accounts-toolbar-edit-transaction button">
             <i class="fa fa-trash-o"></i>
             Delete
+          </button>
+          <button @click="showCopyModal()" class="accounts-toolbar-edit-transaction button">
+            <i class="fa fa-clone"></i>
+            Copy
           </button>
           <button class="accounts-toolbar-file-import-transactions button">
             <i class="fa fa-upload"></i>
@@ -65,6 +69,7 @@
           </button>
         </div>
       </div>
+      <modal-copy-turnover name="modal-copy-turnover" @saved="copyTurnover"></modal-copy-turnover>
   </header>
 </template>
 
@@ -72,8 +77,12 @@
 import { mapGetters } from 'vuex';
 import { HTTP } from '@/common/utilities';
 import moment from 'moment';
+import ModalCopyTurnover from './ModalCopyTurnover';
 
 export default {
+  components: {
+    ModalCopyTurnover
+  },
   props: [
     'accountid'
   ],
@@ -192,6 +201,13 @@ export default {
       this.$store.dispatch('setTurnoverSearchstring', this.searchText);
       this.getTurnovers();
     },
+    showCopyModal() {
+      if (this.selectedTurnovers.length === 0) {
+        this.$toasted.show('No turnovers selected.');
+      } else {
+        this.$modal.show('modal-copy-turnover');
+      }
+    },
     async deleteTurnover() {
       if (this.selectedTurnovers.length === 0) {
         this.$toasted.show('No turnovers selected.');
@@ -200,6 +216,11 @@ export default {
         this.$store.dispatch('getAccounts');
         this.$emit('delete');
       }
+    },
+    async copyTurnover(data) {
+      await HTTP.post('/api/turnovers/copy', data);
+      this.$store.dispatch('getAccounts');
+      this.$emit('copy');
     },
     getTurnovers() {
       try {

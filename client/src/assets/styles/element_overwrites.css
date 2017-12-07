@@ -173,6 +173,14 @@
   left: 10em;
 }
 
+.modal-date > .el-input__prefix{
+  display: none;
+}
 
+.modal-date > .el-input__inner {
+  padding-left: .5em;
+}
 
-
+.modal-date > .el-input__suffix {
+  top: -3.2px;
+}

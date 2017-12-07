@@ -49,6 +49,31 @@ module.exports = {
       });
     }
   },
+  async copy(req, res) {
+    const turnover = new Turnover();
+    try {
+      const { ids, date } = req.body;
+      const response = await turnover.findByIds(ids);
+      const turnovers = response.map(t => {
+        return {
+          accountId: t.account_id,
+          categoryId: t.category_id,
+          turnoverDate: date,
+          payee: t.payee,
+          amount: t.amount,
+          note: t.note,
+          source: t.source
+        };
+      });
+
+      await turnover.createMultiple(turnovers);
+      res.json(req.body);
+    } catch (err) {
+      res.status(500).json({
+       error: 'An error has occured trying to update a turnover'
+      });
+    }
+  },
   async update(req, res) {
     const turnover = new Turnover();
     try {

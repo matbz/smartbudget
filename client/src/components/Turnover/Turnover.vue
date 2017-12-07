@@ -1,7 +1,7 @@
 <template>
   <div class="ynab-u content">
     <div class="register-flex-columns">
-     <turnover-header @delete="onDeleted()" @add="showAddRow()" :accountid="accountid"></turnover-header>
+     <turnover-header @delete="onDelete()" @copy="onCopy()" @add="showAddRow()" :accountid="accountid"></turnover-header>
      <turnover-table ref="turnoverTable" :accountid="accountid" :turnovers="turnovers"></turnover-table>
    </div>
   </div>
@@ -37,8 +37,13 @@ export default {
     showAddRow() {
       this.$refs.turnoverTable.showAddRow();
     },
-    onDeleted() {
+    onDelete() {
       this.$refs.turnoverTable.uncheck();
+      this.getTurnovers();
+    },
+    onCopy() {
+      this.$refs.turnoverTable.unselectAllRows();
+      this.$refs.turnoverTable.hideAddRow();
       this.getTurnovers();
     },
     getTurnovers() {

@@ -25,6 +25,7 @@ class Turnover {
   async all(budgetid, filter) {
     try {
       let where = SQL`budget_id = ${budgetid}`;
+
       if (filter.accountid) {
         where.append(SQL` and a.id = ${filter.accountid}`);
       }
@@ -125,6 +126,20 @@ class Turnover {
     }
   }
 
+  async findByIds(ids) {
+    try {
+      const query = SQL`
+      select *
+      from turnover
+      where
+        id = ANY(${ids})
+      `;
+      return await db.manyOrNone(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
   async minMaxDate(budgetid) {
     try {
       const query = SQL`
@@ -198,7 +213,7 @@ class Turnover {
         const queries = list.map(l => {
           let query = ''
 
-          if (categoryId === '' || categoryId === 0) {
+          if (l.categoryId === '' || l.categoryId === 0) {
             query = SQL`
             insert into turnover
               (account_id, category_id, payee, amount, turnover_date, note, source)

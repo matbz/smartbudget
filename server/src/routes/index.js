@@ -170,6 +170,10 @@ module.exports = (app) => {
     authRequired,
     TurnoverController.create);
 
+  app.post('/api/turnovers/copy',
+    authRequired,
+    TurnoverController.copy);
+
   app.put('/api/turnovers/:id',
     authRequired,
     TurnoverController.update);
