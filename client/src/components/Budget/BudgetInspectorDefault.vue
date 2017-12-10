@@ -15,7 +15,7 @@
               <h3>QUICK BUDGET</h3>
               <button
                 class="budget-inspector-button"
-                @click="getBudgetLastMonth()"
+                @click="confirmDelete()"
               >
                 Budgeted Last Month: <strong><span class="currency">{{ budgetedLastMonth | currency}}</span></strong>
               </button>
@@ -53,7 +53,18 @@ export default {
       }));
       return sum;
     },
+    confirmDelete() {
+      this.$modal.show('dialog', {
+        title: 'Take budgeted of last month',
+        text: 'Are you sure? This will overwrite all budgeted amounts of this month.',
+        buttons: [
+          { title: 'Close' },
+          { title: 'Yes', handler: () => { this.getBudgetLastMonth(); } }
+        ]
+      });
+    },
     async getBudgetLastMonth() {
+      this.$modal.hide('dialog');
       try {
         await this.$store.dispatch('setBudgetedLastMonth');
         await this.$store.dispatch('getToBeBudgeted', this.budgetDate);

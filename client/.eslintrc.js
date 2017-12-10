@@ -48,6 +48,7 @@ module.exports = {
     'no-confusing-arrow': 0,
     'arrow-body-style': 0,
     'no-empty-pattern': 0,
-    'no-mixed-operators': 0
+    'no-mixed-operators': 0,
+    'no-underscore-dangle': 0
   }
 }

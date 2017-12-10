@@ -184,3 +184,30 @@
 .modal-date > .el-input__suffix {
   top: -3.2px;
 }
+
+.reports-controls > .el-range-editor {
+  width: 150px;
+  height: 26px;
+  cursor: pointer;
+}
+
+.reports-controls > .el-date-editor > input {
+  cursor: pointer;
+}
+
+.reports-controls > .el-range-editor > i {
+  display: none;
+}
+
+.reports-controls > .el-range-editor{
+  opacity: 0;
+  position: relative;
+  z-index: 1000;
+  left: 0.5em;
+}
+
+.button-timeframe {
+  cursor: pointer;
+  position: relative;
+  left: -10.5em;
+}

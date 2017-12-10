@@ -12601,3 +12601,16 @@ bdi {
 .accounts-header + .ynab-grid > .ynab-grid-header > .ynab-grid-header-row >.ynab-grid-header-cell {
   cursor: auto !important;
 }
+
+.reports-header > button {
+  cursor: pointer;
+}
+
+.reports-inspector-change-in-net-worth > i {
+  cursor: auto !important;
+}
+
+.reports-inspector-table > tbody > tr > td > i {
+  cursor: auto !important;
+  margin-left: 2px;
+}

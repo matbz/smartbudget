@@ -57,6 +57,56 @@ class Account {
     }
   }
 
+
+  async getBalance(budgetid, params) {
+    try {
+      const { start, end, userid} = params;
+      const data = {
+        pastBalance: null,
+        balances: []
+      };
+
+      let query = SQL`
+      select report_startdate
+      from "user"
+      where id = ${userid}
+      `;
+      const response = await db.oneOrNone(query);
+
+      query = SQL`
+      select sum(amount)
+      from turnover
+      where
+      account_id in (select id from account where budget_id = ${budgetid}) and
+      turnover_date < ${start} and
+      turnover_date >= ${response.report_startdate || '19000101'}
+      `;
+      const result = await db.oneOrNone(query);
+
+      query = SQL`
+      select
+      sum(amount) as amount,
+      turnover_date,
+      to_char(turnover_date, 'MM/YYYY') as date
+      from turnover
+      where
+        account_id in (select id from account where budget_id = ${budgetid}) and
+        turnover_date >= ${start} and
+        turnover_date <= ${end} and
+        turnover_date >= ${response.report_startdate || '19000101'}
+      group by date, turnover_date
+      order by turnover_date
+      `;
+      const results = await db.manyOrNone(query);
+
+      data.balances = [...results];
+      data.pastBalance = result.sum;
+      return data;
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
   async store(budgetid, account) {
     const {
       name,

@@ -101,13 +101,13 @@ export default {
   },
   methods: {
     opened() {
-      this.amount = Number(this.available);
+      this.amount = 0;
     },
     closed() {
       this.$emit('closed');
     },
     close() {
-      this.amount = Number(this.available);
+      this.amount = 0;
       this.moveCategoryId = null;
       this.$modal.hide(this.name);
     },

@@ -4,7 +4,7 @@ import moment from 'moment';
 
 const Login = () => import('@/components/User/Login');
 const Budget = () => import('@/components/Budget/Budget');
-const Report = () => import('@/components/Report/Report');
+const ReportNetWorth = () => import('@/components/Report/ReportNetWorth');
 const Turnover = () => import('@/components/Turnover/Turnover');
 
 Vue.use(Router);
@@ -47,7 +47,12 @@ const router = new Router({
     {
       path: '/reports',
       name: 'reports',
-      component: Report,
+      redirect: { name: 'reportsnetworth' },
+    },
+    {
+      path: '/reports/net-worth',
+      name: 'reportsnetworth',
+      component: ReportNetWorth,
       meta: {
         requiresAuth: true,
       },

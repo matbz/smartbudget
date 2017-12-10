@@ -11,7 +11,7 @@
              Budget
            </a>
           </li>
-          <router-link :to="{ name: 'reports' }" tag="li" exact>
+          <router-link :to="{ name: 'reports' }" tag="li">
             <a>
               <i class=" fa fa-bar-chart"></i>
               Reports

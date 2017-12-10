@@ -149,6 +149,10 @@ module.exports = (app) => {
     authRequired,
     AccountController.index);
 
+  app.get('/api/:budgetid/accounts/balance',
+    authRequired,
+    AccountController.balance);
+
   app.post('/api/:budgetid/accounts',
     authRequired,
     AccountController.create);
