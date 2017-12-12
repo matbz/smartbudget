@@ -12412,7 +12412,7 @@ bdi {
 }
 
 .ynab-grid-body-row .ynab-grid-cell-memo {
-  padding-left: 1.3em;
+  /* padding-left: 1.3em; */
 }
 
 .add-row {
@@ -12613,4 +12613,8 @@ bdi {
 .reports-inspector-table > tbody > tr > td > i {
   cursor: auto !important;
   margin-left: 2px;
+}
+
+.reports-spending-toggle > button {
+  cursor: pointer;
 }

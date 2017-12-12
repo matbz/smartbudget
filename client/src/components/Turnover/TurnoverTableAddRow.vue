@@ -54,11 +54,11 @@
         </el-option-group>
       </el-select>
     </div>
-    <div class="ynab-grid-cell ynab-grid-cell-memo" @keyup.esc="hide()" @keyup.enter="save()">
+    <div class="ynab-grid-cell ynab-grid-cell-memo" @keyup.esc="hide()" @keyup.enter="saveAndAddAnother()">
       <input v-model="turnover.note" placeholder="Note" class="accounts-text-field accounts-text-field">
     </div>
     <div class="ynab-grid-cell ynab-grid-cell-inflow">
-      <div class="currency-input is-editing" @keyup.esc="hide()" @keyup.enter="save()">
+      <div class="currency-input is-editing" @keyup.esc="hide()" @keyup.enter="saveAndAddAnother()">
         <vue-numeric
           class="accounts-text-field"
           currency="€"
@@ -183,7 +183,7 @@ export default {
   },
   methods: {
     hide() {
-      this.resetTurnover();
+      this.resetTurnover(true);
       this.$emit('cancel');
     },
     getAccountId() {
@@ -209,6 +209,7 @@ export default {
     },
     async save(addAnother) {
       if (this.turnover.accountId && this.turnover.turnoverDate) {
+        const date = this.turnover.turnoverDate;
         this.turnover.turnoverDate = moment(this.turnover.turnoverDate).format('YYYYMMDD');
 
         if (this.propTurnover) {
@@ -233,7 +234,8 @@ export default {
         if (!addAnother) {
           this.hide();
         } else {
-          this.resetTurnover();
+          this.turnover.turnoverDate = date;
+          this.resetTurnover(false);
         }
       } else {
         this.$toasted.error('Account and date is required.');
@@ -248,11 +250,15 @@ export default {
     saveAndAddAnother() {
       this.save(true);
     },
-    resetTurnover() {
+    resetTurnover(initDate) {
       Object.keys(this.turnover).forEach(key => {
-        this.turnover[key] = '';
+        if (key !== 'turnoverDate') {
+          this.turnover[key] = '';
+        }
       });
-      this.turnover.turnoverDate = new Date();
+      if (initDate) {
+        this.turnover.turnoverDate = new Date();
+      }
       this.turnover.source = 'M';
       this.turnover.amount = 0;
       this.turnover.accountId = this.getAccountId();

@@ -153,6 +153,10 @@ module.exports = (app) => {
     authRequired,
     AccountController.balance);
 
+  app.get('/api/:budgetid/accounts/spending',
+    authRequired,
+    AccountController.spending);
+
   app.post('/api/:budgetid/accounts',
     authRequired,
     AccountController.create);

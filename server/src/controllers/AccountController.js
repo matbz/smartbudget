@@ -34,6 +34,17 @@ module.exports = {
       });
     }
   },
+  async spending(req, res) {
+    const account = new Account();
+    try {
+      const results = await account.getSpending(req.params.budgetid, req.query);
+      res.json(results);
+    } catch (err) {
+      res.status(500).json({
+       error: 'An error has occured trying to find account balances'
+      });
+    }
+  },
   async create(req, res) {
     const account = new Account();
     try {
