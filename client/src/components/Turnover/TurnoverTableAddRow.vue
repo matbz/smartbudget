@@ -54,11 +54,11 @@
         </el-option-group>
       </el-select>
     </div>
-    <div class="ynab-grid-cell ynab-grid-cell-memo" @keyup.esc="hide()" @keyup.enter="saveAndAddAnother()">
+    <div class="ynab-grid-cell ynab-grid-cell-memo" @keyup.esc="hide()" @keyup.enter="save()">
       <input v-model="turnover.note" placeholder="Note" class="accounts-text-field accounts-text-field">
     </div>
     <div class="ynab-grid-cell ynab-grid-cell-inflow">
-      <div class="currency-input is-editing" @keyup.esc="hide()" @keyup.enter="saveAndAddAnother()">
+      <div class="currency-input is-editing" @keyup.esc="hide()" @keyup.enter="save()">
         <vue-numeric
           class="accounts-text-field"
           currency="€"

@@ -1,9 +1,5 @@
 To-Do:
 ------------------------------
-Line Chart -> sum of datasets (index + 1)
-Format labels
-
-
 TransactionTable
   import filter
     -> import button

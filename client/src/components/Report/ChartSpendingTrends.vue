@@ -1,5 +1,6 @@
 <script>
 import { Bar } from 'vue-chartjs';
+import moment from 'moment';
 
 export default {
   extends: Bar,
@@ -43,15 +44,15 @@ export default {
         },
         tooltips: {
           callbacks: {
-            // title: (tooltipItem) => {
-            //   if (tooltipItem[0]) {
-            //     const dateParts = tooltipItem[0].xLabel.split('/');
-            //     return moment(new Date(dateParts[1], dateParts[0] - 1, '01')).format('MMM YYYY');
-            //   }
-            // },
-            // label: (tooltipItem) => {
-            //   return ' Net Worth: ' + Number(tooltipItem.yLabel).toLocaleString(undefined, { minimumFractionDigits: 2 }) + ' €';
-            // }
+            title: (tooltipItem) => {
+              if (tooltipItem[0]) {
+                const dateParts = tooltipItem[0].xLabel.split('/');
+                return moment(new Date(dateParts[1], dateParts[0] - 1, '01')).format('MMM YYYY');
+              }
+            },
+            label: (tooltipItem, data) => {
+              return ' ' + data.datasets[tooltipItem.datasetIndex].label + ': ' + Number(tooltipItem.yLabel).toLocaleString(undefined, { minimumFractionDigits: 2 }) + ' €';
+            }
           }
         },
         responsive: true,

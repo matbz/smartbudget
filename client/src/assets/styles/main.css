@@ -9145,6 +9145,7 @@ select {
 
 .reports-controls .button {
     border: none;
+    cursor: pointer;
 }
 
 .reports-controls .button:not(.button-disabled):hover {
@@ -12617,4 +12618,28 @@ bdi {
 
 .reports-spending-toggle > button {
   cursor: pointer;
+}
+
+.button-categories {
+  position: absolute;
+  left: 12em;
+}
+
+.button-select-option {
+  font-size: .85rem;
+  padding: .2rem .7rem;
+  margin-right: .1rem;
+  -webkit-border-radius: 1000px;
+  border-radius: 1000px;
+  color: #009cc2;
+  cursor: pointer;
+}
+
+.button-select-option:hover {
+  color: #fff;
+  background-color: #009cc2;
+}
+
+.button-select-option-first {
+  margin-left: 5em;
 }

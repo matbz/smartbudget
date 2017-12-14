@@ -107,11 +107,22 @@ class Account {
 
   async getSpending(budgetid, params) {
     try {
-      const { start, end, userid} = params;
+      const { start, end, userid, categoryid } = params;
+
       const data = {
         pastBalance: null,
         balances: []
       };
+
+      let whereAppend = SQL` `;
+
+      if (categoryid === undefined) {
+        whereAppend = SQL` and c.id = 9999999`;
+      } else if (!Array.isArray(categoryid)) {
+        whereAppend = SQL` and c.id = ${categoryid}`;
+      } else {
+        whereAppend = SQL` and c.id = ANY(${categoryid})`;
+      }
 
       let query = SQL`
       select
@@ -124,12 +135,13 @@ class Account {
         t.account_id in (select id from account where budget_id = ${budgetid}) and
         t.turnover_date >= ${start} and
         t.turnover_date <= ${end} and
-        t.amount < 0
+        t.amount < 0 `.append(whereAppend).append(`
       group by
         t.category_id,
         c.name
       order by amount desc
-      `;
+      `);
+
       const categoryTotals = await db.manyOrNone(query);
 
       query = SQL`
@@ -144,7 +156,7 @@ class Account {
         t.account_id in (select id from account where budget_id = ${budgetid}) and
         t.turnover_date >= ${start} and
         t.turnover_date <= ${end} and
-        t.amount < 0
+        t.amount < 0 `.append(whereAppend).append(`
       group by
         t.category_id,
         date,
@@ -152,7 +164,7 @@ class Account {
       order by
         date,
         amount desc
-      `;
+      `);
       const categoryTotalsByMonth = await db.manyOrNone(query);
 
       data.totals = [...categoryTotals];

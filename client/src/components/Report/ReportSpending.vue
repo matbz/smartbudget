@@ -19,6 +19,32 @@
           {{ formattedStartdate }} - {{ formattedEnddate }}
           <i class="fa fa-caret-down"></i>
         </button>
+        <el-select
+          v-model="selectedCategories"
+          multiple
+          collapse-tags
+          class="s-categories"
+          @visible-change="setCategories">
+            <el-option
+              v-for="item in selectOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+        </el-select>
+        <button class="button button-categories">
+          Categories
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <button class="button-select-option-first button-select-option" @click="selectAllCategories()">
+          Select All
+        </button>
+        <button class="button-select-option" @click="selectActiveCategories()">
+          Select Active
+        </button>
+        <button class="button-select-option" @click="unselectAllCategories()">
+          Unselect All
+        </button>
       </div>
       <div class="pure-u reports-container reports-spending">
         <div class="reports-content">
@@ -125,6 +151,8 @@ export default {
         labels: [],
       },
       dateFilter: [],
+      selectedCategories: [],
+      selectOptions: [],
       pickerOptions: {
         shortcuts: [{
           text: 'This Month',
@@ -201,6 +229,33 @@ export default {
         moment(this.chartEnddate).toDate(),
       ];
     },
+    async selectAllCategories() {
+      await this.getCategories('all');
+      await this.prepareData();
+      if (this.totalsActive) {
+        this.$refs.chartSpendingTotals.update();
+      } else {
+        this.$refs.chartSpendingTrends.update();
+      }
+    },
+    async selectActiveCategories() {
+      await this.getCategories('active');
+      await this.prepareData();
+      if (this.totalsActive) {
+        this.$refs.chartSpendingTotals.update();
+      } else {
+        this.$refs.chartSpendingTrends.update();
+      }
+    },
+    async unselectAllCategories() {
+      this.selectedCategories = [];
+      await this.prepareData();
+      if (this.totalsActive) {
+        this.$refs.chartSpendingTotals.update();
+      } else {
+        this.$refs.chartSpendingTrends.update();
+      }
+    },
     async setDate() {
       const dates = [
         moment(this.dateFilter[0]).format('YYYYMMDD'),
@@ -214,11 +269,21 @@ export default {
         this.$refs.chartSpendingTrends.update();
       }
     },
+    async setCategories(isOpen) {
+      if (!isOpen) {
+        await this.prepareData();
+        if (this.totalsActive) {
+          this.$refs.chartSpendingTotals.update();
+        } else {
+          this.$refs.chartSpendingTrends.update();
+        }
+      }
+    },
     async prepareData() {
       this.dataPieChart.datasets[0].data = [];
       this.dataPieChart.labels = [];
       this.dataBarChart.datasets = [{
-        label: 'Line Dataset',
+        label: 'Total',
         data: [],
         type: 'line',
         lineTension: 0,
@@ -232,7 +297,18 @@ export default {
       this.dataBarChart.labels = [];
       const categories = [];
 
-      const results = await HTTP.get(`/api/${this.budgetId}/accounts/spending?start=${this.chartStartdate}&end=${this.chartEnddate}&userid=${this.user.id}`);
+      let route = `/api/${this.budgetId}/accounts/spending?start=${this.chartStartdate}&end=${this.chartEnddate}&userid=${this.user.id}&`;
+      let ids = '';
+
+      this.selectedCategories.forEach((id, index, array) => {
+        ids += `categoryid=${id}`;
+        if (index < array.length - 1) {
+          ids += '&';
+        }
+      });
+
+      route += ids;
+      const results = await HTTP.get(route);
 
       results.data.totals.forEach(e => {
         this.dataPieChart.datasets[0].data.push(e.amount);
@@ -267,12 +343,72 @@ export default {
           this.dataBarChart.datasets[index + 1].data.push(Number(e.amount));
         });
       });
+
+      const sums = [];
+      this.dataBarChart.datasets.forEach((ds, index) => {
+        if (index === 0) {
+          return;
+        }
+
+        ds.data.forEach((e, i) => {
+          if (sums[i] === undefined) {
+            sums[i] = 0;
+          }
+
+          sums[i] += e;
+        });
+      });
+
+      sums.forEach(e => {
+        this.dataBarChart.datasets[0].data.push(e);
+      });
     },
     goToRoute(route) {
       this.$router.push({ name: route });
     },
+    async getCategories(type) {
+      this.selectedCategories = [];
+      this.selectOptions = [];
+      const results = await HTTP.get(`/api/${this.budgetId}/categories`);
+      const categories = results.data;
+
+      categories.sort((a, b) => {
+        const nameA = a.name.toLowerCase();
+        const nameB = b.name.toLowerCase();
+
+        if (nameA < nameB) {
+          return -1;
+        }
+
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        return 0;
+      });
+
+      categories.forEach(c => {
+        if (c.name === 'To be Budgeted') {
+          return;
+        }
+
+        this.selectOptions.push({
+          value: c.id,
+          label: c.name
+        });
+
+        if (type === 'all') {
+          this.selectedCategories.push(c.id);
+        }
+
+        if (type === 'active' && !c.is_hidden) {
+          this.selectedCategories.push(c.id);
+        }
+      });
+    }
   },
   async created() {
+    await this.getCategories('active');
     await this.prepareData();
     if (this.totalsActive) {
       this.$refs.chartSpendingTotals.update();
