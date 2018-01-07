@@ -157,19 +157,15 @@ export default {
         shortcuts: [{
           text: 'This Month',
           onClick(picker) {
-            const month = moment(new Date()).month() + 1;
-            const year = moment(new Date()).year().toString();
-            const end = moment(year + month + moment(year + month, 'YYYYMM').daysInMonth()).toDate();
-            const start = moment(moment(new Date()).year().toString() + month + '01').toDate();
+            const end = moment().endOf('month').toDate();
+            const start = moment().startOf('month').toDate();
             picker.$emit('pick', [start, end]);
           }
         }, {
           text: 'Last Month',
           onClick(picker) {
-            const month = moment(new Date()).month();
-            const year = moment(new Date()).year().toString();
-            const end = moment(year + month + moment(year + month, 'YYYYMM').daysInMonth()).toDate();
-            const start = moment(moment(new Date()).year().toString() + month + '01').toDate();
+            const end = moment().subtract(1, 'month').endOf('month').toDate();
+            const start = moment().subtract(1, 'month').startOf('month').toDate();
             picker.$emit('pick', [start, end]);
           }
         }, {

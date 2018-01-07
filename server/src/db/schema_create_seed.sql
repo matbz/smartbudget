@@ -11,7 +11,8 @@ DROP TABLE IF EXISTS "user" CASCADE;
 CREATE TABLE IF NOT EXISTS "user" (
 	id serial primary key,
 	username text unique not null,
-	password text not null
+	password text not null,
+	report_startdate date default null
 )
 
 -- budget
@@ -30,8 +31,21 @@ CREATE TABLE IF NOT EXISTS account (
 	csv_decimalsymbol text default null,
 	csv_offset text default null,
 	csv_encoding text default null,
+  csv_mapping text default null;
 	budget_id integer not null,
 	foreign key (budget_id) references budget(id)
+)
+
+--csvmapping
+CREATE TABLE IF NOT EXISTS csvmapping (
+	id serial primary key,
+	payee_csv text default null,
+  payee text default null,
+  note text default null,
+  user_id integer not null,
+	category_id integer default null,
+  foreign key (user_id) references "user"(id),
+	foreign key (category_id) references category(id)
 )
 
 -- categorygroup

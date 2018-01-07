@@ -13,6 +13,8 @@ const INIT_SELECTED_TURNOVERS = 'INIT_SELECTED_TURNOVERS';
 const SET_TURNOVER_DATE = 'SET_TURNOVER_DATE';
 const SET_TURNOVER_SEARCHSTRING = 'SET_TURNOVER_SEARCHSTRING';
 const SET_TURNOVER_ORDER = 'SET_TURNOVER_ORDER';
+const SET_SHOW_ONLY_IMPORTED_TURNOVERS = 'SET_SHOW_ONLY_IMPORTED_TURNOVERS';
+const SET_TURNOVER_IMPORT_DATE = 'SET_TURNOVER_IMPORT_DATE';
 
 const turnover = {
   namespaced: false,
@@ -24,7 +26,9 @@ const turnover = {
     turnoverEnddate: moment(new Date()).format('YYYYMMDD'),
     turnoverSearchstring: '',
     turnoverOrderName: 'date',
-    turnoverOrderDirection: 'desc'
+    turnoverOrderDirection: 'desc',
+    showOnlyImportedTurnovers: false,
+    turnoverImportDate: null
   },
   mutations: {
     SET_TURNOVERS(state, data) {
@@ -52,6 +56,12 @@ const turnover = {
     SET_TURNOVER_ORDER(state, data) {
       state.turnoverOrderName = data.name;
       state.turnoverOrderDirection = data.direction;
+    },
+    SET_SHOW_ONLY_IMPORTED_TURNOVERS(state, data) {
+      state.showOnlyImportedTurnovers = data;
+    },
+    SET_TURNOVER_IMPORT_DATE(state, data) {
+      state.turnoverImportDate = data;
     }
   },
   actions: {
@@ -83,6 +93,14 @@ const turnover = {
         if (getters.turnoverSearchstring) {
           route += `&q=${getters.turnoverSearchstring}`;
         }
+
+        if (getters.showOnlyImportedTurnovers) {
+          route += '&showimported=true';
+        }
+
+        // if (getters.turnoverImportDate) {
+        //   route += `&importdate=${getters.turnoverImportDate}`;
+        // }
 
         route += `&orderby=${getters.turnoverOrderName};${getters.turnoverOrderDirection};`;
 
@@ -147,6 +165,12 @@ const turnover = {
     },
     setTurnoverOrder({ commit }, data) {
       commit(SET_TURNOVER_ORDER, data);
+    },
+    setShowOnlyImportedTurnovers({ commit }, data) {
+      commit(SET_SHOW_ONLY_IMPORTED_TURNOVERS, data);
+    },
+    setTurnoverImportDate({ commit }, data) {
+      commit(SET_TURNOVER_IMPORT_DATE, data);
     }
   },
   getters: {
@@ -173,6 +197,12 @@ const turnover = {
     },
     turnoverOrderDirection(state) {
       return state.turnoverOrderDirection;
+    },
+    showOnlyImportedTurnovers(state) {
+      return state.showOnlyImportedTurnovers;
+    },
+    turnoverImportDate(state) {
+      return state.turnoverImportDate;
     }
   }
 };

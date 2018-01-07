@@ -34,7 +34,7 @@
             <i class="fa fa-clone"></i>
             Copy
           </button>
-          <button class="accounts-toolbar-file-import-transactions button">
+          <button @click="showImportModal()" class="accounts-toolbar-file-import-transactions button">
             <i class="fa fa-upload"></i>
             Import
           </button>
@@ -69,7 +69,8 @@
           </button>
         </div>
       </div>
-      <modal-copy-turnover name="modal-copy-turnover" @saved="copyTurnover"></modal-copy-turnover>
+      <modal-copy-turnover @saved="copyTurnover"></modal-copy-turnover>
+      <modal-import-turnover @saved="onImportSaved"></modal-import-turnover>
   </header>
 </template>
 
@@ -78,10 +79,13 @@ import { mapGetters } from 'vuex';
 import { HTTP } from '@/common/utilities';
 import moment from 'moment';
 import ModalCopyTurnover from './ModalCopyTurnover';
+import ModalImportTurnover from './ModalImportTurnover';
+
 
 export default {
   components: {
-    ModalCopyTurnover
+    ModalCopyTurnover,
+    ModalImportTurnover
   },
   props: [
     'accountid'
@@ -95,19 +99,15 @@ export default {
         shortcuts: [{
           text: 'This Month',
           onClick(picker) {
-            const month = moment(new Date()).month() + 1;
-            const year = moment(new Date()).year().toString();
-            const end = moment(year + month + moment(year + month, 'YYYYMM').daysInMonth()).toDate();
-            const start = moment(moment(new Date()).year().toString() + month + '01').toDate();
+            const end = moment().endOf('month').toDate();
+            const start = moment().startOf('month').toDate();
             picker.$emit('pick', [start, end]);
           }
         }, {
           text: 'Last Month',
           onClick(picker) {
-            const month = moment(new Date()).month();
-            const year = moment(new Date()).year().toString();
-            const end = moment(year + month + moment(year + month, 'YYYYMM').daysInMonth()).toDate();
-            const start = moment(moment(new Date()).year().toString() + month + '01').toDate();
+            const end = moment().subtract(1, 'month').endOf('month').toDate();
+            const start = moment().subtract(1, 'month').startOf('month').toDate();
             picker.$emit('pick', [start, end]);
           }
         }, {
@@ -208,6 +208,13 @@ export default {
         this.$modal.show('modal-copy-turnover');
       }
     },
+    showImportModal() {
+      if (this.accountid) {
+        this.$modal.show('modal-import-turnover');
+      } else {
+        this.$toasted.show('Import is only available for a single account.');
+      }
+    },
     async deleteTurnover() {
       if (this.selectedTurnovers.length === 0) {
         this.$toasted.show('No turnovers selected.');
@@ -221,6 +228,10 @@ export default {
       await HTTP.post('/api/turnovers/copy', data);
       this.$store.dispatch('getAccounts');
       this.$emit('copy');
+    },
+    onImportSaved() {
+      this.$store.dispatch('getAccounts');
+      this.getTurnovers();
     },
     getTurnovers() {
       try {

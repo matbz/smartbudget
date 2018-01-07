@@ -20,6 +20,7 @@ class Turnover {
     this.turnover_date = data.turnover_date
     this.note = data.note;
     this.source = data.source;
+    this.imported_date = data.imported_date;
   }
 
   async all(budgetid, filter) {
@@ -40,6 +41,14 @@ class Turnover {
 
       if (filter.end) {
         where.append(SQL` and t.turnover_date <= ${filter.end}`);
+      }
+
+      if (filter.importdate) {
+        where.append(SQL` and t.imported_date <= ${filter.importdate}`);
+      }
+
+      if (filter.showimported) {
+        where.append(SQL` and t.source = 'I'`);
       }
 
       if (filter.q) {
@@ -107,6 +116,7 @@ class Turnover {
         to_char(t.turnover_date, 'DD.MM.YYYY') as turnover_date,
         t.note,
         t.payee,
+        t.imported_date,
         t.source
       from account as a
       inner join turnover as t
@@ -179,13 +189,20 @@ class Turnover {
       amount,
       turnoverDate,
       note,
-      source
+      source,
     } = data;
 
     try {
       let query = ''
 
-      if (categoryId === '' || categoryId === 0) {
+      if (data.importedDate !== undefined) {
+        query = SQL`
+        insert into turnover
+          (account_id, category_id, payee, amount, turnover_date, note, source, imported_date)
+        values
+         (${accountId}, ${categoryId}, ${payee}, ${amount}, ${turnoverDate}, ${note}, ${source}, ${data.importedDate})
+        `;
+      } else if (categoryId === '' || categoryId === 0) {
         query = SQL`
         insert into turnover
           (account_id, category_id, payee, amount, turnover_date, note, source)
@@ -213,7 +230,14 @@ class Turnover {
         const queries = list.map(l => {
           let query = ''
 
-          if (l.categoryId === '' || l.categoryId === 0) {
+          if (l.importedDate !== undefined) {
+            query = SQL`
+            insert into turnover
+              (account_id, category_id, payee, amount, turnover_date, note, source, imported_date)
+            values
+              (${l.accountId}, ${l.categoryId}, ${l.payee}, ${l.amount}, ${l.turnoverDate}, ${l.note}, ${l.source}, ${l.importedDate})
+            `;
+          } else if (l.categoryId === '' || l.categoryId === 0) {
             query = SQL`
             insert into turnover
               (account_id, category_id, payee, amount, turnover_date, note, source)

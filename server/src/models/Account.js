@@ -16,6 +16,7 @@ class Account {
     this.csv_decimalsymbol = data.csv_decimalsymbol;
     this.csv_offset = data.csv_offset;
     this.csv_encoding = data.csv_encoding;
+    this.csv_mapping = data.csv_mapping;
   }
 
   async all(budgetid) {
@@ -28,6 +29,7 @@ class Account {
         a.csv_decimalsymbol,
         a.csv_offset,
         a.csv_encoding,
+        a.csv_mapping,
         sum(t.amount) as balance
       from account as a
       left join turnover as t
@@ -83,17 +85,23 @@ class Account {
       const result = await db.oneOrNone(query);
 
       query = SQL`
-      select
-      sum(amount) as amount,
-      to_char(turnover_date, 'MM/YYYY') as date
-      from turnover
-      where
-        account_id in (select id from account where budget_id = ${budgetid}) and
-        turnover_date >= ${start} and
-        turnover_date <= ${end} and
-        turnover_date >= ${response.report_startdate || '19000101'}
-      group by date
-      order by date
+      select t.date, t.amount from (
+        select
+          sum(amount) as amount,
+          to_char(turnover_date, 'MM/YYYY') as date,
+          to_char(turnover_date, '01/MM/YYYY') as sort_date
+        from turnover
+        where
+          account_id in (select id from account where budget_id = ${budgetid}) and
+          turnover_date >= ${start} and
+          turnover_date <= ${end} and
+          turnover_date >= ${response.report_startdate || '19000101'}
+        group by
+          date,
+          sort_date
+        ) as t
+        order by
+          cast (t.sort_date as DATE)
       `;
       const results = await db.manyOrNone(query);
 
@@ -145,25 +153,28 @@ class Account {
       const categoryTotals = await db.manyOrNone(query);
 
       query = SQL`
-      select
-      t.category_id,
-      c.name,
-      to_char(turnover_date, 'MM/YYYY') as date,
-      sum(t.amount) * -1 as amount
-      from turnover as t
-      inner join category as c on c.id = t.category_id
-      where
-        t.account_id in (select id from account where budget_id = ${budgetid}) and
-        t.turnover_date >= ${start} and
-        t.turnover_date <= ${end} and
-        t.amount < 0 `.append(whereAppend).append(`
-      group by
-        t.category_id,
-        date,
-        c.name
-      order by
-        date,
-        amount desc
+      select * from (
+        select
+          t.category_id,
+          c.name,
+          to_char(turnover_date, 'MM/YYYY') as date,
+          to_char(turnover_date, '01/MM/YYYY') as sort_date,
+          sum(t.amount) * -1 as amount
+        from turnover as t
+        inner join category as c on c.id = t.category_id
+        where
+          t.account_id in (select id from account where budget_id = ${budgetid}) and
+          t.turnover_date >= ${start} and
+          t.turnover_date <= ${end} and
+          t.amount < 0 `.append(whereAppend).append(`
+        group by
+          t.category_id,
+          date,
+          sort_date,
+          c.name ) as t
+        order by
+          cast (t.sort_date as DATE),
+          amount desc
       `);
       const categoryTotalsByMonth = await db.manyOrNone(query);
 
@@ -182,15 +193,16 @@ class Account {
       csv_delimiter,
       csv_decimalsymbol,
       csv_offset,
-      csv_encoding
+      csv_encoding,
+      csv_mapping
     } = account;
 
     try {
       const query = SQL`
       insert into account
-      (name, csv_delimiter, csv_decimalsymbol, csv_offset, csv_encoding, budget_id)
+      (name, csv_delimiter, csv_decimalsymbol, csv_offset, csv_encoding, csv_mapping, budget_id)
       values
-      (${name}, ${csv_delimiter}, ${csv_decimalsymbol}, ${csv_offset}, ${csv_encoding}, ${budgetid})
+      (${name}, ${csv_delimiter}, ${csv_decimalsymbol}, ${csv_offset}, ${csv_encoding}, ${csv_mapping}, ${budgetid})
       `;
       return await db.none(query);
     } catch (error) {
@@ -205,7 +217,8 @@ class Account {
       csv_delimiter,
       csv_decimalsymbol,
       csv_offset,
-      csv_encoding
+      csv_encoding,
+      csv_mapping
     } = account;
 
     try {
@@ -216,7 +229,8 @@ class Account {
         csv_delimiter = ${csv_delimiter},
         csv_decimalsymbol = ${csv_decimalsymbol},
         csv_offset = ${csv_offset},
-        csv_encoding= ${csv_encoding}
+        csv_encoding= ${csv_encoding},
+        csv_mapping = ${csv_mapping}
       where id = ${id}
       `;
       return await db.none(query);

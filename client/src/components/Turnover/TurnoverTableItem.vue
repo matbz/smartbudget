@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isEdit" class="ynab-grid-body-row ynab-grid-body-parent" :class="{ 'is-checked': checked }">
+  <div v-if="!isEdit" class="ynab-grid-body-row ynab-grid-body-parent" :class="{ 'is-checked': checked, 'is-new': showImported }">
     <div class="ynab-grid-cell ynab-grid-cell-checkbox">
       <button class="ynab-checkbox-button" @click="toggleChecked()">
         <div class="flaticon stroke ynab-checkbox-button-square"
@@ -7,7 +7,7 @@
       </button>
     </div>
     <div class="ynab-grid-cell ynab-grid-cell-notification">
-      <button v-if="!turnover.category_name && turnover.amount <= 0"
+      <button v-if="!turnover.category_id"
               class="transaction-notification transaction-notification-warning fa fa-exclamation-circle"></button>
     </div>
     <div class="ynab-grid-cell ynab-grid-cell-accountName" @click="toggleEdit()">
@@ -41,10 +41,12 @@
       ></i>
     </div>
   </div>
-  <turnover-table-add-row :accountid="accountid" :propTurnover="turnover" @cancel="toggleEdit()" v-else></turnover-table-add-row>
+  <turnover-table-add-row v-else :accountid="accountid" :propTurnover="turnover" @cancel="toggleEdit()"></turnover-table-add-row>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import moment from 'moment';
 import TurnoverTableAddRow from './TurnoverTableAddRow';
 
 export default {
@@ -60,6 +62,18 @@ export default {
       isEdit: false,
       checked: false
     };
+  },
+  computed: {
+    ...mapGetters([
+      'turnoverImportDate'
+    ]),
+    showImported() {
+      if (this.turnoverImportDate === null || this.turnoverImportDate === '') {
+        return false;
+      }
+
+      return moment(this.turnover.imported_date).format('YYYY-MM-DD') === this.turnoverImportDate;
+    }
   },
   methods: {
     toggleEdit() {

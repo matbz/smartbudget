@@ -5,10 +5,13 @@ const CategoryGroupController = require('../controllers/CategoryGroupController'
 const CategoryBudgetedController = require('../controllers/CategoryBudgetedController');
 const GoalController = require('../controllers/GoalController');
 const AccountController = require('../controllers/AccountController');
+const CSVMappingController = require('../controllers/CSVMappingController');
 const TurnoverController = require('../controllers/TurnoverController');
 const authRequired = require('../middleware/auth');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
+const multer  = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 module.exports = (app) => {
   // Users
@@ -160,6 +163,32 @@ module.exports = (app) => {
   app.post('/api/:budgetid/accounts',
     authRequired,
     AccountController.create);
+
+  app.post('/api/accounts/:id/import',
+    authRequired,
+    upload.single('csvFile'),
+    AccountController.import);
+
+  // CSVMapping
+  app.get('/api/csvmappings/:id',
+    authRequired,
+    CSVMappingController.find);
+
+  app.get('/api/:userid/csvmappings',
+    authRequired,
+    CSVMappingController.index);
+
+  app.post('/api/:userid/csvmappings',
+    authRequired,
+    CSVMappingController.create);
+
+  app.put('/api/csvmappings/:id',
+    authRequired,
+    CSVMappingController.update);
+
+  app.delete('/api/csvmappings/:id',
+    authRequired,
+    CSVMappingController.delete);
 
   // Turnovers
   app.get('/api/:budgetid/turnovers',

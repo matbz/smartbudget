@@ -1,15 +1,11 @@
-To-Do:
-------------------------------
-TransactionTable
-  import filter
-    -> import button
-    -> show only imported transactions
-    -> mark imported date
-    csv upload
-    -> basic import functionality
-    -> add imported_date to Turnover table -> adjust select/model
-    -> import filter at transactions
-    -> automatic category assignment
+DIBA:
+
+latin1
+6
+
+{ 	"payee": "Auftraggeber/Empfänger", 	"amount": "Betrag", 	"turnoverDate": "Buchung", 	"note": "Verwendungszweck" }
+
+
 
 
 

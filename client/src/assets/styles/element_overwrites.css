@@ -231,3 +231,11 @@
 .s-categories > .el-input--mini {
   font-size: 10px;
 }
+
+.field-long > .el-input > input{
+  height: 38px;
+}
+
+.field-long > .el-input > .el-input__suffix {
+  top: -2px;
+}

@@ -12432,10 +12432,10 @@ bdi {
 }
 
 .is-new {
-  background-color: #7fc66d;
-  color: #fff;
+  background-color: #a4d6f347;
+  color: #003e4e;
   border-bottom: 1px solid #003e4e;
-  cursor: text
+  cursor: text;
 }
 
 .modal-popup input {
