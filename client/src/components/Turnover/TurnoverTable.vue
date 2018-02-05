@@ -130,7 +130,7 @@ export default {
   }
 
   .total {
-    padding-right: 1.5em;
+    padding-right: .5em;
     font-weight: 600;
   }
 </style>
