@@ -19,9 +19,17 @@ module.exports = (app) => {
     UserController.login);
 
   // Budgets
-  app.get('/api/budgets/',
+  app.get('/api/budgets',
     authRequired,
     BudgetController.index);
+
+  app.get('/api/budgets/active',
+    authRequired,
+    BudgetController.active);
+
+  app.put('/api/budgets/:id',
+    authRequired,
+    BudgetController.update);
 
   app.get('/api/:budgetid/budgets/list/:budgetdate',
     authRequired,

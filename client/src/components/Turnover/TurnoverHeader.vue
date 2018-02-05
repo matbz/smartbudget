@@ -81,7 +81,6 @@ import moment from 'moment';
 import ModalCopyTurnover from './ModalCopyTurnover';
 import ModalImportTurnover from './ModalImportTurnover';
 
-
 export default {
   components: {
     ModalCopyTurnover,
@@ -150,7 +149,8 @@ export default {
       'selectedTurnovers',
       'turnoverStartdate',
       'turnoverEnddate',
-      'turnovers'
+      'turnovers',
+      'turnoverSearchstring'
     ]),
     accountName() {
       const obj = this.accounts.find(o => o.id === Number(this.accountid));
@@ -172,6 +172,10 @@ export default {
   },
   watch: {
     searchText: function () {
+      this.search();
+    },
+    accountid: function () {
+      this.searchText = null;
       this.search();
     }
   },
@@ -244,6 +248,10 @@ export default {
         this.$toasted.error('There was an error getting the turnovers.');
       }
     }
+  },
+  created() {
+    this.searchText = null;
+    this.search();
   }
 };
 </script>

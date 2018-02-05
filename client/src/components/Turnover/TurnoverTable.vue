@@ -22,6 +22,25 @@
               :key="turnover.id"
               :ref="turnover.id"
             ></turnover-table-item>
+            <div v-if="turnoverSearchstring && total !== 0" class="ynab-grid-body-row-top border-style">
+              <div class="ynab-grid-cell ynab-grid-cell-checkbox"></div>
+              <div class="ynab-grid-cell ynab-grid-cell-notification"></div>
+              <div class="ynab-grid-cell ynab-grid-cell-accountName"></div>
+              <div class="ynab-grid-cell ynab-grid-cell-date"></div>
+              <div class="ynab-grid-cell ynab-grid-cell-payeeName"></div>
+              <div class="ynab-grid-cell ynab-grid-cell-subCategoryName"></div>
+              <div class="ynab-grid-cell ynab-grid-cell-memo"></div>
+              <div class="ynab-grid-cell ynab-grid-cell-inflow padding-inflow">
+                <span class="total">Total:</span>
+                <span
+                  class="currency"
+                  :class="[total < 0 ? 'negative' : 'positive']"
+                >
+                  {{ total | currency }}
+                </span>
+              </div>
+              <div class="ynab-grid-cell ynab-grid-cell-cleared"></div>
+            </div>
             <div class="ynab-grid-body-row-bottom" style="height: 30px;">
               <div class="ynab-grid-cell ynab-grid-cell-checkbox"></div>
               <div class="ynab-grid-cell ynab-grid-cell-notification"></div>
@@ -39,6 +58,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import TurnoverTableHeader from './TurnoverTableHeader';
 import TurnoverTableAddRow from './TurnoverTableAddRow';
 import TurnoverTableItem from './TurnoverTableItem';
@@ -58,6 +78,16 @@ export default {
     return {
       isAdding: false
     };
+  },
+  computed: {
+    ...mapGetters([
+      'turnoverSearchstring'
+    ]),
+    total() {
+      return this.turnovers.reduce((total, e) => {
+        return total + Number(e.amount);
+      }, 0);
+    }
   },
   methods: {
     showAddRow() {
@@ -88,3 +118,20 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  .border-style {
+    border-top: 2px solid #dfe4e9
+  }
+
+  .padding-inflow {
+    padding-top: .5em;
+    font-weight: 600;
+  }
+
+  .total {
+    padding-right: 1.5em;
+    font-weight: 600;
+  }
+</style>
+

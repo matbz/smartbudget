@@ -4,11 +4,33 @@ module.exports = {
   async index(req, res) {
     const budget = new Budget();
     try {
-      await budget.findBudgetId(req.query.userid);
+      const results = await budget.findBudgetsByUserId(req.query.userid);
+      res.json(results);
+    } catch (err) {
+      res.status(500).json({
+       error: 'An error has occured trying to get the budget id'
+      });
+    }
+  },
+  async active(req, res) {
+    const budget = new Budget();
+    try {
+      await budget.findActiveBudgetByUserId(req.query.userid);
       res.json(budget);
     } catch (err) {
       res.status(500).json({
        error: 'An error has occured trying to get the budget id'
+      });
+    }
+  },
+  async update(req, res) {
+    const budget = new Budget();
+    try {
+      await budget.update(req.params.id, req.body);
+      res.json(req.body);
+    } catch (err) {
+      res.status(500).json({
+       error: 'An error has occured trying to update an goal'
       });
     }
   },

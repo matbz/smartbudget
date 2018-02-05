@@ -72,7 +72,8 @@
         <report-spending-aside
           :colors="dataPieChart.datasets[0].backgroundColor"
           :names="dataPieChart.labels"
-          :spendings="dataPieChart.datasets[0].data"></report-spending-aside>
+          :spendings="dataPieChart.datasets[0].data"
+          :monthsCount ="monthsCount"></report-spending-aside>
       </div>
    </div>
   </div>
@@ -95,6 +96,7 @@ export default {
   data() {
     const self = this;
     return {
+      monthsCount: 1,
       totalsActive: true,
       dataPieChart: {
         datasets: [{
@@ -306,6 +308,8 @@ export default {
       route += ids;
       const results = await HTTP.get(route);
 
+      this.monthsCount = this.calculateMonthsCount(JSON.parse(JSON.stringify(results.data.totalsByMonth)));
+
       results.data.totals.forEach(e => {
         this.dataPieChart.datasets[0].data.push(e.amount);
         this.dataPieChart.labels.push(e.name);
@@ -358,6 +362,21 @@ export default {
       sums.forEach(e => {
         this.dataBarChart.datasets[0].data.push(e);
       });
+    },
+    calculateMonthsCount(data) {
+      const filteredDataByDate = [];
+      let date = '';
+      data.forEach(o => {
+        if (date !== o.date) {
+          filteredDataByDate.push(o);
+          date = o.date;
+        }
+      });
+
+      if (filteredDataByDate.length < 1) {
+        return 1;
+      }
+      return filteredDataByDate.length;
     },
     goToRoute(route) {
       this.$router.push({ name: route });

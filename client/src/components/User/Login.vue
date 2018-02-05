@@ -35,6 +35,7 @@ export default {
       try {
         await this.$store.dispatch('login', this.credentials);
         await this.$store.dispatch('getBudgetId', this.$store.getters.user);
+        await this.$store.dispatch('getAccounts');
         this.credentials.username = '';
         this.credentials.password = '';
         this.$router.push({ name: 'budget' });

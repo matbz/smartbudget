@@ -25,14 +25,17 @@
           </router-link>
         </ul>
         <sidebar-account-list></sidebar-account-list>
-        <button @click="addAccount()" class="button-sidebar nav-add-account button">
+        <!-- <button @click="addAccount()" class="button-sidebar nav-add-account button">
             <i class="fa fa-plus-circle"></i>
             Add Account
-        </button>
+        </button> -->
       </div>
       <button class="button-prefs button-prefs-user button">
-         <div @click="logout()" class="button-truncate" style="cursor: pointer">
+         <div @click="logout()" class="button-truncate" style="cursor: pointer; float: left">
             <i class="fa fa-sign-out flaticon"></i>
+         </div>
+         <div @click="switchBudget()" class="button-truncate" style="cursor: pointer; float: right">
+            <i class="fa fa-exchange flaticon"></i>
          </div>
       </button>
 
@@ -42,9 +45,16 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { HTTP } from '@/common/utilities';
 import moment from 'moment';
 import SidebarAccountList from './SidebarAccountList';
 import ModalAddAccount from './ModalAddAccount';
+
+async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array);
+  }
+}
 
 export default {
   components: {
@@ -53,6 +63,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'user',
       'budgetDate'
     ]),
     budgetRouteDate() {
@@ -73,6 +84,25 @@ export default {
     },
     addAccount() {
       this.$modal.show('add-account-modal');
+    },
+    async switchBudget() {
+      const response = await HTTP.get(`/api/budgets?userid=${this.user.id}`);
+      if (response.data.length === 2) {
+        await asyncForEach(response.data, async (o) => {
+          await HTTP.put(`/api/budgets/${o.id}`, {
+            active: !o.active
+          });
+        });
+
+        await this.$store.dispatch('getBudgetId', this.$store.getters.user);
+        this.$store.dispatch('getAccounts');
+        this.$store.dispatch('getToBeBudgeted', this.budgetDate);
+        this.$store.dispatch('getBudgetedLastMonth', this.budgetDate);
+        this.$store.dispatch('getBudgetList', this.budgetDate);
+        this.$router.push({ name: 'budget' });
+      } else {
+        this.$toasted.show('No other budget found.');
+      }
     },
     async logout() {
       try {

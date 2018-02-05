@@ -23,6 +23,17 @@ CREATE TABLE IF NOT EXISTS budget (
   foreign key (user_id) references "user"(id)
 )
 
+
+--user_budget
+CREATE TABLE IF NOT EXISTS user_budget (
+	id serial primary key,
+  user_id integer not null,
+  budget_id integer not null,
+  active boolean default false,
+  foreign key (user_id) references "user"(id),
+  foreign key (budget_id) references budget(id)
+)
+
 -- account
 CREATE TABLE IF NOT EXISTS account (
 	id serial primary key,

@@ -72,7 +72,7 @@ const budget = {
     },
     async getBudgetId({ commit }, data) {
       try {
-        const response = await HTTP.get(`/api/budgets?userid=${data.id}`);
+        const response = await HTTP.get(`/api/budgets/active?userid=${data.id}`);
         commit(SET_BUDGET_ID, response.data.id);
       } catch (error) {
         throw new Error(error);

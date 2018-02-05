@@ -47,7 +47,8 @@ export default {
   props: [
     'colors',
     'names',
-    'spendings'
+    'spendings',
+    'monthsCount'
   ],
   computed: {
     ...mapGetters([
@@ -61,8 +62,7 @@ export default {
       return moment(this.chartEnddate).format('MMM YYYY');
     },
     averageSpent() {
-      const monthDifference = Math.round(moment(this.chartEnddate).diff(moment(this.chartStartdate), 'month', true));
-      return Number(this.total / monthDifference).toFixed(2);
+      return Number(this.total / this.monthsCount).toFixed(2);
     },
     total() {
       return this.spendings.reduce((total, value) => {

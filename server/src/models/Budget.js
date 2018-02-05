@@ -11,20 +11,52 @@ class Budget {
     if (!data) {
       return;
     }
-    this.id = data.id;
+    this.id = data.budget_id;
     this.toBeBudgeted = data.toBeBudgeted;
   }
 
-  async findBudgetId(userid) {
+  async findBudgetsByUserId(userid) {
     try {
       const query = SQL`
-      select id
-      from budget
+      select *
+      from user_budget
       where user_id = ${userid}
+      `;
+      return await db.manyOrNone(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+  async findActiveBudgetByUserId(userid) {
+    try {
+      const query = SQL`
+      select budget_id
+      from user_budget
+      where user_id = ${userid} and
+            active = true
       `;
       const result = await db.oneOrNone(query);
       if (!result) return {};
       this.init(result);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+  async update(id, data) {
+    const {
+      active
+    } = data;
+
+    try {
+      const query = SQL`
+      update user_budget
+      set
+        active = ${active}
+      where id = ${id}
+      `;
+      return await db.none(query);
     } catch (error) {
         console.log(error);
     }
