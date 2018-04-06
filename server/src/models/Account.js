@@ -33,7 +33,8 @@ class Account {
         sum(t.amount) as balance
       from account as a
       left join turnover as t
-      on t.account_id = a.id
+      on t.account_id = a.id and
+         t.turnover_date <= now()
       where budget_id = ${budgetid}
       group by a.id
       order by a.id

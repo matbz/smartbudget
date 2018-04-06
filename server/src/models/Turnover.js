@@ -174,6 +174,7 @@ class Turnover {
         account_id IN ( select id from account where budget_id = ${budgetid}) and
         payee is not null and
         payee <> ''
+      order by payee asc
       `;
       return await db.manyOrNone(query);
     } catch (error) {

@@ -86,8 +86,14 @@ const turnover = {
           route += '&';
         }
 
-        if (!filter || !filter.start) {
-          route += `start=${getters.turnoverStartdate}&end=${getters.turnoverEnddate}`;
+        if ((!filter || !filter.start)) {
+          if (getters.turnoverSearchstring && getters.turnoverSearchstring.charAt(0) === ':') {
+            if (getters.turnoverSearchstring.length > 1) {
+              commit(SET_TURNOVER_SEARCHSTRING, getters.turnoverSearchstring.substring(1, getters.turnoverSearchstring.length));
+            }
+          } else {
+            route += `start=${getters.turnoverStartdate}&end=${getters.turnoverEnddate}`;
+          }
         }
 
         if (getters.turnoverSearchstring) {
