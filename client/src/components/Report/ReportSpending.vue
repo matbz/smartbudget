@@ -43,7 +43,7 @@
           Select Active
         </button>
         <button class="button-select-option" @click="unselectAllCategories()">
-          Unselect All
+          Select None
         </button>
       </div>
       <div class="pure-u reports-container reports-spending">

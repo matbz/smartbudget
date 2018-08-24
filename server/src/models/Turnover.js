@@ -129,7 +129,36 @@ class Turnover {
         ${orderColumn} ${orderDirection},
         t.id desc
       `);
+      return await db.manyOrNone(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
 
+  async allUnfiltered(budgetid) {
+    try {
+    const query = SQL`
+      select
+        t.id,
+        a.id as account_id,
+        a.name as account_name,
+        c.id as category_id,
+        c.name as category_name,
+        t.amount,
+        to_char(t.turnover_date, 'DD.MM.YYYY') as turnover_date,
+        t.note,
+        t.payee,
+        t.imported_date,
+        t.source
+      from account as a
+      inner join turnover as t
+      on t.account_id = a.id
+      left join category as c
+      on t.category_id = c.id
+      where budget_id = ${budgetid}
+      order by
+        t.id asc
+      `;
       return await db.manyOrNone(query);
     } catch (error) {
         console.log(error);
@@ -323,6 +352,32 @@ class Turnover {
           id = ${ids}
         `;
       }
+      return await db.none(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+  async restore(data) {
+    const {
+      id,
+      account_id,
+      category_id,
+      amount,
+      turnover_date,
+      note,
+      payee,
+      imported_date,
+      source
+    } = data;
+
+    try {
+      const query = SQL`
+      insert into turnover
+      (id, account_id, category_id, amount, turnover_date, note, payee, imported_date, source)
+      values
+      (${id}, ${account_id}, ${category_id}, ${amount}, ${turnover_date}, ${note}, ${payee}, ${imported_date}, ${source})
+      `;
       return await db.none(query);
     } catch (error) {
         console.log(error);

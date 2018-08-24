@@ -88,7 +88,7 @@ html,body {
     width: 100%;
     position: absolute;
     left: 0;
-    top: 1.5rem;
+    top: 2.3rem;
     bottom: 0;
     display: block;
     /* z-index: 8 */
@@ -2996,7 +2996,8 @@ select {
     -ms-flex-pack: center;
     -webkit-justify-content: center;
     justify-content: center;
-    overflow: hidden
+    overflow: hidden;
+    margin-right: 10em;
 }
 
 .budget-header-totals-amount-arrow {
@@ -3479,7 +3480,7 @@ select {
 .budget-table-header {
     background-color: #fff;
     border-bottom: 1px solid #dee3e8;
-    height: 1.75em !important;
+    height: 2.55em !important;
 }
 
 .budget-table-header li {
@@ -4158,7 +4159,7 @@ select {
     border-top: 0;
     border-left: 0;
     border-right: 0;
-    border-bottom: 1px dotted #588697;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
     width: 80%;
     height: .1em;
     color: transparent;
@@ -5969,11 +5970,7 @@ select {
 .sidebar {
     height: 100%;
     overflow: auto;
-    background: -webkit-linear-gradient(top, #34aebe, #23809b);
-    background: -moz-linear-gradient(top, #34aebe, #23809b);
-    background: -o-linear-gradient(top, #34aebe, #23809b);
-    background: -ms-linear-gradient(top, #34aebe, #23809b);
-    background: linear-gradient(to bottom, #34aebe, #23809b);
+    background: #2c97ad;
     color: #fff;
 }
 
@@ -6030,7 +6027,7 @@ select {
     display: block;
     padding: .4em .25em .4em 0;
     font-size: 1.125em;
-    font-weight: 300
+    font-weight: 300;
 }
 
 .nav-main a:hover {
@@ -6038,16 +6035,17 @@ select {
 }
 
 .nav-main li.active a {
-    background-color: #00596f;
+    background-color: rgba(0,0,0,0.4);
+    font-weight: 400;
 }
 
 .nav-account .active {
-  background-color: #00596f;
+  background-color: rgba(0,0,0,0.4);
 }
 
 .nav-main li.active i {
     color: #32dcff;
-    background-color: #194853;
+    /* background-color: #194853; */
 }
 
 .nav-main i {
@@ -9270,7 +9268,7 @@ select {
 
 .reports-inspector-timeframe hr {
     padding-top: 1rem;
-    border-bottom: 1px solid #588697
+    /* border-bottom: 1px solid #588697 */
 }
 
 .reports-inspector-timeframe-title {

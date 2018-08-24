@@ -19,8 +19,11 @@ class Goal {
   async all(budgetid, filter) {
     try {
       let where = SQL`cg.budget_id = ${budgetid}`;
-      if (filter.categoryid) {
-        where.append(SQL` and g.category_id = ${filter.categoryid}`);
+
+      if(filter !== undefined) {
+        if (filter.categoryid) {
+          where.append(SQL` and g.category_id = ${filter.categoryid}`);
+        }
       }
 
       const query = SQL`
@@ -35,7 +38,10 @@ class Goal {
       inner join categorygroup as cg
       on cg.id = c.categorygroup_id
       where `
-      .append(where);
+      .append(where).append(`
+      order by
+        g.id asc
+      `);
 
       return await db.manyOrNone(query);
     } catch (error) {
@@ -103,6 +109,27 @@ class Goal {
       const query = SQL`
       delete from goal
       where id = ${id}
+      `;
+      return await db.none(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+  async restore(data) {
+    const {
+      id,
+      enddate,
+      amount,
+      category_id
+    } = data;
+
+    try {
+      const query = SQL`
+      insert into goal
+      (id, enddate, amount, category_id)
+      values
+      (${id}, ${enddate}, ${amount}, ${category_id})
       `;
       return await db.none(query);
     } catch (error) {

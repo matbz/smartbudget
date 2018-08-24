@@ -12,6 +12,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 const multer  = require('multer');
 const upload = multer({ dest: 'uploads/' });
+const path = require('path');
 
 module.exports = (app) => {
   // Users
@@ -50,6 +51,19 @@ module.exports = (app) => {
   app.get('/api/budgets/budgetedlastmonth/:budgetdate/:categoryid',
     authRequired,
     BudgetController.budgetedLastMonthByCategoryId);
+
+  app.get('/download', function(req, res) {
+    const file = __dirname + '/../../uploads/favicon.png';
+    res.download(path.resolve(file), 'favicon.png');
+  });
+
+  app.get('/api/:budgetid/budgets/backup',
+  BudgetController.backup);
+
+  app.post('/api/:budgetid/budgets/restore',
+    authRequired,
+    upload.single('backupFile'),
+    BudgetController.restore);
 
   // Categories
   app.get('/api/categories/:id',

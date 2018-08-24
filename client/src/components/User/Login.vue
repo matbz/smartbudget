@@ -55,7 +55,7 @@ export default {
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: rgba(0,155,194,0.6);
+    background-color: #2c97ad;
 }
 
 .login-block {

@@ -115,6 +115,7 @@ class Budget {
         date
       `;
       const budgetList = await db.manyOrNone(query);
+
       return buildBudgetTable(budgetList, budgetdate_month);
     } catch (error) {
         console.log(error);

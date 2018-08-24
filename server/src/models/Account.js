@@ -239,6 +239,42 @@ class Account {
         console.log(error);
     }
   }
+
+  async delete(id) {
+    try {
+      const query = SQL`
+      delete from account
+      where id = ${id}
+      `;
+      return await db.none(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+  async restore(budgetid, data) {
+    const {
+      id,
+      name,
+      csv_delimiter,
+      csv_decimalsymbol,
+      csv_offset,
+      csv_encoding,
+      csv_mapping,
+    } = data;
+
+    try {
+      const query = SQL`
+      insert into account
+      (id, name, csv_delimiter, csv_decimalsymbol, csv_offset, csv_encoding, csv_mapping, budget_id)
+      values
+      (${id}, ${name}, ${csv_delimiter}, ${csv_decimalsymbol}, ${csv_offset}, ${csv_encoding}, ${csv_mapping}, ${budgetid})
+      `;
+      return await db.none(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
 }
 
 module.exports = Account;

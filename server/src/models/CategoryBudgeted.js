@@ -15,6 +15,27 @@ class CategoryBudgeted {
     this.amount = data.amount;
   }
 
+  async all(budgetid) {
+    try {
+      const query = SQL`
+      select
+        cb.id as id,
+        ca.id as category_id,
+        cb.budgeted_date as budgeted_date,
+        cb.amount as amount
+      from categorygroup as cg
+      left join category as ca
+      on cg.id = ca.categorygroup_id
+      left join categorybudgeted as cb
+      on ca.id = cb.category_id
+      where budget_id = ${budgetid}
+      `;
+      return await db.manyOrNone(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
   async findByDate(budgetid, date) {
     try {
       const query = SQL`
@@ -133,6 +154,27 @@ class CategoryBudgeted {
       where
         budgeted_date = ${date} and
         category_id = ANY(${categories})
+      `;
+      return await db.none(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+  async restore(data) {
+    const {
+      id,
+      category_id,
+      budgeted_date,
+      amount
+    } = data;
+
+    try {
+      const query = SQL`
+      insert into categorybudgeted
+      (id, category_id, budgeted_date, amount)
+      values
+      (${id}, ${category_id}, ${budgeted_date}, ${amount})
       `;
       return await db.none(query);
     } catch (error) {

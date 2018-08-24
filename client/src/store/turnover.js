@@ -85,6 +85,7 @@ const turnover = {
         } else {
           route += '&';
         }
+        const searchStringOriginal = getters.turnoverSearchstring;
 
         if ((!filter || !filter.start)) {
           if (getters.turnoverSearchstring && getters.turnoverSearchstring.charAt(0) === ':') {
@@ -112,6 +113,7 @@ const turnover = {
 
         const response = await HTTP.get(route);
         commit(SET_TURNOVERS, response.data);
+        commit(SET_TURNOVER_SEARCHSTRING, searchStringOriginal);
       } catch (error) {
         throw new Error(error);
       }

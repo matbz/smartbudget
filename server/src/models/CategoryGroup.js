@@ -110,6 +110,28 @@ class CategoryGroup {
         console.log(error);
     }
   }
+
+  async restore(budgetid, data) {
+    const {
+      id,
+      name,
+      position,
+      is_hidden,
+      inflow,
+    } = data;
+
+    try {
+      const query = SQL`
+      insert into categorygroup
+      (id, name, position, is_hidden, inflow, budget_id)
+      values
+      (${id}, ${name}, ${position}, ${is_hidden}, ${inflow}, ${budgetid})
+      `;
+      return await db.none(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
 }
 
 module.exports = CategoryGroup;

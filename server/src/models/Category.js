@@ -198,6 +198,28 @@ class Category {
         console.log(error);
     }
   }
+
+  async restore(data) {
+    const {
+      id,
+      name,
+      position,
+      is_hidden,
+      categorygroup_id,
+    } = data;
+
+    try {
+      const query = SQL`
+      insert into category
+      (id, name, position, is_hidden, categorygroup_id)
+      values
+      (${id}, ${name}, ${position}, ${is_hidden}, ${categorygroup_id})
+      `;
+      return await db.none(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
 }
 
 module.exports = Category;

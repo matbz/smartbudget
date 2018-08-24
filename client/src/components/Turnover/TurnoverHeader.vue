@@ -34,15 +34,17 @@
             <i class="fa fa-clone"></i>
             Copy
           </button>
-          <button @click="showImportModal()" class="accounts-toolbar-file-import-transactions button">
+          <!-- <button @click="showImportModal()" class="accounts-toolbar-file-import-transactions button">
             <i class="fa fa-upload"></i>
             Import
-          </button>
+          </button> -->
         </div>
         <div class="accounts-toolbar-right">
           <div class="transaction-search">
             <div class="transaction-search-inner">
-              <i class="transaction-search-magnifying-icon fa fa-search"></i>
+              <i class="transaction-search-magnifying-icon fa fa-search"
+                 title="All dates ':' - separate keywords ';'"
+              ></i>
               <input
                 spellcheck="false"
                 type="text"

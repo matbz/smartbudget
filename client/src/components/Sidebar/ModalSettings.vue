@@ -1,10 +1,10 @@
 <template>
-  <modal :name="name" :width="400" height="auto" :pivot-y="0.3" @opened="opened">
-    <ul class="form-style-1" @keyup.esc="close()" @keyup.enter="save()">
+  <modal name="modal-settings" :width="400" height="auto" :pivot-y="0.3">
+    <ul class="form-style-1" @keyup.esc="close()">
       <div class="account-widget">
         <div class="account-widget-header">
           <div class="account-widget-header-title">
-            <h1>Edit Account</h1>
+            <h1>Settings</h1>
             <div @click="close()" class="account-widget-header-close">
               <button>
                 <svg viewBox="0 -32 512 512" width="26" height="26" class="y-icon y-icon-close"><path d="M 381.568,143.68L 302.368,222.88l 79.20,79.20c 6.304,6.24, 6.304,16.384,0.00,22.624l-22.624,22.624 c-6.24,6.24-16.384,6.24-22.624,0.00L 257.152,268.128L 177.952,347.328c-6.24,6.24-16.384,6.24-22.624,0.00L 132.704,324.672 c-6.272-6.24-6.272-16.384,0.00-22.624l 79.20-79.20L 132.704,143.68c-6.272-6.24-6.272-16.384,0.00-22.624l 22.624-22.624 c 6.24-6.24, 16.384-6.24, 22.624,0.00l 79.20,79.20l 79.168-79.20c 6.24-6.24, 16.384-6.24, 22.624,0.00l 22.624,22.624 C 387.872,127.328, 387.872,137.44, 381.568,143.68z"></path></svg>
@@ -14,46 +14,27 @@
         </div>
       </div>
       <li>
-          <label>Name</label>
-          <input ref="accountName" type="text" class="field-long" v-model.trim="account.name"/>
+          <button
+            class="button button-cancel x-14 fbtn"
+            @click="backup()"
+          >
+            <i class="fa fa-download"></i>
+            Backup
+          </button>
+
+        <form enctype="multipart/form-data">
+          <input class="inputfile" ref="fileinput" name="file" id="file" type="file" @change="onFileChange">
+        </form>
+        <label class="button button-cancel x-14 btn" for="file">
+        <i class="fa fa-upload"></i> Restore</label>
       </li>
-      <!-- <li>
-          <label>CSV-Delimiter</label>
-          <input type="text" class="field-long" v-model.trim="account.csv_delimiter"/>
-      </li>
-      <li>
-          <label>CSV-Decimalsymbol</label>
-          <input type="text" class="field-long" v-model.trim="account.csv_decimalsymbol"/>
-      </li>
-      <li>
-          <label>CSV-Offset</label>
-          <input type="text" class="field-long" v-model.trim="account.csv_offset"/>
-      </li>
-      <li>
-          <label>CSV-Encoding</label>
-          <input type="text" class="field-long" v-model.trim="account.csv_encoding"/>
-      </li>
-      <li>
-          <label>CSV-Mapping</label>
-          <input type="text" class="field-long" v-model.trim="account.csv_mapping"/>
-      </li> -->
       <li style="margin-top: 20px"></li>
       <li class="account-widget-footer">
           <button
             class="button button-cancel x-14"
             @click="close()"
           >
-            Cancel
-            <i class="fa fa-times-circle-o"></i>
-          </button>
-          <button
-            type="submit"
-            class="button button-primary x-14"
-            @click="save()"
-            style="float: right"
-          >
-            Save
-            <i class="fa fa-check-circle-o"></i>
+            Close
           </button>
       </li>
     </ul>
@@ -61,42 +42,82 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import { HTTP } from '@/common/utilities';
+
 export default {
-  props: [
-    'name',
-    'data'
-  ],
-  data() {
-    return {
-      account: {
-        ...this.data
-      }
-    };
+  computed: {
+    ...mapGetters([
+      'user',
+      'budgetId'
+    ]),
   },
   methods: {
-    opened() {
-      this.$refs.accountName.focus();
-    },
     close() {
-      this.account = {
-        ...this.data
-      };
-      this.$modal.hide(this.name);
+      this.$modal.hide('modal-settings');
     },
-    async save() {
-      try {
-        await this.$store.dispatch('updateAccount', this.account);
-        await this.$store.dispatch('getAccounts');
-        this.$modal.hide(this.name);
-      } catch (error) {
-        this.$toasted.error('Error');
+    backup() {
+      this.$store.dispatch('backupBudget', this.user);
+      this.$toasted.success('Backup created. Downloading file...');
+      this.close();
+    },
+    async onFileChange(e) {
+      const files = e.target.files || e.dataTransfer.files;
+      if (!files.length) {
+        return;
       }
-    }
+
+      const formData = new FormData();
+      formData.append('backupFile', files[0]);
+
+      HTTP.post(`/api/${this.budgetId}/budgets/restore`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+
+      this.close();
+      this.$toasted.success('Backup restored. Page reloading...');
+
+      setTimeout(() => {
+        location.reload();
+      }, 2000);
+    },
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+  z-index: -1;
+}
+
+.fbtn {
+  padding: .3em 1.9em !important;
+  margin-bottom: 15px;
+}
+
+.btn {
+    padding: .3em 1.9em;
+    -webkit-border-radius: .4em;
+    border-radius: .4em;
+    border: 2px solid #dee3e8;
+    background-color: transparent;
+    color: #009cc2;
+    text-align: left;
+    cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #005076;
+  border-color: #005076;
+  color: #fff;
+}
+
+button {
+  cursor: pointer;
+}
 .form-style-1{
     margin:10px auto;
     max-width: 400px;
@@ -109,13 +130,7 @@ export default {
     list-style: none;
     margin: 2px 0 0 0;
 }
-.form-style-1 label{
-    margin:0 0 5px 1px;
-    padding:0px;
-    display:block;
-    font-weight: bold;
-    font-size: 14px;
-}
+
 .form-style-1 input[type=text],
 .form-style-1 input[type=date],
 .form-style-1 input[type=datetime],

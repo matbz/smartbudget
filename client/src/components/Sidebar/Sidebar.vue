@@ -34,32 +34,35 @@
          <div @click="logout()" class="button-truncate" style="cursor: pointer; float: left">
             <i class="fa fa-sign-out flaticon"></i>
          </div>
-         <div @click="switchBudget()" class="button-truncate" style="cursor: pointer; float: right">
-            <i class="fa fa-exchange flaticon"></i>
+         <div @click="showSettings()" class="button-truncate" style="cursor: pointer; float: right">
+            <i class="fa fa-cog flaticon"></i>
          </div>
       </button>
 
       <modal-add-account></modal-add-account>
+      <modal-settings></modal-settings>
    </nav>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import { HTTP } from '@/common/utilities';
+// import { HTTP } from '@/common/utilities';
 import moment from 'moment';
 import SidebarAccountList from './SidebarAccountList';
 import ModalAddAccount from './ModalAddAccount';
+import ModalSettings from './ModalSettings';
 
-async function asyncForEach(array, callback) {
-  for (let index = 0; index < array.length; index++) {
-    await callback(array[index], index, array);
-  }
-}
+// async function asyncForEach(array, callback) {
+//   for (let index = 0; index < array.length; index++) {
+//     await callback(array[index], index, array);
+//   }
+// }
 
 export default {
   components: {
     SidebarAccountList,
     ModalAddAccount,
+    ModalSettings
   },
   computed: {
     ...mapGetters([
@@ -85,25 +88,28 @@ export default {
     addAccount() {
       this.$modal.show('add-account-modal');
     },
-    async switchBudget() {
-      const response = await HTTP.get(`/api/budgets?userid=${this.user.id}`);
-      if (response.data.length === 2) {
-        await asyncForEach(response.data, async (o) => {
-          await HTTP.put(`/api/budgets/${o.id}`, {
-            active: !o.active
-          });
-        });
-
-        await this.$store.dispatch('getBudgetId', this.$store.getters.user);
-        this.$store.dispatch('getAccounts');
-        this.$store.dispatch('getToBeBudgeted', this.budgetDate);
-        this.$store.dispatch('getBudgetedLastMonth', this.budgetDate);
-        this.$store.dispatch('getBudgetList', this.budgetDate);
-        this.$router.push({ name: 'budget' });
-      } else {
-        this.$toasted.show('No other budget found.');
-      }
+    showSettings() {
+      this.$modal.show('modal-settings');
     },
+    // async switchBudget() {
+    //   const response = await HTTP.get(`/api/budgets?userid=${this.user.id}`);
+    //   if (response.data.length === 2) {
+    //     await asyncForEach(response.data, async (o) => {
+    //       await HTTP.put(`/api/budgets/${o.id}`, {
+    //         active: !o.active
+    //       });
+    //     });
+
+    //     await this.$store.dispatch('getBudgetId', this.$store.getters.user);
+    //     this.$store.dispatch('getAccounts');
+    //     this.$store.dispatch('getToBeBudgeted', this.budgetDate);
+    //     this.$store.dispatch('getBudgetedLastMonth', this.budgetDate);
+    //     this.$store.dispatch('getBudgetList', this.budgetDate);
+    //     this.$router.push({ name: 'budget' });
+    //   } else {
+    //     this.$toasted.show('No other budget found.');
+    //   }
+    // },
     async logout() {
       try {
         await this.$store.dispatch('logout');
