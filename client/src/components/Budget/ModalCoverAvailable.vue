@@ -50,7 +50,8 @@ export default {
   props: [
     'name',
     'categoryid',
-    'available'
+    'available',
+    'mode'
   ],
   data() {
     return {
@@ -96,14 +97,16 @@ export default {
     },
     async save() {
       if (this.moveCategoryId) {
-        const srcCat = await HTTP.get(`/api/categoriesbudgeted?categoryid=${this.categoryid}&date=${moment(this.budgetDate).format('YYYYMM01')}`);
-        let srcCatAmount;
-        if (srcCat.data.amount) {
-          srcCatAmount = Number(srcCat.data.amount) - Number(this.available);
-        } else {
-          srcCatAmount = Number(this.available) * -1;
+        if (this.mode !== 'tbb'); {
+          const srcCat = await HTTP.get(`/api/categoriesbudgeted?categoryid=${this.categoryid}&date=${moment(this.budgetDate).format('YYYYMM01')}`);
+          let srcCatAmount;
+          if (srcCat.data.amount) {
+            srcCatAmount = Number(srcCat.data.amount) - Number(this.available);
+          } else {
+            srcCatAmount = Number(this.available) * -1;
+          }
+          await HTTP.put(`/api/categoriesbudgeted/${this.categoryid}/${moment(this.budgetDate).format('YYYYMM01')}`, { amount: srcCatAmount });
         }
-        await HTTP.put(`/api/categoriesbudgeted/${this.categoryid}/${moment(this.budgetDate).format('YYYYMM01')}`, { amount: srcCatAmount });
 
         const moveCat = await HTTP.get(`/api/categoriesbudgeted?categoryid=${this.moveCategoryId}&date=${moment(this.budgetDate).format('YYYYMM01')}`);
         let moveCatAmount;

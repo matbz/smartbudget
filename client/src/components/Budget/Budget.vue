@@ -68,6 +68,8 @@ export default {
       this.$store.dispatch('removeAllSelectedCategories');
     },
     getBudget() {
+      this.$store.dispatch('getCategories');
+
       try {
         if (this.date) {
           this.$store.dispatch('setBudgetDate', this.budgetDateFormatted);

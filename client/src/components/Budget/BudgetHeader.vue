@@ -22,11 +22,11 @@
           </div>
           <i class="fa fa-chevron-circle-right budget-header-calendar-next" @click="goToNextMonth()"></i>
         </div>
-        <div class="budget-header-item budget-header-totals ">
-          <div class="budget-header-totals-amount-flexbox">
+        <div class="budget-header-item budget-header-totals" style="cursor: pointer" @click="changeAvailable()">
+          <div class="budget-header-totals-amount-flexbox" style="cursor: pointer">
               <div class="budget-header-totals-amount">
-                <div class="budget-header-totals-amount-value">
-                    <button class="left-to-budget">
+                <div class="budget-header-totals-amount-value" style="cursor: pointer">
+                    <button class="left-to-budget" style="cursor: pointer">
                       {{ toBeBudgeted | currency }}
                     </button>
                 </div>
@@ -44,6 +44,8 @@
         </button>
     </div>
 
+    <modal-move-available mode="tbb" :name="modalNameMoveAvailable" :categoryid="toBeBudgetedCategoryId" :available="toBeBudgeted" @closed="refreshInspector"></modal-move-available>
+    <modal-cover-available mode="tbb" :name="modalNameCoverAvailable" :categoryid="toBeBudgetedCategoryId" :available="toBeBudgeted" @closed="refreshInspector"></modal-cover-available>
     <modal-add-category-group></modal-add-category-group>
   </header>
 </template>
@@ -52,10 +54,14 @@
 import { mapGetters } from 'vuex';
 import moment from 'moment';
 import ModalAddCategoryGroup from './ModalAddCategoryGroup';
+import ModalMoveAvailable from './ModalMoveAvailable';
+import ModalCoverAvailable from './ModalCoverAvailable';
 
 export default {
   components: {
-    ModalAddCategoryGroup
+    ModalAddCategoryGroup,
+    ModalMoveAvailable,
+    ModalCoverAvailable
   },
   data() {
     return {
@@ -65,7 +71,8 @@ export default {
   computed: {
     ...mapGetters([
       'budgetDate',
-      'toBeBudgeted'
+      'toBeBudgeted',
+      'categories'
     ]),
     budgetDateFormatted() {
       return moment(this.budgetDate).format('MMM YYYY');
@@ -74,6 +81,18 @@ export default {
       return this.toBeBudgeted >= 0 ?
               'left-to-budget-is-positive' :
               'left-to-budget-is-negative';
+    },
+    modalNameMoveAvailable() {
+      return `move-available-${this.toBeBudgetedCategoryId}`;
+    },
+    modalNameCoverAvailable() {
+      return `cover-available-${this.toBeBudgetedCategoryId}`;
+    },
+    toBeBudgetedCategoryId() {
+      const toBeBudgetedCategory = this.categories.filter(e => e.position === -1);
+      if (toBeBudgetedCategory.length > 0) {
+        return toBeBudgetedCategory[0].id;
+      }
     }
   },
   methods: {
@@ -101,6 +120,22 @@ export default {
     addCategoryGroup() {
       this.$modal.show('modal-add-category-group');
     },
+    changeAvailable() {
+      if (this.toBeBudgeted > 0) {
+        this.moveAvailable();
+      } else if (this.toBeBudgeted < 0) {
+        this.coverAvailable();
+      }
+    },
+    moveAvailable() {
+      this.$modal.show(this.modalNameMoveAvailable);
+    },
+    coverAvailable() {
+      this.$modal.show(this.modalNameCoverAvailable);
+    },
+    refreshInspector() {
+      this.$store.dispatch('removeAllSelectedCategories');
+    }
   }
 };
 </script>
