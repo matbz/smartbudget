@@ -122,12 +122,18 @@ module.exports = {
       data['turnover'] = await turnover.allUnfiltered(budgetid);
 
       await asyncForEach(data['categorybudgeted'], async (e) => {
-        e.budgeted_date = moment(e.budgeted_date).format('DD.MM.YYYY');
+        e.budgeted_date = moment(e.budgeted_date).format('YYYY-MM-DD');
       });
 
       await asyncForEach(data['goal'], async (e) => {
         if (e.enddate !== null) {
-          e.enddate = moment(e.enddate).format('DD.MM.YYYY');
+          e.enddate = moment(e.enddate).format('YYYY-MM-DD');
+        }
+      });
+
+      await asyncForEach(data['turnover'], async (e) => {
+        if (e.turnover_date !== null) {
+          e.turnover_date = moment(new Date(e.turnover_date)).format('YYYY-MM-DD');
         }
       });
 
