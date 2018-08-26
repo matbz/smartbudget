@@ -133,7 +133,7 @@ module.exports = {
 
       await asyncForEach(data['turnover'], async (e) => {
         if (e.turnover_date !== null) {
-          e.turnover_date = moment(new Date(e.turnover_date)).format('YYYY-MM-DD');
+          e.turnover_date = moment(e.turnover_date, 'DD.MM.YYYY').format('YYYY-MM-DD');
         }
       });
 
