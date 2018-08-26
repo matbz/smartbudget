@@ -44,8 +44,8 @@
         </button>
     </div>
 
-    <modal-move-available mode="tbb" :name="modalNameMoveAvailable" :categoryid="toBeBudgetedCategoryId" :available="toBeBudgeted" @closed="refreshInspector"></modal-move-available>
-    <modal-cover-available mode="tbb" :name="modalNameCoverAvailable" :categoryid="toBeBudgetedCategoryId" :available="toBeBudgeted" @closed="refreshInspector"></modal-cover-available>
+    <modal-move-available :mode="'tbb'" :name="modalNameMoveAvailable" :categoryid="tbbId" :available="toBeBudgeted" @closed="refreshInspector"></modal-move-available>
+    <modal-cover-available :mode="'tbb'" :name="modalNameCoverAvailable" :categoryid="tbbId" :available="toBeBudgeted" @closed="refreshInspector"></modal-cover-available>
     <modal-add-category-group></modal-add-category-group>
   </header>
 </template>
@@ -72,7 +72,8 @@ export default {
     ...mapGetters([
       'budgetDate',
       'toBeBudgeted',
-      'categories'
+      'categories',
+      'tbbId'
     ]),
     budgetDateFormatted() {
       return moment(this.budgetDate).format('MMM YYYY');
@@ -83,10 +84,10 @@ export default {
               'left-to-budget-is-negative';
     },
     modalNameMoveAvailable() {
-      return `move-available-${this.toBeBudgetedCategoryId}`;
+      return `move-available-${this.tbbId}`;
     },
     modalNameCoverAvailable() {
-      return `cover-available-${this.toBeBudgetedCategoryId}`;
+      return `cover-available-${this.tbbId}`;
     },
     toBeBudgetedCategoryId() {
       const toBeBudgetedCategory = this.categories.filter(e => e.position === -1);

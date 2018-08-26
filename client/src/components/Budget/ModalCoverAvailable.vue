@@ -97,7 +97,7 @@ export default {
     },
     async save() {
       if (this.moveCategoryId) {
-        if (this.mode !== 'tbb'); {
+        if (this.mode !== 'tbb') {
           const srcCat = await HTTP.get(`/api/categoriesbudgeted?categoryid=${this.categoryid}&date=${moment(this.budgetDate).format('YYYYMM01')}`);
           let srcCatAmount;
           if (srcCat.data.amount) {

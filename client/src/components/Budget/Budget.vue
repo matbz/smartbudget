@@ -67,8 +67,8 @@ export default {
     uncheckAll() {
       this.$store.dispatch('removeAllSelectedCategories');
     },
-    getBudget() {
-      this.$store.dispatch('getCategories');
+    async getBudget() {
+      await this.$store.dispatch('getCategories');
 
       try {
         if (this.date) {
@@ -91,6 +91,7 @@ export default {
   },
   async created() {
     await this.getBudget();
+    this.$store.dispatch('setTBBID');
     this.getTurnovers();
   }
 };

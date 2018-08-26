@@ -6,12 +6,14 @@ Vue.use(Vuex);
 
 const SET_CATEGORIES = 'SET_CATEGORIES';
 const SET_CATEGORYGROUPS = 'SET_CATEGORYGROUPS';
+const SET_TBBID = 'SET_TBBID';
 
 const category = {
   namespaced: false,
   state: {
     categories: [],
-    categoryGroups: []
+    categoryGroups: [],
+    tbbId: null
   },
   mutations: {
     SET_CATEGORIES(state, data) {
@@ -19,6 +21,10 @@ const category = {
     },
     SET_CATEGORYGROUPS(state, data) {
       state.categoryGroups = data;
+    },
+    SET_TBBID(state) {
+      const toBeBudgetedCategory = state.categories.filter(e => e.position === -1);
+      state.tbbId = toBeBudgetedCategory[0].id;
     }
   },
   actions: {
@@ -79,6 +85,9 @@ const category = {
       } catch (error) {
         throw new Error(error);
       }
+    },
+    setTBBID({ commit }) {
+      commit(SET_TBBID);
     }
   },
   getters: {
@@ -87,6 +96,9 @@ const category = {
     },
     categoryGroups(state) {
       return state.categoryGroups;
+    },
+    tbbId(state) {
+      return state.tbbId;
     }
   }
 };
