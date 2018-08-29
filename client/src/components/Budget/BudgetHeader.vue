@@ -22,8 +22,8 @@
           </div>
           <i class="fa fa-chevron-circle-right budget-header-calendar-next" @click="goToNextMonth()"></i>
         </div>
-        <div class="budget-header-item budget-header-totals" style="cursor: pointer" @click="changeAvailable()">
-          <div class="budget-header-totals-amount-flexbox" style="cursor: pointer">
+        <div class="budget-header-item budget-header-totals">
+          <div class="budget-header-totals-amount-flexbox" style="cursor: pointer" @click="changeAvailable()">
               <div class="budget-header-totals-amount">
                 <div class="budget-header-totals-amount-value" style="cursor: pointer">
                     <button class="left-to-budget" style="cursor: pointer">
