@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 import locale from 'element-ui/lib/locale/lang/en';
 import VModal from 'vue-js-modal';
 import VueNumeric from 'vue-numeric';
@@ -16,6 +18,7 @@ import './assets/styles/main.css';
 Vue.use(ElementUI, { locale, size: 'mini' });
 Vue.use(VModal, { dialog: true });
 Vue.use(VueNumeric);
+Vue.use(Loading);
 Vue.use(Toasted, {
   theme: 'bubble',
   position: 'top-right',

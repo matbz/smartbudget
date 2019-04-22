@@ -12,8 +12,8 @@ const account = {
   namespaced: false,
   state: {
     accounts: [],
-    chartStartdate: moment(moment(new Date()).year().toString() + '0101').format('YYYYMMDD'),
-    chartEnddate: moment(moment(new Date()).year().toString() + '1231').format('YYYYMMDD'),
+    chartStartdate: moment(new Date()).subtract(11, 'month').format('YYYYMMDD'),
+    chartEnddate: moment(moment(new Date())).format('YYYYMMDD')
   },
   mutations: {
     SET_ACCOUNTS(state, data) {

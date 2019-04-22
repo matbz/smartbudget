@@ -68,6 +68,11 @@ export default {
       this.$store.dispatch('removeAllSelectedCategories');
     },
     async getBudget() {
+      const loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: false,
+      });
       await this.$store.dispatch('getCategories');
 
       try {
@@ -77,7 +82,8 @@ export default {
 
         this.$store.dispatch('getToBeBudgeted', this.budgetDate);
         this.$store.dispatch('getBudgetedLastMonth', this.budgetDate);
-        this.$store.dispatch('getBudgetList', this.budgetDate);
+        await this.$store.dispatch('getBudgetList', this.budgetDate);
+        loader.hide();
       } catch (error) {
         this.$toasted.error('There was an error getting the budget list.');
       }

@@ -48,7 +48,7 @@ const router = new Router({
     {
       path: '/reports',
       name: 'reports',
-      redirect: { name: 'reportsnetworth' },
+      redirect: { name: 'reportsspending' },
     },
     {
       path: '/reports/net-worth',

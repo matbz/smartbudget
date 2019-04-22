@@ -2,8 +2,8 @@
   <div class="ynab-u content">
     <div class="scroll-wrap reports-header-top">
       <div class="ynab-u reports-header">
-        <button class="" @click="goToRoute('reportsnetworth')">Net Worth</button>
         <button class="active" @click="goToRoute('reportsspending')">Spending</button>
+        <button class="" @click="goToRoute('reportsnetworth')">Net Worth</button>
       </div>
       <div class="pure-u reports-controls">
         <el-date-picker
@@ -36,26 +36,26 @@
           Categories
           <i class="fa fa-caret-down"></i>
         </button>
-        <button class="button-select-option-first button-select-option" @click="selectAllCategories()">
-          Select All
-        </button>
-        <button class="button-select-option" @click="selectActiveCategories()">
-          Select Active
-        </button>
-        <button class="button-select-option" @click="unselectAllCategories()">
+        <button class="button-select-option-first button-select-option" @click="unselectAllCategories()">
           Select None
         </button>
+        <button class="button-select-option" @click="selectAllCategories()">
+          Select All
+        </button>
+        <!-- <button class="button-select-option" @click="selectActiveCategories()">
+          Select Active
+        </button> -->
       </div>
       <div class="pure-u reports-container reports-spending">
         <div class="reports-content">
           <div class="pure-u reports-spending-toggle">
-            <button :class="{'active': !totalsActive}" @click="setActive(false)">
-              <i class="fa fa-line-chart"></i>
-              Trends
-            </button>
             <button :class="{'active': totalsActive}" @click="setActive(true)">
               <i class="fa fa-pie-chart"></i>
               Totals
+            </button>
+            <button :class="{'active': !totalsActive}" @click="setActive(false)">
+              <i class="fa fa-line-chart"></i>
+              Trends
             </button>
           </div>
           <h3 class="reports-title">{{ totalsActive ? 'Spending Totals' : 'Spending Trends' }}</h3>
@@ -97,7 +97,7 @@ export default {
     const self = this;
     return {
       monthsCount: 1,
-      totalsActive: true,
+      totalsActive: false,
       dataPieChart: {
         datasets: [{
           label: 'Doughnut Dataset',
@@ -174,7 +174,14 @@ export default {
           text: 'Last 3 months',
           onClick(picker) {
             const end = new Date();
-            const start = moment(new Date()).subtract(3, 'month').toDate();
+            const start = moment().subtract(2, 'month').startOf('month').toDate();
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          text: 'Last 12 months',
+          onClick(picker) {
+            const end = new Date();
+            const start = moment().subtract(11, 'month').startOf('month').toDate();
             picker.$emit('pick', [start, end]);
           }
         }, {
@@ -376,7 +383,9 @@ export default {
       if (filteredDataByDate.length < 1) {
         return 1;
       }
-      return filteredDataByDate.length;
+
+      const monthDiff = Math.floor(moment(this.chartEnddate).diff(this.chartStartdate, 'months', true) + 1);
+      return monthDiff;
     },
     goToRoute(route) {
       this.$router.push({ name: route });
@@ -423,7 +432,7 @@ export default {
     }
   },
   async created() {
-    await this.getCategories('active');
+    await this.getCategories('all');
     await this.prepareData();
     if (this.totalsActive) {
       this.$refs.chartSpendingTotals.update();

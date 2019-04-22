@@ -22,7 +22,7 @@ const turnover = {
     turnovers: [],
     selectedTurnovers: [],
     payees: [],
-    turnoverStartdate: moment(new Date()).subtract(3, 'months').format('YYYYMMDD'),
+    turnoverStartdate: moment().subtract(2, 'month').startOf('month').format('YYYYMMDD'),
     turnoverEnddate: moment(new Date()).format('YYYYMMDD'),
     turnoverSearchstring: '',
     turnoverOrderName: 'date',

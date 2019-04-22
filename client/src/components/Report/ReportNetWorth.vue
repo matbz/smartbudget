@@ -2,8 +2,8 @@
   <div class="ynab-u content">
     <div class="scroll-wrap reports-header-top">
       <div class="ynab-u reports-header">
-        <button class="active" @click="goToRoute('reportsnetworth')">Net Worth</button>
         <button class="" @click="goToRoute('reportsspending')">Spending</button>
+        <button class="active" @click="goToRoute('reportsnetworth')">Net Worth</button>
       </div>
       <div class="pure-u reports-controls">
         <el-date-picker
@@ -92,7 +92,14 @@ export default {
           text: 'Last 3 months',
           onClick(picker) {
             const end = new Date();
-            const start = moment(new Date()).subtract(3, 'month').toDate();
+            const start = moment().subtract(2, 'month').startOf('month').toDate();
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          text: 'Last 12 months',
+          onClick(picker) {
+            const end = new Date();
+            const start = moment().subtract(11, 'month').startOf('month').toDate();
             picker.$emit('pick', [start, end]);
           }
         }, {

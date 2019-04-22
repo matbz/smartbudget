@@ -115,7 +115,14 @@ export default {
           text: 'Last 3 months',
           onClick(picker) {
             const end = new Date();
-            const start = moment(new Date()).subtract(3, 'month').toDate();
+            const start = moment().subtract(2, 'month').startOf('month').toDate();
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          text: 'Last 12 months',
+          onClick(picker) {
+            const end = new Date();
+            const start = moment().subtract(11, 'month').startOf('month').toDate();
             picker.$emit('pick', [start, end]);
           }
         }, {
