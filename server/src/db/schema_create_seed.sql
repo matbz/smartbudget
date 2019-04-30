@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS "user" (
 	id serial primary key,
 	username text unique not null,
 	password text not null,
-	report_startdate date default null
+	report_startdate date default null,
+  attempts integer default 0
 )
 
 -- budget

@@ -13,6 +13,7 @@ class User {
     this.id = data.id;
     this.username = data.username;
     this.password = data.password;
+    this.attempts = data.attempts;
   }
 
   async find(id) {
@@ -44,6 +45,37 @@ class User {
         console.log(error);
     }
   }
+
+  async resetAttempts(id) {
+    try {
+      const query = SQL`
+      update "user"
+      set
+        attempts = 0
+      where id = ${id}
+      `;
+      return await db.none(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+  async addAttempts(id, attempts) {
+    attempts++;
+
+    try {
+      const query = SQL`
+      update "user"
+      set
+        attempts = ${attempts}
+      where id = ${id}
+      `;
+      return await db.none(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
 }
 
 module.exports = User;

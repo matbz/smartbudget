@@ -23,11 +23,21 @@ module.exports = {
         });
       }
 
+      if (user.attempts > 3) {
+        return res.status(401).json({
+            error: 'User locked'
+        });
+      }
+
       if (user.password !== password) {
+        user.addAttempts(user.id, user.attempts);
+
         return res.status(401).json({
             error: 'Password was incorrect'
         });
       }
+
+      await user.resetAttempts(user.id);
 
       const payload = {
         id: user.id,
