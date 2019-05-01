@@ -48,7 +48,7 @@ export default {
   },
   created() {
     if (isMobile()) {
-      window.location = 'http://www.m.budget.matbz.com';
+      window.location = 'http://www.m.b.matbz.com';
     }
 
     if (this.user) {
