@@ -2,20 +2,26 @@
 insert into "user"
 (username, password)
 values
-('test', 'sbtest')
+('test', 'test');
 
 -- budget
 insert into budget
 (name, user_id)
 values
-('Main Budget', 1)
+('Main Budget', 1);
+
+-- user_budget
+insert into user_budget
+(user_id, budget_id, active)
+values
+(1, 1, true);
 
 -- account
 insert into account
 (name, csv_delimiter, csv_decimalsymbol, csv_offset, csv_encoding, budget_id)
 values
 ('ING-DiBa', ';', null, null, null, 1),
-('Volksbank', ';', null, null, null, 1)
+('Volksbank', ';', null, null, null, 1);
 
 -- categorygroup
 insert into categorygroup
@@ -25,7 +31,7 @@ values
 ('Funds', 2, 1, false),
 ('Longterm Savings', 3, 1, false),
 ('Monthly Bills', 4, 1, false),
-('Inflow', -1, 1, true)
+('Inflow', -1, 1, true);
 
 -- category
 insert into category
@@ -48,7 +54,7 @@ values
 ('Contact lenses', 5, 4, false),
 ('Spotify', 8, 4, false),
 ('Phone', 7, 4, false),
-('Internet', 6, 4, false)
+('Internet', 6, 4, false);
 
 -- categorybudgeted
 insert into categorybudgeted
@@ -251,7 +257,7 @@ values
 ('20171001', 30, 18),
 ('20171101', 30, 18),
 ('20171201', 30, 18),
-('20180101', 30, 18)
+('20180101', 30, 18);
 
 -- turnover
 insert into turnover
@@ -460,6 +466,4 @@ values
 (-50,'20180101', null, 1, 15,'','M'),
 (-10,'20180101', null, 1, 16,'','M'),
 (-10,'20180101', null, 1, 17,'','M'),
-(-30,'20180101', null, 1, 18,'','M')
-
-
+(-30,'20180101', null, 1, 18,'','M');
