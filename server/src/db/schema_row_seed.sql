@@ -20,8 +20,7 @@ values
 insert into account
 (name, csv_delimiter, csv_decimalsymbol, csv_offset, csv_encoding, budget_id)
 values
-('ING-DiBa', ';', null, null, null, 1),
-('Volksbank', ';', null, null, null, 1);
+('ING-DiBa', ';', null, null, null, 1);
 
 -- categorygroup
 insert into categorygroup

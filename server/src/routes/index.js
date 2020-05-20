@@ -128,6 +128,10 @@ module.exports = (app) => {
     authRequired,
     CategoryBudgetedController.index);
 
+  app.get('/api/:budgetid/allcategoriesbudgeted/:date',
+    authRequired,
+    CategoryBudgetedController.currentMonth);
+
   app.put('/api/categoriesbudgeted/:id/:date',
     authRequired,
     CategoryBudgetedController.update);

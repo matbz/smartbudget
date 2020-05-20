@@ -37,6 +37,21 @@ module.exports = {
       });
     }
   },
+  async currentMonth(req, res) {
+    const categoryBudgeted = new CategoryBudgeted();
+    const { budgetid, date} = req.params;
+
+    try {
+      const budgetedAll = await categoryBudgeted.currentMonth(budgetid, date);
+
+      res.json(budgetedAll);
+
+    } catch (err) {
+      res.status(500).json({
+       error: 'An error has occured trying to set budgeted last month'
+      });
+    }
+  },
   async lastMonth(req, res) {
     const categoryBudgeted = new CategoryBudgeted();
     const { budgetid, date} = req.params;

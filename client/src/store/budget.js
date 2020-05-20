@@ -58,6 +58,27 @@ const budget = {
   actions: {
     async getBudgetList({ commit, getters }, budgetDate) {
       try {
+        const catresponse = await HTTP.get(`/api/${getters.budgetId}/categories`);
+        const cats = catresponse.data.filter(e => e.name !== 'To be Budgeted');
+
+        const budresponse = await HTTP.get(`/api/${getters.budgetId}/allcategoriesbudgeted/${budgetDate}`);
+        const buds = budresponse.data;
+
+        if (buds.length > 0) {
+          cats.forEach(c => {
+            const found = buds.some(el => el.category_id === c.id);
+            if (!found) {
+              const cdata = {
+                categoryId: Number(c.id),
+                budgetedDate: budgetDate,
+                amount: 0
+              };
+
+              HTTP.put(`/api/categoriesbudgeted/${c.id}/${budgetDate}`, cdata);
+            }
+          });
+        }
+
         const response = await HTTP.get(`/api/${getters.budgetId}/budgets/list/${budgetDate}`);
         commit(SET_BUDGET_LIST, response.data);
         const isHidden = await HTTP.get(`/api/${getters.budgetId}/budgets/hidden`);

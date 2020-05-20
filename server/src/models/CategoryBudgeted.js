@@ -36,6 +36,29 @@ class CategoryBudgeted {
     }
   }
 
+  async currentMonth(budgetid, date) {
+    try {
+      const query = SQL`
+      select
+        cb.id as id,
+        ca.id as category_id,
+        cb.budgeted_date as budgeted_date,
+        cb.amount as amount
+      from categorygroup as cg
+      inner join category as ca
+      on cg.id = ca.categorygroup_id
+      inner join categorybudgeted as cb
+      on ca.id = cb.category_id and
+        cb.budgeted_date = ${date}::date
+      where budget_id = ${budgetid} and ca.name != 'To be Budgeted'
+      `;
+
+      return await db.manyOrNone(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
   async findByDate(budgetid, date) {
     try {
       const query = SQL`
