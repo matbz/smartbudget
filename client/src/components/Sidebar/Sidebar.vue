@@ -5,7 +5,7 @@
             SmartBudget
         </button>
         <ul class="nav-main">
-          <li @click="goToBudget()" :class="{ 'active': matchedRoute === 'budget_date' }">
+          <li @dblclick="switchBudget()" @click="goToBudget()" :class="{ 'active': matchedRoute === 'budget_date' }">
            <a>
             <i class=" fa fa-envelope-o"></i>
              Budget
