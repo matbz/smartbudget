@@ -1,7 +1,7 @@
 <template>
    <nav class="ynab-u sidebar">
       <div class="sidebar-contents">
-        <button class="button button-prefs" @click="goToRecentBudget()">
+        <button class="button button-prefs" @dblclick="switchBudget()" @click="goToRecentBudget()">
             SmartBudget
         </button>
         <ul class="nav-main">
