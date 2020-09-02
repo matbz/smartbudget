@@ -20,11 +20,11 @@
           <router-link :to="{ name: 'accounts' }" tag="li" exact>
             <a>
               <i class=" fa fa-university"></i>
-              All Accounts
+              Account
             </a>
           </router-link>
         </ul>
-        <sidebar-account-list></sidebar-account-list>
+        <!-- <sidebar-account-list></sidebar-account-list> -->
         <!-- <button @click="addAccount()" class="button-sidebar nav-add-account button">
             <i class="fa fa-plus-circle"></i>
             Add Account
@@ -51,7 +51,7 @@
 import { mapGetters } from 'vuex';
 import { HTTP } from '@/common/utilities';
 import moment from 'moment';
-import SidebarAccountList from './SidebarAccountList';
+// import SidebarAccountList from './SidebarAccountList';
 import ModalAddAccount from './ModalAddAccount';
 import ModalSettings from './ModalSettings';
 
@@ -63,7 +63,7 @@ async function asyncForEach(array, callback) {
 
 export default {
   components: {
-    SidebarAccountList,
+    // SidebarAccountList,
     ModalAddAccount,
     ModalSettings
   },
