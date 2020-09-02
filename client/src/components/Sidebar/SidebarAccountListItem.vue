@@ -9,7 +9,7 @@
             <span>{{ account.name }}</span>
           </div>
       </div>
-      <div class="nav-account-value"><span class="currency positive">{{ account.balance | currency }}</span></div>
+      <!-- <div class="nav-account-value"><span class="currency positive">{{ account.balance | currency }}</span></div> -->
     </router-link>
     <modal-edit-account :name="account.name" :data="account"></modal-edit-account>
   </div>
