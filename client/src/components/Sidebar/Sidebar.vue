@@ -121,6 +121,9 @@ export default {
         throw new Error(error);
       }
     }
+  },
+  created() {
+    this.$store.dispatch('getAccounts');
   }
 };
 </script>

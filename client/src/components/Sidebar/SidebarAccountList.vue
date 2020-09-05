@@ -5,9 +5,9 @@
           <div class="nav-account-name">
             <button class="nav-account-name-button">ACCOUNTS</button>
           </div>
-          <!-- <div class="nav-account-value">
+          <div class="nav-account-value">
             <span>{{ accountsTotal | currency }}</span>
-          </div> -->
+          </div>
       </div>
       <sidebar-account-list-item
         v-for="account in accounts"
