@@ -32,7 +32,7 @@
       </div>
       <button class="button-prefs button-prefs-user button">
          <div @click="logout()" class="button-truncate" style="cursor: pointer; float: left">
-            <i class="fa fa-sign-out flaticon"></i>
+            <i class="fa fa-sign-out flaticon xya1"></i>
          </div>
          <div @click="showSettings()" class="button-truncate" style="cursor: pointer; float: right">
             <i class="fa fa-cog flaticon"></i>

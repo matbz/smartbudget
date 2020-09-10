@@ -1,10 +1,9 @@
-New Data Seed
-Login Screen
+Remove scrollbar at budget on 27"
 Sidebar
-    Change colors
-        Backup popup
-            remove icons
-            increase border radius
+    Backup popup
+        colors
+        remove icons
+        increase border radius
 Budget
     Activity Popup
         Remove Account + Payee

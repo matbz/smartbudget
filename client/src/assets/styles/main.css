@@ -5198,15 +5198,15 @@ select {
 }
 
 .button-prefs:hover {
-    background-color: #1b8095
+    background-color: #244564;
 }
 
 .button-prefs .flaticon {
-    color: #bee6ef
+    color: #ffffffc7;
 }
 
 .button-prefs-user {
-    background-color: #1f8ca7;
+    background-color: #244564;
     position: fixed;
     bottom: 0;
     font-size: 1rem;
@@ -5970,7 +5970,7 @@ select {
 .sidebar {
     height: 100%;
     overflow: auto;
-    background: #2c97ad;
+    background: #244564;
     color: #fff;
 }
 
@@ -6022,20 +6022,24 @@ select {
 .nav-main {
     clear: both;
 }
+.nav-main li {
+    margin: .25em .5em 0 .5em;
+}
 
 .nav-main a {
     display: block;
-    padding: .4em .25em .4em 0;
-    font-size: 1.125em;
-    font-weight: 300;
+    padding: .25em;
+    font-size: 1em;
+    font-weight: 400;
+    border-radius: .375em;
 }
 
 .nav-main a:hover {
-    background-color: rgba(0,89,111,0.4)
+    background-color: #25384f;
 }
 
 .nav-main li.active a {
-    background-color: rgba(0,0,0,0.4);
+    background-color: #3674a7;
     font-weight: 400;
 }
 
@@ -6044,7 +6048,7 @@ select {
 }
 
 .nav-main li.active i {
-    color: #32dcff;
+    /* color: #32dcff; */
     /* background-color: #194853; */
 }
 

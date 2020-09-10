@@ -55,15 +55,15 @@ export default {
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: #2c97ad;
+    background-color: #244564;
 }
 
 .login-block {
     width: 320px;
     padding: 20px;
     background: #fff;
-    border-radius: 5px;
-    border-top: 5px solid #009cc2;
+    border-radius: 10px;
+    border-top: 5px solid #244564;
     margin: 100px auto;
 }
 
@@ -99,16 +99,15 @@ export default {
 }
 
 .login-block input:active, .login-block input:focus {
-    border: 1px solid #009cc2;
+    border: 2px solid #000;
 }
 
 .login-block button {
     width: 100%;
     height: 40px;
-    background: #009cc2;
+    background: #3674A7;
     box-sizing: border-box;
     border-radius: 5px;
-    border: 1px solid #009cc2;
     color: #fff;
     font-weight: bold;
     text-transform: uppercase;
@@ -118,8 +117,7 @@ export default {
 }
 
 .login-block button:hover {
-    background: rgba(0,155,194,0.7);
-    border: 1px solid rgba(0,155,194,0.7);
+    background: #4495D7;
 }
 </style>
 
