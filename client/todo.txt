@@ -1,0 +1,47 @@
+Sidebar
+    Budget title instead of "SmartBudget"
+    Change colors
+        Backup popup
+            remove icons
+            increase border radius
+Budget
+    Activity Popup
+        Remove Account + Payee
+        Make it as big as needed for the memo to be displayed well
+    Remove overall and category group checkbox
+    Change colors
+        Screen
+        Popups (incl. Hidden)
+            remove icons
+        Table Border Top
+        Select row
+    Quick Budget
+        Single Categories            
+            Average Budgeted (up to 12 months)
+            Average Spent (up to 12 months)   
+        All Categories
+            Don't consider hidden categories    
+            Average Budgeted (up to 12 months)
+            Average Spent (up to 12 months)               
+            Reset Budgeted Amounts
+Account
+    Rename turnover to transaction
+        Add transaction
+        Copy Popup
+    Change colors
+        select colors aswell
+    Edit view of transaction should count as selected for deletion and copy
+    Remove unnecessary columns from table and adjust note column (issue: scroll bar)            
+Reports
+    Change Header
+    Change colors
+    Spending        
+        Date picker: Last Months / This year etc 
+            fon't factor in recent month when selecting last months / this years in date picker
+            don't factor in not budgeted months
+        Persist selected categories
+        "Filter Categories"
+            Select All
+            Select None
+            Unselect Hidden
+            Select Hidden
