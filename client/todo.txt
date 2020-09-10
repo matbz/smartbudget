@@ -1,3 +1,4 @@
+New Data Seed
 Sidebar
     Budget title instead of "SmartBudget"
     Change colors
