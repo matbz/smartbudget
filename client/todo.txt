@@ -1,14 +1,9 @@
-Remove scrollbar at budget on 27"
 Sidebar
     Backup popup
         colors
         remove icons
-        increase border radius
 Budget
-    Activity Popup
-        Remove Account + Payee
-        Make it as big as needed for the memo to be displayed well
-    Remove overall and category group checkbox
+    Remove overall checkbox and switch icon for category group
     Change colors
         Screen
         Popups (incl. Hidden)
@@ -16,13 +11,13 @@ Budget
         Table Border Top
         Select row
     Quick Budget
-        Single Categories            
+        Single Categories
             Average Budgeted (up to 12 months)
-            Average Spent (up to 12 months)   
+            Average Spent (up to 12 months)
         All Categories
-            Don't consider hidden categories    
+            Don't consider hidden categories
             Average Budgeted (up to 12 months)
-            Average Spent (up to 12 months)               
+            Average Spent (up to 12 months)
             Reset Budgeted Amounts
 Account
     Rename turnover to transaction
@@ -31,12 +26,12 @@ Account
     Change colors
         select colors aswell
     Edit view of transaction should count as selected for deletion and copy
-    Remove unnecessary columns from table and adjust note column (issue: scroll bar)            
+    Remove unnecessary columns from table and adjust note column (issue: scroll bar)
 Reports
     Change Header
     Change colors
-    Spending        
-        Date picker: Last Months / This year etc 
+    Spending
+        Date picker: Last Months / This year etc
             fon't factor in recent month when selecting last months / this years in date picker
             don't factor in not budgeted months
         Persist selected categories
@@ -45,3 +40,5 @@ Reports
             Select None
             Unselect Hidden
             Select Hidden
+Remove scrollbar at budget on 27"
+Transaction popup don't load when switching budgets

@@ -1134,10 +1134,6 @@ html,body {
     color: #fff
 }
 
-.modal-budget-activity {
-    /* background-color: rgba(0,0,0,0); */
-}
-
 .modal-budget-activity .modal {
     width: 32em;
     height: auto
@@ -2141,10 +2137,6 @@ select {
 .modal-popup .icon-unmatch svg {
     width: 1.1rem;
     fill: #588697
-}
-
-.modal-budget-edit-category {
-    /* background-color: rgba(0,0,0,0); */
 }
 
 .modal-budget-edit-category .modal {
@@ -3781,10 +3773,6 @@ select {
 
 .budget-table-row.is-sub-category .currency-input.is-editing input {
     border: 2px solid #009cc2
-}
-
-.budget-table-row.is-sub-category:hover {
-    border-top: 1px solid #b6c1cc;
 }
 
 .budget-table-row.is-sub-category:hover .currency-input span {
@@ -5441,7 +5429,7 @@ select {
 }
 
 .ynab-table-col:last-child {
-    padding-right: 0
+    padding-right: .3em;
 }
 
 .has-scrollbar .ynab-table-head {
@@ -12644,4 +12632,8 @@ bdi {
 
 .button-select-option-first {
   margin-left: 5em;
+}
+
+.v--modal {
+  border-radius: 6px!important;
 }

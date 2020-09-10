@@ -4,11 +4,11 @@
       <span class="activity-header">{{ categoryname }}</span>
       <div class="ynab-table-5-col ynab-table" :class="scrollbarClass">
         <div class="ynab-table-head">
-          <div class="ynab-table-col user-data">Account</div>
-          <div class="ynab-table-col user-data">Date</div>
-          <div class="ynab-table-col user-data">Payee</div>
-          <div class="ynab-table-col user-data">Memo</div>
-          <div class="amount-column ynab-table-col user-data">Amount</div>
+          <!-- <div class="ynab-table-col user-data">Account</div> -->
+          <div class="ynab-table-col user-data" style="width:30%">Date</div>
+          <!-- <div class="ynab-table-col user-data">Payee</div> -->
+          <div class="ynab-table-col user-data" style="width:45%">Memo</div>
+          <div class="amount-column ynab-table-col user-data" style="width:25%">Amount</div>
         </div>
         <div class="ynab-table-body">
           <modal-activity-row
