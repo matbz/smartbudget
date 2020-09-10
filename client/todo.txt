@@ -1,6 +1,6 @@
 New Data Seed
+Login Screen
 Sidebar
-    Budget title instead of "SmartBudget"
     Change colors
         Backup popup
             remove icons
