@@ -43,11 +43,9 @@
     <div class="modal-actions">
       <button class="button button-primary" @click="save()">
           OK
-          <i class="fa fa-check-circle-o"></i>
       </button>
       <button class="button button-cancel" @click="close()">
           Cancel
-          <i class="fa fa-times-circle-o"></i>
       </button>
     </div>
   </modal>
@@ -102,11 +100,11 @@ export default {
   },
   methods: {
     opened() {
-      if (this.mode === 'tbb') {
-        this.amount = Number(this.available);
-      } else {
-        this.amount = 0;
-      }
+      // if (this.mode === 'tbb') {
+      this.amount = Number(this.available);
+      // } else {
+        // this.amount = 0;
+      // }
     },
     closed() {
       this.$emit('closed');

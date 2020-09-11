@@ -4,11 +4,11 @@
       <div class="account-widget">
         <div class="account-widget-header">
           <div class="account-widget-header-title">
-            <h1>Settings</h1>
+            <h1 style="color:#383e41">Settings</h1>
             <div @click="close()" class="account-widget-header-close">
-              <button>
-                <svg viewBox="0 -32 512 512" width="26" height="26" class="y-icon y-icon-close"><path d="M 381.568,143.68L 302.368,222.88l 79.20,79.20c 6.304,6.24, 6.304,16.384,0.00,22.624l-22.624,22.624 c-6.24,6.24-16.384,6.24-22.624,0.00L 257.152,268.128L 177.952,347.328c-6.24,6.24-16.384,6.24-22.624,0.00L 132.704,324.672 c-6.272-6.24-6.272-16.384,0.00-22.624l 79.20-79.20L 132.704,143.68c-6.272-6.24-6.272-16.384,0.00-22.624l 22.624-22.624 c 6.24-6.24, 16.384-6.24, 22.624,0.00l 79.20,79.20l 79.168-79.20c 6.24-6.24, 16.384-6.24, 22.624,0.00l 22.624,22.624 C 387.872,127.328, 387.872,137.44, 381.568,143.68z"></path></svg>
-              </button>
+              <button style="margin-bottom:.5em">
+<svg height="26" width="26" viewBox="0 0 24 24" id="ember343" class="y-icon y-icon-close-circle ember-view"><path fill-rule="evenodd" clip-rule="evenodd" d="M24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12ZM15.096 7.42814C15.474 7.0501 16.0869 7.05005 16.4649 7.42803C16.8429 7.80602 16.8428 8.4189 16.4648 8.79694L13.2721 11.9897L16.4037 15.1213C16.7817 15.4993 16.7817 16.1122 16.4036 16.4903C16.0256 16.8683 15.4127 16.8684 15.0347 16.4904L11.903 13.3587L8.71023 16.5515C8.33218 16.9295 7.7193 16.9296 7.34132 16.5516C6.96333 16.1736 6.96338 15.5607 7.34143 15.1827L10.5342 11.9899L7.40257 8.85825C7.02459 8.48026 7.02464 7.86738 7.40268 7.48933C7.78073 7.11129 8.39361 7.11124 8.7716 7.48922L11.9033 10.6209L15.096 7.42814Z"></path>
+</svg>              </button>
             </div>
           </div>
         </div>
@@ -104,14 +104,14 @@ export default {
     border-radius: .4em;
     border: 2px solid #dee3e8;
     background-color: transparent;
-    color: #009cc2;
+    color: #4495d7;
     text-align: left;
     cursor: pointer;
 }
 
 .btn:hover {
-  background-color: #005076;
-  border-color: #005076;
+  background-color: #3674a7;
+  border-color: #3674a7;
   color: #fff;
 }
 

@@ -89,11 +89,15 @@
 
 .modal-select > .el-input .el-input__inner:focus {
   outline: none;
-  border: 2px solid #88979d;
+  border: 2px solid #4495d7;
 }
 
 .el-select-dropdown__item {
   font-size: 13px !important;
+}
+
+.el-select-dropdown__item.selected {
+  color: #4495d7!important;
 }
 
 .budget-header-calendar-date > .el-input {

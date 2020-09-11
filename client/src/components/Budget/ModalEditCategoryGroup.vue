@@ -17,24 +17,20 @@
       </div>
     </div>
     <div class="modal-actions">
-      <div class="modal-actions-left">
+      <div class="modal-actions-left" style="font-size: .9em!important;">
           <button class="button button-hide" @click="hide()">
-            <i class="fa fa-eye"></i>
             Hide
           </button>
           <button class="button button-delete" @click="confirmDeleteCategoryGroup()">
-            <i class="fa fa-trash-o"></i>
             Delete
           </button>
       </div>
-      <div class="modal-actions-right">
+      <div class="modal-actions-right" style="font-size: .9em!important;">
         <button class="button button-primary" @click="save()">
             OK
-            <i class="fa fa-check-circle-o"></i>
         </button>
         <button class="button button-cancel" @click="close()">
             Cancel
-            <i class="fa fa-times-circle-o"></i>
         </button>
       </div>
     </div>

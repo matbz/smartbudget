@@ -28,7 +28,7 @@
    </div>
    <div class="inspector-quick-budget">
       <h3>Quick Budget</h3>
-      <button class="budget-inspector-button" @click="setBudgetedLastMonth(amountToStayOnTrack)">
+      <button v-if="amountToStayOnTrack > 0" class="budget-inspector-button" @click="setBudgetedLastMonth(amountToStayOnTrack)">
         Goal Target: <strong><span class="currency positive">{{ amountToStayOnTrack | currency }}</span></strong>
       </button>
       <button class="budget-inspector-button" @click="setBudgetedLastMonth(budgetedLastMonth)">

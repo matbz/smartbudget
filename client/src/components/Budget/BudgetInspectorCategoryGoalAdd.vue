@@ -39,7 +39,7 @@
               <button v-if="dateFormatted" class="button link-button clear-date" @click="clearDate()">Clear Date</button>
               <button class="button link-button" @click="cancel()">Cancel</button>
               <button class="button button-primary" @click="save()">
-                OK <i class="fa fa-check-circle-o"></i>
+                OK
               </button>
           </dd>
         </dl>

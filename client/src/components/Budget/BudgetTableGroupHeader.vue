@@ -1,6 +1,7 @@
 <template>
   <div>
     <ul class="budget-table-row is-master-category">
+      <li class="budget-table-cell-margin">&nbsp;</li>
       <li class="budget-table-cell-checkbox is-draggable">
           <div class="ynab-checkbox">
             <button role="checkbox" class="ynab-checkbox-button">
@@ -19,16 +20,18 @@
           </div>
           <div class="budget-table-cell-name-static-width">
             <div @click="addCategory()" title="Add Category" class="button budget-table-cell-add-category budget-table-cell-button ">
-                <i class="fa fa-plus-circle flaticon"></i>
+                <i style="color: #4495d7" class="fa fa-plus-circle flaticon"></i>
             </div>
           </div>
       </li>
       <li class="budget-table-cell-budgeted">
           <div><span class="currency">{{ header.budgeted | currency }}</span></div>
       </li>
+      <li style="padding-right:0.7em"></li>    
       <li class="budget-table-cell-activity">
           <div class="budget-number"><span class="currency">{{ header.activity | currency }}</span></div>
       </li>
+      <li style="padding-right:0.7em"></li>       
       <li class="budget-table-cell-available">
           <div class="budget-table-cell-available-div"><span class="currency">{{ header.available | currency }}</span></div>
       </li>

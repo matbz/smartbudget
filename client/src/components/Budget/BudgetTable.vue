@@ -1,6 +1,13 @@
 <template>
   <div class="budget-content">
+      <div class="budget-toolbar">
+          <button title="Add Category Group" class="budget-toolbar-add-category button" @click="addCategoryGroup()">
+            <i class="fa fa-plus-circle" style="margin-right: .25em"></i>
+            Category Group
+          </button>
+      </div>    
       <ul class=" budget-table-header sticky-header">
+        <li class="budget-table-cell-margin">&nbsp;</li>
         <li class="budget-table-cell-checkbox">
             <div  class="ynab-checkbox">
               <button role="checkbox" class="ynab-checkbox-button">
@@ -10,7 +17,9 @@
         </li>
         <li class="budget-table-cell-name">CATEGORY</li>
         <li class="budget-table-cell-budgeted">BUDGETED</li>
+        <li style="padding-right:0.8em"></li>    
         <li class="budget-table-cell-activity">ACTIVITY</li>
+        <li style="padding-right:0.8em"></li>       
         <li class="budget-table-cell-available bolder">AVAILABLE</li>
       </ul>
       <div class="budget-table-container">
@@ -27,6 +36,7 @@
           <budget-table-hidden v-if="isHidden"></budget-table-hidden>
         </div>
       </div>
+    <modal-add-category-group></modal-add-category-group>
   </div>
 </template>
 
@@ -34,12 +44,14 @@
 import { mapGetters } from 'vuex';
 import { HTTP } from '@/common/utilities';
 import draggable from 'vuedraggable';
+import ModalAddCategoryGroup from './ModalAddCategoryGroup';
 import BudgetTableGroup from './BudgetTableGroup';
 import BudgetTableHidden from './BudgetTableHidden';
 
 export default {
   components: {
     draggable,
+    ModalAddCategoryGroup,
     BudgetTableGroup,
     BudgetTableHidden
   },
@@ -97,6 +109,9 @@ export default {
       } catch (error) {
         this.$toasted.error('There was an error getting the budget list.');
       }
+    },
+    addCategoryGroup() {
+      this.$modal.show('modal-add-category-group');
     }
   }
 };

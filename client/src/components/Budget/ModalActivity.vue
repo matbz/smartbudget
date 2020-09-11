@@ -7,7 +7,7 @@
           <!-- <div class="ynab-table-col user-data">Account</div> -->
           <div class="ynab-table-col user-data" style="width:30%">Date</div>
           <!-- <div class="ynab-table-col user-data">Payee</div> -->
-          <div class="ynab-table-col user-data" style="width:45%">Memo</div>
+          <div class="ynab-table-col user-data" style="width:45%">Note</div>
           <div class="amount-column ynab-table-col user-data" style="width:25%">Amount</div>
         </div>
         <div class="ynab-table-body">
@@ -21,7 +21,6 @@
       <div class="modal-actions">
       <button class="button button-primary" @click="close()">
           Close
-          <i class="fa fa-check-circle-o"></i>
       </button>
       </div>
     </div>

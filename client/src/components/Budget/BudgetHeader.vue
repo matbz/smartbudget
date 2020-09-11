@@ -37,12 +37,12 @@
         <div class="budget-header-item budget-header-days">
         </div>
     </div>
-    <div class="budget-toolbar">
+    <!-- <div class="budget-toolbar">
         <button title="Add Category Group" class="budget-toolbar-add-category button" @click="addCategoryGroup()">
-          <i class="fa fa-plus-circle"></i>
+          <i class="fa fa-plus-circle" style="margin-right: .25em"></i>
           Category Group
         </button>
-    </div>
+    </div> -->
 
     <modal-move-available :mode="'tbb'" :name="modalNameMoveAvailable" :categoryid="tbbId" :available="toBeBudgeted" @closed="refreshInspector"></modal-move-available>
     <modal-cover-available :mode="'tbb'" :name="modalNameCoverAvailable" :categoryid="tbbId" :available="toBeBudgeted" @closed="refreshInspector"></modal-cover-available>

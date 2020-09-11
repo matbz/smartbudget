@@ -1,22 +1,9 @@
-Sidebar
-    Backup popup
-        colors
-        remove icons
 Budget
-    Remove overall checkbox and switch icon for category group
-    Change colors
-        Screen
-        Popups (incl. Hidden)
-            remove icons
-        Table Border Top
-        Select row
     Quick Budget
         Single Categories
-            Average Budgeted (up to 12 months)
             Average Spent (up to 12 months)
         All Categories
             Don't consider hidden categories
-            Average Budgeted (up to 12 months)
             Average Spent (up to 12 months)
             Reset Budgeted Amounts
 Account
@@ -40,5 +27,4 @@ Reports
             Select None
             Unselect Hidden
             Select Hidden
-Remove scrollbar at budget on 27"
 Transaction popup don't load when switching budgets

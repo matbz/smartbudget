@@ -19,11 +19,9 @@
     <div class="modal-actions">
       <button class="button button-primary" @click="save()">
           OK
-          <i class="fa fa-check-circle-o"></i>
       </button>
       <button class="button button-cancel" @click="close()">
           Cancel
-          <i class="fa fa-times-circle-o"></i>
       </button>
     </div>
   </modal>
