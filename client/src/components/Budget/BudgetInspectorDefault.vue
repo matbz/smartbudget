@@ -19,6 +19,12 @@
               >
                 Budgeted Last Month: <strong><span class="currency">{{ budgetedLastMonth | currency}}</span></strong>
               </button>
+              <button
+                class="budget-inspector-button"
+                @click="confirmDeleteAvgSpent()"
+              >
+                Average Spent: <strong><span class="currency">{{ avgSpent | currency}}</span></strong>
+              </button>
           </div>
         </div>
     </div>
@@ -33,7 +39,8 @@ export default {
     ...mapGetters([
       'budgetList',
       'budgetDate',
-      'budgetedLastMonth'
+      'budgetedLastMonth',
+      'avgSpent'
     ]),
     total_budgeted() {
       return this.getSum('budgeted');
@@ -63,6 +70,16 @@ export default {
         ]
       });
     },
+    confirmDeleteAvgSpent() {
+      this.$modal.show('dialog', {
+        title: 'Take average spent of the last 12 months?',
+        text: 'Are you sure? This will overwrite all budgeted amounts of this month.',
+        buttons: [
+          { title: 'Close' },
+          { title: 'Yes', handler: () => { this.setAvgSpent(); } }
+        ]
+      });
+    },
     async setBudgetedLastMonth() {
       this.$modal.hide('dialog');
       try {
@@ -72,6 +89,16 @@ export default {
       } catch (error) {
         this.$toasted.error('There was an error setting budgeted last month.');
       }
+    },
+    async setAvgSpent() {
+      this.$modal.hide('dialog');
+      // try {
+      //   await this.$store.dispatch('setBudgetedLastMonth');
+      //   await this.$store.dispatch('getToBeBudgeted', this.budgetDate);
+      //   await this.$store.dispatch('getBudgetList', this.budgetDate);
+      // } catch (error) {
+      //   this.$toasted.error('There was an error setting budgeted last month.');
+      // }
     }
   }
 };

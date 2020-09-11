@@ -52,6 +52,16 @@ module.exports = (app) => {
     authRequired,
     BudgetController.budgetedLastMonthByCategoryId);
 
+
+
+  app.get('/:budgetid/:budgetdate/:interval',
+    // authRequired,
+    BudgetController.budgetedAvgSpent);
+
+  // app.get('/api/budgets/avgspent/:interval/:budgetdate/:categoryid',
+  //   authRequired,
+  //   BudgetController.budgetedAvgSpentByCategoryId);
+
   app.get('/download', function(req, res) {
     const file = __dirname + '/../../uploads/favicon.png';
     res.download(path.resolve(file), 'favicon.png');

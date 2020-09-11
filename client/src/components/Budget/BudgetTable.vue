@@ -5,7 +5,7 @@
             <i class="fa fa-plus-circle" style="margin-right: .25em"></i>
             Category Group
           </button>
-      </div>    
+      </div>
       <ul class=" budget-table-header sticky-header">
         <li class="budget-table-cell-margin">&nbsp;</li>
         <li class="budget-table-cell-checkbox">
@@ -17,9 +17,7 @@
         </li>
         <li class="budget-table-cell-name">CATEGORY</li>
         <li class="budget-table-cell-budgeted">BUDGETED</li>
-        <li style="padding-right:0.8em"></li>    
         <li class="budget-table-cell-activity">ACTIVITY</li>
-        <li style="padding-right:0.8em"></li>       
         <li class="budget-table-cell-available bolder">AVAILABLE</li>
       </ul>
       <div class="budget-table-container">

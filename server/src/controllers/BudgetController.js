@@ -98,6 +98,28 @@ module.exports = {
       });
     }
   },
+  async budgetedAvgSpent(req, res) {
+    const budget = new Budget();
+    try {
+      const results = await budget.budgetedAvgSpent(req.params);
+      res.json(results);
+    } catch (err) {
+      res.status(500).json({
+       error: 'An error has occured trying to get tobebudgeted'
+      });
+    }
+  },
+  async budgetedAvgSpentByCategoryId(req, res) {
+    const budget = new Budget();
+    try {
+      const results = await budget.budgetedAvgSpentByCategoryId(req.params);
+      res.json(results);
+    } catch (err) {
+      res.status(500).json({
+       error: 'An error has occured trying to get tobebudgeted'
+      });
+    }
+  },
   async backup(req, res) {
     const {username, userid} = req.query;
     const budgetid = req.params.budgetid;

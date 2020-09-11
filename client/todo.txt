@@ -1,12 +1,9 @@
 Budget
-    Remove padding or use margin? for available column
     Quick Budget
         Single Categories
             Average Spent (up to 12 months)
         All Categories
-            Don't consider hidden categories
             Average Spent (up to 12 months)
-            Reset Budgeted Amounts
 Account
     Rename turnover to transaction
         Add transaction

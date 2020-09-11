@@ -82,6 +82,7 @@ export default {
 
         this.$store.dispatch('getToBeBudgeted', this.budgetDate);
         this.$store.dispatch('getBudgetedLastMonth', this.budgetDate);
+        this.$store.dispatch('getAvgSpent', this.budgetDate);
         await this.$store.dispatch('getBudgetList', this.budgetDate);
         // loader.hide();
       } catch (error) {

@@ -3,7 +3,7 @@
     class="budget-table-row is-sub-category"
     :class="{ 'is-checked': selectedCategory === this.item.category_id }"
     >
-    <li class="budget-table-cell-margin js-budget-table-cell-margin-left">&nbsp;</li>    
+    <li class="budget-table-cell-margin js-budget-table-cell-margin-left">&nbsp;</li>
     <li class="budget-table-cell-checkbox is-draggable" @click="toggleChecked()">
         <div class="ynab-checkbox">
           <button class="ynab-checkbox-button">
@@ -44,13 +44,11 @@
           >
         </div>
     </li>
-    <li style="padding-right:.8em"></li>    
     <li class="budget-table-cell-activity" @click="check()">
         <div class="budget-number" :class="activityCurrencyClass" @click="showActivity()">
           <span class="currency">{{ item.activity | currency }}</span>
         </div>
     </li>
-    <li style="padding-right:.8em"></li>    
     <li class="budget-table-cell-available" @click="check()">
         <div class="budget-table-cell-available-div" @click="changeAvailable()">
           <span
@@ -61,7 +59,7 @@
           </span>
         </div>
     </li>
-   
+
     <modal-edit-category :name="modalNameEditCategory" :categoryid="item.category_id" @closed="refreshInspector"></modal-edit-category>
     <modal-activity :name="modalNameActivity" :categoryid="item.category_id" :categoryname="item.category_name"></modal-activity>
     <modal-move-available :name="modalNameMoveAvailable" :categoryid="item.category_id" :available="item.available" @closed="refreshInspector"></modal-move-available>

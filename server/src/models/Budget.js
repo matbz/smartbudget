@@ -220,7 +220,59 @@ class Budget {
         console.log(error);
     }
   }
+
+  async budgetedAvgSpent(data) {
+    const {
+      budgetid,
+      budgetdate,
+    } = data;
+    const bugetdate2 = budgetdate;
+    const str2 = '12 month';
+
+    try {
+      const query = SQL`
+      select sum(t.amount) as avgspent
+      from turnover as t
+      inner join account as a on a.id = t.account_id
+      where
+        a.budget_id = ${budgetid} and
+        t.amount < 0 and
+        t.turnover_date < ${budgetdate} and
+        t.turnover_date >= ${bugetdate2}::date - interval ${str2}
+      `;
+      console.log(query);
+      // return await db.oneOrNone(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+  async budgetedAvgSpentByCategoryId(data) {
+    const {
+      categoryid,
+      budgetdate
+    } = data;
+
+    try {
+      const query = SQL`
+      select sum(t.amount) as avgspent
+      from turnover as t
+      inner join account as a on a.id = t.account_id
+      where
+        t.amount < 0 and
+        t.turnover_date < ${budgetdate} and
+        t.turnover_date >= ${budgetdate}::date - interval '12 month' and
+        t.category_id = ${categoryid}
+      `;
+      return await db.oneOrNone(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
 }
+
+
 
 function buildBudgetTable(budgetList, budgetdate_month) {
   const data = {};

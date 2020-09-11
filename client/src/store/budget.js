@@ -10,6 +10,7 @@ const SET_BUDGET_ID = 'SET_BUDGET_ID';
 const SET_BUDGET_DATE = 'SET_BUDGET_DATE';
 const SET_TOBEBUDGETED = 'SET_TOBEBUDGETED';
 const SET_BUDGETEDLASTMONTH = 'SET_BUDGETEDLASTMONTH';
+const SET_AVGSPENT = 'SET_AVGSPENT';
 const SET_HIDDEN = 'SET_HIDDEN';
 const ADD_SELECTEDCATEGORY = 'ADD_SELECTEDCATEGORY';
 const REMOVE_SELECTEDCATEGORY = 'REMOVE_SELECTEDCATEGORY';
@@ -23,6 +24,7 @@ const budget = {
     budgetDate: moment(new Date()).format('YYYYMM01'),
     toBeBudgeted: 0,
     budgetedLastMonth: 0,
+    avgSpent: 0,
     isHidden: false,
     selectedCategories: []
   },
@@ -41,6 +43,9 @@ const budget = {
     },
     SET_BUDGETEDLASTMONTH(state, amount) {
       state.budgetedLastMonth = amount;
+    },
+    SET_AVGSPENT(state, amount) {
+      state.avgSpent = amount;
     },
     SET_HIDDEN(state, isHidden) {
       state.isHidden = isHidden;
@@ -118,6 +123,14 @@ const budget = {
         throw new Error(error);
       }
     },
+    async getAvgSpent({ commit, getters }, budgetDate) {
+      try {
+        const response = await HTTP.get(`/api/test/${getters.budgetId}/avgspentt/${budgetDate}`);
+        commit(SET_AVGSPENT, response.data.avgspent);
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
     backupBudget({ getters }, user) {
       window.open(process.env.API_URL + `/api/${getters.budgetId}/budgets/backup?userid=${user.id}&username=${user.username}`);
     },
@@ -146,6 +159,9 @@ const budget = {
     },
     budgetedLastMonth(state) {
       return state.budgetedLastMonth;
+    },
+    avgSpent(state) {
+      return state.avgSpent;
     },
     isHidden(state) {
       return state.isHidden;

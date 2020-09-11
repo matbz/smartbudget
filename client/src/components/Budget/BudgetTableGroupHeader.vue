@@ -27,11 +27,9 @@
       <li class="budget-table-cell-budgeted">
           <div><span class="currency">{{ header.budgeted | currency }}</span></div>
       </li>
-      <li style="padding-right:0.7em"></li>    
       <li class="budget-table-cell-activity">
           <div class="budget-number"><span class="currency">{{ header.activity | currency }}</span></div>
       </li>
-      <li style="padding-right:0.7em"></li>       
       <li class="budget-table-cell-available">
           <div class="budget-table-cell-available-div"><span class="currency">{{ header.available | currency }}</span></div>
       </li>
