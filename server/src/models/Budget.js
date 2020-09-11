@@ -221,13 +221,61 @@ class Budget {
     }
   }
 
+  async getAvgDate(data) {
+    const {
+      budgetid,
+      startdate,
+      enddate
+    } = data;
+
+    try {
+      const query = SQL`
+      select to_char(min(turnover_date), 'yyyymmdd') as tdate
+      from turnover as t
+      inner join account as a on a.id = t.account_id
+      where
+        a.budget_id = ${budgetid} and
+        t.amount < 0 and
+        t.turnover_date < ${enddate} and
+        t.turnover_date >= ${startdate}
+      `;
+
+      return await db.oneOrNone(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+  async getAvgDateCat(data) {
+    const {
+      categoryid,
+      startdate,
+      enddate
+    } = data;
+
+    try {
+      const query = SQL`
+      select to_char(min(turnover_date), 'yyyymmdd') as tdate
+      from turnover as t
+      where
+        t.amount < 0 and
+        t.turnover_date < ${enddate} and
+        t.turnover_date >= ${startdate} and
+        t.category_id = ${categoryid}
+      `;
+
+      return await db.oneOrNone(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
   async budgetedAvgSpent(data) {
     const {
       budgetid,
-      budgetdate,
+      startdate,
+      enddate
     } = data;
-    const bugetdate2 = budgetdate;
-    const str2 = '12 month';
 
     try {
       const query = SQL`
@@ -237,11 +285,11 @@ class Budget {
       where
         a.budget_id = ${budgetid} and
         t.amount < 0 and
-        t.turnover_date < ${budgetdate} and
-        t.turnover_date >= ${bugetdate2}::date - interval ${str2}
+        t.turnover_date < ${enddate} and
+        t.turnover_date >= ${startdate}
       `;
-      console.log(query);
-      // return await db.oneOrNone(query);
+
+      return await db.oneOrNone(query);
     } catch (error) {
         console.log(error);
     }
@@ -249,19 +297,19 @@ class Budget {
 
   async budgetedAvgSpentByCategoryId(data) {
     const {
-      categoryid,
-      budgetdate
+      startdate,
+      enddate,
+      categoryid
     } = data;
 
     try {
       const query = SQL`
       select sum(t.amount) as avgspent
       from turnover as t
-      inner join account as a on a.id = t.account_id
       where
         t.amount < 0 and
-        t.turnover_date < ${budgetdate} and
-        t.turnover_date >= ${budgetdate}::date - interval '12 month' and
+        t.turnover_date < ${enddate} and
+        t.turnover_date >= ${startdate} and
         t.category_id = ${categoryid}
       `;
       return await db.oneOrNone(query);

@@ -5,7 +5,7 @@
           <div class="accounts-header-total-inner">
             <div class="accounts-header-total-inner-label right-section-headers-count-NaN">
                 {{ accountName }}
-            </div>          
+            </div>
           </div>
         </div>
       </div>
@@ -205,7 +205,7 @@ export default {
     },
     showCopyModal() {
       if (this.selectedTurnovers.length === 0) {
-        this.$toasted.show('No turnovers selected.');
+        this.$toasted.show('No transactions selected.');
       } else {
         this.$modal.show('modal-copy-turnover');
       }
@@ -219,7 +219,7 @@ export default {
     },
     async deleteTurnover() {
       if (this.selectedTurnovers.length === 0) {
-        this.$toasted.show('No turnovers selected.');
+        this.$toasted.show('No transactions selected.');
       } else {
         await this.$store.dispatch('deleteTurnovers', this.selectedTurnovers);
         this.$store.dispatch('getAccounts');

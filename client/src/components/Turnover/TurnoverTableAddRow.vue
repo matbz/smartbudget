@@ -1,7 +1,7 @@
 <template>
 <div class="add-row">
   <div class="ynab-grid-body-row is-editing is-checked ynab-grid-body-row is-checked is-editing is-adding">
-    <div class="ynab-grid-cell ynab-grid-cell-checkbox acheckbox">
+    <div class="ynab-grid-cell ynab-grid-cell-checkbox" @click="hide()">
       <div class="ynab-checkbox">
           <button role="checkbox" class="ynab-checkbox-button is-checked">
             <div class="flaticon stroke ynab-checkbox-button-square is-checked"></div>
@@ -100,7 +100,6 @@
           </button>
       </div>
     </div>
-    <div class="ynab-grid-cell ynab-grid-cell-cleared">&nbsp;</div>
   </div>
 </div>
 </template>
@@ -251,6 +250,10 @@ export default {
       this.save(true);
     },
     resetTurnover(initDate) {
+      if (this.turnover.id > 0) {
+        this.$store.dispatch('removeFromSelectedTurnovers', this.turnover.id);
+      }
+
       Object.keys(this.turnover).forEach(key => {
         if (key !== 'turnoverDate') {
           this.turnover[key] = '';
@@ -266,6 +269,9 @@ export default {
   },
   created() {
     this.turnover.accountId = this.getAccountId();
+    if (this.turnover.id > 0) {
+      this.$store.dispatch('addToSelectedTurnovers', this.turnover.id);
+    }
   }
 };
 </script>

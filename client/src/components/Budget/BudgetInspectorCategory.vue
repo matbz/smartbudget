@@ -34,6 +34,9 @@
       <button class="budget-inspector-button" @click="setBudgetedLastMonth(budgetedLastMonth)">
         Budgeted Last Month: <strong><span class="currency positive">{{ budgetedLastMonth | currency }}</span></strong>
       </button>
+      <button class="budget-inspector-button" @click="setBudgetedLastMonth(avgSpent)">
+        Average Spent: <strong><span class="currency positive">{{ avgSpent | currency }}</span></strong>
+      </button>
    </div>
    <div class="budget-inspector-goals">
       <div v-if="!goal && !showAddGoalVisibility">
@@ -66,12 +69,14 @@ export default {
     return {
       showAddGoalVisibility: false,
       isEdit: false,
-      budgetedLastMonth: 0
+      budgetedLastMonth: 0,
+      avgSpent: 0
     };
   },
   computed: {
     ...mapGetters([
       'budgetDate',
+      'budgetId',
       'selectedCategories',
       'goals',
       'budgetList'
@@ -84,6 +89,9 @@ export default {
         const amount = this.goal.amount - this.category.available;
         return amount < 0 ? 0 : amount;
       }
+    },
+    startDate() {
+      return moment(this.budgetDate).subtract(12, 'month').format('YYYYMMDD');
     },
     amountToStayOnTrack() {
       const amount = Number((this.goalAmountLeft + Number(this.category.budgeted)) / this.monthsDifference).toFixed(2);
@@ -127,8 +135,15 @@ export default {
     category: async function () {
       this.isEdit = false;
       this.showAddGoalVisibility = false;
-      const reponse = await HTTP.get(`/api/budgets/budgetedlastmonth/${this.budgetDate}/${this.category.category_id}`);
+      let reponse = await HTTP.get(`/api/budgets/budgetedlastmonth/${this.budgetDate}/${this.category.category_id}`);
       this.budgetedLastMonth = reponse.data.budgetedlastmonth;
+      reponse = await HTTP.get(`/api/${this.budgetId}/budgets/avgspent/${this.category.category_id}/${this.startDate}/${this.budgetDate}`);
+      if (reponse.data.avgspent < 0) {
+        this.avgSpent = reponse.data.avgspent * -1;
+      } else {
+        this.avgSpent = reponse.data.avgspent;
+      }
+
       this.$store.dispatch('getGoals', { categoryid: this.category.category_id });
     }
   },
@@ -170,8 +185,14 @@ export default {
     }
   },
   async created() {
-    const reponse = await HTTP.get(`/api/budgets/budgetedlastmonth/${this.budgetDate}/${this.category.category_id}`);
+    let reponse = await HTTP.get(`/api/budgets/budgetedlastmonth/${this.budgetDate}/${this.category.category_id}`);
     this.budgetedLastMonth = reponse.data.budgetedlastmonth;
+    reponse = await HTTP.get(`/api/${this.budgetId}/budgets/avgspent/${this.category.category_id}/${this.startDate}/${this.budgetDate}`);
+    if (reponse.data.avgspent < 0) {
+      this.avgSpent = reponse.data.avgspent * -1;
+    } else {
+      this.avgSpent = reponse.data.avgspent;
+    }
     this.$store.dispatch('getGoals', { categoryid: this.category.category_id });
   }
 };

@@ -32,13 +32,13 @@
       </div>
       <button class="button-prefs button-prefs-user button">
          <div @click="logout()" class="button-truncate" style="cursor: pointer; float: left">
-            <i class="fa fa-sign-out flaticon xya1"></i>
+            <i class="fa fa-sign-out flaticon btnsb"></i>
          </div>
          <div @click="showSettings()" class="button-truncate" style="cursor: pointer; float: right">
-            <i class="fa fa-cog flaticon"></i>
+            <i class="fa fa-cog flaticon btnsb"></i>
          </div>
         <div @click="switchBudget()" class="button-truncate" style="cursor: pointer; float: right; margin-right: 30px">
-            <i class="fa fa-random flaticon"></i>
+            <i class="fa fa-random flaticon btnsb"></i>
          </div>
       </button>
 

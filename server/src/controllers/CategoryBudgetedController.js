@@ -98,5 +98,29 @@ module.exports = {
        error: 'An error has occured trying to set budgeted last month'
       });
     }
-  }
+  },
+  async avgSpent(req, res) {
+    console.log(req.params);
+    // const categoryBudgeted = new CategoryBudgeted();
+    // const { budgetid, date} = req.params;
+
+    // try {
+    //   const budgetedAll = await categoryBudgeted.findByDate(budgetid, date);
+    //   const categories = [];
+
+    //   budgetedAll.map(item => {
+    //     categories.push(item.category_id);
+    //     return item.budgeted_date = date
+    //   });
+
+    //   await categoryBudgeted.deleteMultiple(categories, date);
+    //   await categoryBudgeted.createMultiple(budgetedAll);
+
+    //   res.json(budgetedAll);
+    // } catch (err) {
+    //   res.status(500).json({
+    //    error: 'An error has occured trying to set budgeted last month'
+    //   });
+    // }
+  },
 };

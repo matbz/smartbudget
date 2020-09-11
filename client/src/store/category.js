@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { HTTP } from '@/common/utilities';
+import moment from 'moment';
 
 Vue.use(Vuex);
 
@@ -82,6 +83,14 @@ const category = {
     async setBudgetedLastMonth({ getters }) {
       try {
         return await HTTP.post(`/api/${getters.budgetId}/categoriesbudgeted/lastmonth/${getters.budgetDate}`);
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    async setAvgSpent({ getters }) {
+      try {
+        const startdate = moment(getters.budgetDate).subtract(12, 'month').format('YYYYMMDD');
+        return await HTTP.post(`/api/${getters.budgetId}/categoriesbudgeted/avgspent/${startdate}/${getters.budgetDate}`);
       } catch (error) {
         throw new Error(error);
       }

@@ -15,7 +15,7 @@
       </div>
       <li>
           <button
-            class="button button-cancel x-14 fbtn"
+            class="button button-cancel x-14 fbtn btn"
             @click="backup()"
           >
             <i class="fa fa-download"></i>
@@ -26,7 +26,8 @@
           <input class="inputfile" ref="fileinput" name="file" id="file" type="file" @change="onFileChange">
         </form>
         <label class="button button-cancel x-14 btn" for="file">
-        <i class="fa fa-upload"></i> Restore</label>
+        <i class="fa fa-upload"></i>
+        Restore</label>
       </li>
       <li style="margin-top: 20px"></li>
       <li class="account-widget-footer">

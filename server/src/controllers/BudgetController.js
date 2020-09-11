@@ -101,7 +101,13 @@ module.exports = {
   async budgetedAvgSpent(req, res) {
     const budget = new Budget();
     try {
+      const res2 = await budget.getAvgDate(req.params);
+      req.params.startdate = res2.tdate;
+      const months = moment(req.params.enddate).diff(moment(res2.tdate), 'months');
+
       const results = await budget.budgetedAvgSpent(req.params);
+      results.avgspent/=months;
+
       res.json(results);
     } catch (err) {
       res.status(500).json({
@@ -112,7 +118,13 @@ module.exports = {
   async budgetedAvgSpentByCategoryId(req, res) {
     const budget = new Budget();
     try {
+      const res2 = await budget.getAvgDate(req.params);
+      req.params.startdate = res2.tdate;
+      const months = moment(req.params.enddate).diff(moment(res2.tdate), 'months');
+
       const results = await budget.budgetedAvgSpentByCategoryId(req.params);
+      results.avgspent/=months;
+
       res.json(results);
     } catch (err) {
       res.status(500).json({

@@ -92,13 +92,13 @@ export default {
     },
     async setAvgSpent() {
       this.$modal.hide('dialog');
-      // try {
-      //   await this.$store.dispatch('setBudgetedLastMonth');
-      //   await this.$store.dispatch('getToBeBudgeted', this.budgetDate);
-      //   await this.$store.dispatch('getBudgetList', this.budgetDate);
-      // } catch (error) {
-      //   this.$toasted.error('There was an error setting budgeted last month.');
-      // }
+      try {
+        await this.$store.dispatch('setAvgSpent');
+        await this.$store.dispatch('getToBeBudgeted', this.budgetDate);
+        await this.$store.dispatch('getBudgetList', this.budgetDate);
+      } catch (error) {
+        this.$toasted.error('There was an error setting budgeted avg spent.');
+      }
     }
   }
 };

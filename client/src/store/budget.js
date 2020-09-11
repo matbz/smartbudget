@@ -125,7 +125,8 @@ const budget = {
     },
     async getAvgSpent({ commit, getters }, budgetDate) {
       try {
-        const response = await HTTP.get(`/api/${getters.budgetId}/budgets/avgspenttotal/${budgetDate}/10`);
+        const startdate = moment(budgetDate).subtract(12, 'month').format('YYYYMMDD');
+        const response = await HTTP.get(`/api/${getters.budgetId}/budgets/avgspenttotal/${startdate}/${budgetDate}`);
         commit(SET_AVGSPENT, response.data.avgspent);
       } catch (error) {
         throw new Error(error);

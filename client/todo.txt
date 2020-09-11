@@ -1,17 +1,6 @@
-.budget-content {
-    /* width: 67%; */
-    width: 67%;
-    check on mac
 Budget
-    Quick Budget
-        Single Categories
-            Average Spent (up to 12 months)
-        All Categories
-            Average Spent (up to 12 months)
-Account
-    Remove unnecessary columns from table and adjust note column (issue: scroll bar)
-    Empty line is wrong...
-    Edit view of transaction should count as selected for deletion and copy
+  Avg Spent All Categories Setter
+    avgSpentTotal -> loop avgSpentByCategoryId
 Reports
     Change Header
     Change colors
@@ -20,9 +9,7 @@ Reports
             fon't factor in recent month when selecting last months / this years in date picker
             don't factor in not budgeted months
         Persist selected categories
-        "Filter Categories"
+        "Filter Categories" -> Group btns
             Select All
             Select None
-            Unselect Hidden
-            Select Hidden
 Transaction popup don't load when switching budgets

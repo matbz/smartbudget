@@ -52,15 +52,13 @@ module.exports = (app) => {
     authRequired,
     BudgetController.budgetedLastMonthByCategoryId);
 
-
-
-  app.get('/:budgetid/:budgetdate/:interval',
-    // authRequired,
+  app.get('/api/:budgetid/budgets/avgspenttotal/:startdate/:enddate',
+    authRequired,
     BudgetController.budgetedAvgSpent);
 
-  // app.get('/api/budgets/avgspent/:interval/:budgetdate/:categoryid',
-  //   authRequired,
-  //   BudgetController.budgetedAvgSpentByCategoryId);
+  app.get('/api/:budgetid/budgets/avgspent/:categoryid/:startdate/:enddate',
+    authRequired,
+    BudgetController.budgetedAvgSpentByCategoryId);
 
   app.get('/download', function(req, res) {
     const file = __dirname + '/../../uploads/favicon.png';
@@ -149,6 +147,10 @@ module.exports = (app) => {
   app.post('/api/:budgetid/categoriesbudgeted/lastmonth/:date',
     authRequired,
     CategoryBudgetedController.lastMonth);
+
+    app.post('/api/:budgetid/categoriesbudgeted/avgspent/:startdate/:enddate',
+    authRequired,
+    CategoryBudgetedController.avgSpent);
 
   app.post('/api/categoriesbudgeted/lastmonth/:categoryid/:date',
     authRequired,
