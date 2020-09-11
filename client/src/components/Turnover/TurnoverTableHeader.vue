@@ -8,24 +8,24 @@
               </button>
           </div>
         </div>
-        <div class="ynab-grid-header-cell ynab-grid-cell-notification">
+        <!-- <div class="ynab-grid-header-cell ynab-grid-cell-notification">
           <i class="fa fa-exclamation-circle"></i>
         </div>
         <div class="ynab-grid-header-cell ynab-grid-cell-accountName" :class="{ 'is-sorting': turnoverOrderName === 'account' }" @click="sort('account')">
           <i v-if="turnoverOrderName === 'account' && turnoverOrderDirection === 'desc'" class="fa fa-caret-down sort-icon"></i>
           <i v-if="turnoverOrderName === 'account' && turnoverOrderDirection === 'asc'" class="fa fa-caret-up sort-icon"></i>
           ACCOUNT
-        </div>
+        </div> -->
         <div class="ynab-grid-header-cell ynab-grid-cell-date" :class="{ 'is-sorting': turnoverOrderName === 'date' }" @click="sort('date')">
           <i v-if="turnoverOrderName === 'date' && turnoverOrderDirection === 'desc'" class="fa fa-caret-down sort-icon"></i>
           <i v-if="turnoverOrderName === 'date' && turnoverOrderDirection === 'asc'" class="fa fa-caret-up sort-icon"></i>
           DATE
         </div>
-        <div class="ynab-grid-header-cell ynab-grid-cell-payeeName" :class="{ 'is-sorting': turnoverOrderName === 'payee' }" @click="sort('payee')">
+        <!-- <div class="ynab-grid-header-cell ynab-grid-cell-payeeName" :class="{ 'is-sorting': turnoverOrderName === 'payee' }" @click="sort('payee')">
           <i v-if="turnoverOrderName === 'payee' && turnoverOrderDirection === 'desc'" class="fa fa-caret-down sort-icon"></i>
           <i v-if="turnoverOrderName === 'payee' && turnoverOrderDirection === 'asc'" class="fa fa-caret-up sort-icon"></i>
           PAYEE
-        </div>
+        </div> -->
         <div class="ynab-grid-header-cell ynab-grid-cell-subCategoryName" :class="{ 'is-sorting': turnoverOrderName === 'category' }" @click="sort('category')">
           <i v-if="turnoverOrderName === 'category' && turnoverOrderDirection === 'desc'" class="fa fa-caret-down sort-icon"></i>
           <i v-if="turnoverOrderName === 'category' && turnoverOrderDirection === 'asc'" class="fa fa-caret-up sort-icon"></i>
@@ -41,8 +41,8 @@
           <i v-if="turnoverOrderName === 'amount' && turnoverOrderDirection === 'asc'" class="fa fa-caret-up sort-icon sort-icon-amount"></i>
           AMOUNT
         </div>
-        <div class="ynab-grid-header-cell ynab-grid-cell-cleared">
-          <i class="turnover-cleared-header fa fa-file-text-o"></i>
+        <!-- <div class="ynab-grid-header-cell ynab-grid-cell-cleared"> -->
+          <!-- <i class="turnover-cleared-header fa fa-file-text-o"></i> -->
         </div>
     </div>
   </div>

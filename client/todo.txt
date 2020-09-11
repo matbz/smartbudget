@@ -1,3 +1,7 @@
+.budget-content {
+    /* width: 67%; */
+    width: 67%;
+    check on mac
 Budget
     Quick Budget
         Single Categories
@@ -5,13 +9,9 @@ Budget
         All Categories
             Average Spent (up to 12 months)
 Account
-    Rename turnover to transaction
-        Add transaction
-        Copy Popup
-    Change colors
-        select colors aswell
-    Edit view of transaction should count as selected for deletion and copy
     Remove unnecessary columns from table and adjust note column (issue: scroll bar)
+    Empty line is wrong...
+    Edit view of transaction should count as selected for deletion and copy
 Reports
     Change Header
     Change colors

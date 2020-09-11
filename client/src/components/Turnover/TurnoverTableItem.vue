@@ -6,19 +6,19 @@
             :class="{ 'is-checked': checked }"></div>
       </button>
     </div>
-    <div class="ynab-grid-cell ynab-grid-cell-notification">
+    <!-- <div class="ynab-grid-cell ynab-grid-cell-notification">
       <button v-if="!turnover.category_id"
               class="transaction-notification transaction-notification-warning fa fa-exclamation-circle"></button>
     </div>
     <div class="ynab-grid-cell ynab-grid-cell-accountName" @click="toggleEdit()">
       <span class="user-entered-text">{{ turnover.account_name }}</span>
-    </div>
+    </div> -->
     <div class="ynab-grid-cell ynab-grid-cell-date" @click="toggleEdit()">
       <span class="user-entered-text">{{ turnover.turnover_date }}</span>
     </div>
-    <div class="ynab-grid-cell ynab-grid-cell-payeeName" @click="toggleEdit()">
+    <!-- <div class="ynab-grid-cell ynab-grid-cell-payeeName" @click="toggleEdit()">
       <span class="user-entered-text" :title="turnover.payee">{{ turnover.payee }}</span>
-    </div>
+    </div> -->
     <div class="ynab-grid-cell ynab-grid-cell-subCategoryName" @click="toggleEdit()">
       <span v-if="turnover.category_name" class="user-entered-text" :title="turnover.category_name">{{ turnover.category_name }}</span>
       <i v-else class="needs-category">This needs a category</i>
@@ -34,12 +34,12 @@
         {{ turnover.amount | currency }}
       </span>
     </div>
-    <div class="ynab-grid-cell ynab-grid-cell-cleared">
+    <!-- <div class="ynab-grid-cell ynab-grid-cell-cleared">
       <i class="fa"
          :class="[turnover.source === 'M' ? 'fa-pencil-square-o': 'fa-cloud-upload']"
          :title="[turnover.source === 'M' ? 'Manual': 'Import']"
       ></i>
-    </div>
+    </div> -->
   </div>
   <turnover-table-add-row v-else :accountid="accountid" :propTurnover="turnover" @cancel="toggleEdit()"></turnover-table-add-row>
 </template>

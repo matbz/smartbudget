@@ -1,3 +1,29 @@
+.ynab-grid-cell-checkbox,.ynab-grid-cell-notification,.ynab-grid-cell-flag,.ynab-grid-cell-cleared {
+    text-align: center;
+    width: 1.7%;
+    -o-text-overflow: initial !important;
+    text-overflow: initial !important
+}
+
+.ynab-grid-cell-memo {
+    width: 55%!important;
+}
+
+.ynab-grid-cell-date {
+    width: 16%;
+}
+
+.ynab-grid-cell-subCategoryName {
+    width: 30.5%;
+}
+
+.ynab-grid-cell-outflow,.ynab-grid-cell-inflow {
+    text-align: right;
+        width: 10%;
+    /* width: 10%; */
+    padding-right: 1.6em !important;
+  }
+
 .budget-table-header .budget-table-cell-checkbox,.budget-table-row .budget-table-cell-checkbox {
     text-align: right;
     /* width: 1.9rem;  */
@@ -41,7 +67,8 @@
 }
 
 html,body {
-    height: 100%
+    height: 100%;
+    color: #383e41;
 }
 
 .ynab-u {
@@ -113,7 +140,8 @@ html,body {
 }
 
 .budget-content {
-    width: 67%;
+    /* width: 67%; */
+    width: 68.5%;
     min-width: 562px;
     position: absolute;
     left: 0;
@@ -5032,7 +5060,7 @@ select {
 .currency-input input {
     -webkit-border-radius: .4em;
     border-radius: .4em;
-    border: 2px solid #009cc2;
+    /* border: 2px solid #009cc2; */
     padding: .125em .25em;
     background-color: #fff;
     text-align: right;
@@ -5122,7 +5150,7 @@ select {
     -webkit-border-radius: .4em;
     border-radius: .4em;
     border: 2px solid transparent;
-    color: #fff;
+    color: #fff!important;
     background-color: #4495d7;
 }
 
@@ -5495,13 +5523,6 @@ select {
     height: 16px
 }
 
-.ynab-grid-cell-checkbox,.ynab-grid-cell-notification,.ynab-grid-cell-flag,.ynab-grid-cell-cleared {
-    text-align: center;
-    width: 26px;
-    -o-text-overflow: initial !important;
-    text-overflow: initial !important
-}
-
 .ynab-grid-cell-checkbox .ynab-checkbox-button {
     padding: .35rem .4rem
 }
@@ -5515,7 +5536,7 @@ select {
     width: 10%
 }
 
-.ynab-grid-cell-date {
+/* .ynab-grid-cell-date {
     width: 7.125em
 }
 
@@ -5525,7 +5546,7 @@ select {
 
 .ynab-grid-memo-overflow-width .ynab-grid-cell-payeeName {
     width: 30%
-}
+} */
 
 .ynab-grid-memo-overflow-width .ynab-grid-cell-memo {
     width: auto
@@ -5543,7 +5564,7 @@ select {
     table-layout: fixed;
     border-collapse: collapse;
     font-weight: normal;
-    color: #4c7079
+    color: #244564
 }
 
 .ynab-grid-header-row {
@@ -5552,7 +5573,7 @@ select {
 }
 
 .ynab-grid-header-row .is-sorting {
-    color: #325c66;
+    color: #244564;
     font-weight: 900;
 }
 
@@ -5569,10 +5590,10 @@ select {
 .ynab-grid-header-cell {
     display: table-cell;
     font-size: .675em;
-    line-height: 2.125;
+    line-height: 2.025em;
     height: 2.25em;
     padding: 0 .8em;
-    border: 1px solid #dee3e8;
+    border: 1px solid #d1d1d6;
     border-left: none;
     border-top: none;
     vertical-align: middle;
@@ -5580,10 +5601,6 @@ select {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-}
-
-.ynab-grid-header-cell.ynab-grid-cell-date {
-    width: 8.6em
 }
 
 .ynab-grid-header-cell.ynab-grid-cell-flag {
@@ -5648,9 +5665,9 @@ select {
 }
 
 .ynab-grid-body-row.is-checked:not(.ynab-grid-footer):not(.ynab-grid-body-empty) {
-    background-color: #00596f;
-    color: #fff;
-    border-bottom: 1px solid #003e4e;
+    background-color: #d8e9f7;
+    color: #383e41;
+    border-bottom: 1px solid #d1d1d6;
     cursor: text
 }
 
@@ -5749,7 +5766,7 @@ select {
 }
 
 .ynab-grid-actions {
-    background-color: #00596f;
+    background-color: #d8e9f7;
     text-align: right;
     height: 2.2rem;
     cursor: default;
@@ -5774,7 +5791,7 @@ select {
 .ynab-grid-actions .button {
     border-width: 1px;
     margin-right: .3em;
-    color: #fff;
+    color: #4495d7;
     padding: .3rem 1.2rem;
 }
 
@@ -5784,7 +5801,7 @@ select {
 
 .ynab-grid-actions .button:hover,.ynab-grid-actions {
     /* background-color: #005076; */
-    border-color: #005076;
+    border-color: rgba(0,0,0,.05);
     color: #fff;
 }
 
@@ -5810,7 +5827,7 @@ select {
 }
 
 .ynab-grid-actions .button-cancel {
-    border: 1px solid #009cc2
+    border: 1px solid #4495d7
 }
 
 .ynab-grid-body-split {
@@ -6860,10 +6877,10 @@ select {
 
 .accounts-header {
     color: #fff;
-    background-color: #003540;
+    /* background-color: #003540; */
     border-bottom: 1px solid #042229;
     font-weight: bold;
-    height: 6.45em;
+    height: 6.25em;
 }
 
 .accounts-header .accounts-header-top {
@@ -6878,7 +6895,9 @@ select {
     -o-box-align: start;
     -ms-flex-align: start;
     -webkit-align-items: flex-start;
-    align-items: flex-start
+    align-items: flex-start;
+    background-color: #f2f2f7;
+    border-bottom: 1px solid #d1d1d6;
 }
 
 .accounts-header .accounts-header-total {
@@ -6898,8 +6917,7 @@ select {
     margin: .5em .75em .65em .5em;
     -webkit-border-radius: .4em;
     border-radius: .4em;
-    background-color: #16a336;
-    color: #fff;
+    color: #383e41;
     text-align: center;
     padding: .2em;
     font-size: 1.3125em;
@@ -6924,9 +6942,6 @@ select {
 .accounts-header .accounts-header-total-inner .accounts-header-total-inner-label {
     margin: 0 auto;
     padding: .3em .25em;
-    font-size: 1em;
-    font-weight: 300;
-    color: #fff;
     max-width: 300px;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
@@ -7186,11 +7201,11 @@ select {
 
 .accounts-toolbar {
     background-color: #fff;
-    border-bottom: 1px solid #dfe4e9;
+    border-bottom: 1px solid #d1d1d6;
     font-size: .8em;
     width: 100%;
-    height: 2.95em;
-    padding-top: .4em;
+    height: 2.75em;
+    padding-top: .2em;    
     clear: both;
 }
 
@@ -7361,7 +7376,7 @@ select {
 .accounts-text-field {
     -webkit-border-radius: .4em;
     border-radius: .4em;
-    border: 2px solid #009cc2;
+    border: 2px solid #4495d7;
     padding: .2em .3em;
     height: 1.9em;
     width: 100%;
@@ -8185,8 +8200,8 @@ select {
     left: 0;
     -webkit-border-radius: .4em;
     border-radius: .4em;
-    border: 1px solid #009cc2;
-    color: #009cc2;
+    border: 1px solid #4495d7;
+    color: #4495d7;
     padding: .3rem .3rem .3rem 1.6rem;
     font-style: italic;
     outline: none;
@@ -8203,7 +8218,7 @@ select {
     top: .55em;
     left: .6em;
     z-index: 11;
-    color: #009cc2
+    color: #4495d7;
 }
 
 .transaction-search .transaction-search-cancel-icon {
@@ -8211,7 +8226,7 @@ select {
     top: .55em;
     right: 0.6em;
     z-index: 11;
-    color: #009cc2;
+    color: #4495d7;
     cursor: pointer
 }
 
@@ -12053,7 +12068,7 @@ button:focus {
 
 input:focus {
     outline: none;
-    border: 2px solid #88979d
+    border: 2px solid #4495d7;
 }
 
 input::-ms-clear {
@@ -12352,12 +12367,6 @@ bdi {
 	}
 }
 
-.ynab-grid-cell-outflow,.ynab-grid-cell-inflow {
-  text-align: right;
-  width: 10%;
-  /* padding-right: 1.6em !important; */
-}
-
 .ynab-grid-body-row .ynab-grid-cell-outflow,.ynab-grid-body-row .ynab-grid-cell-inflow {
   /* padding-right: 1.6em */
 }
@@ -12375,7 +12384,7 @@ bdi {
 }
 
 .ynab-grid-cell-inflow > .negative {
-  color: #d33c2d;
+  color: #ca481d;
 }
 
 

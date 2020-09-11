@@ -2,7 +2,7 @@
   <modal class="modal-popup" name="modal-copy-turnover" :width="224" height="auto" :pivot-y="0.15">
     <div class="modal-content">
       <div class="fieldset">
-      <label>Copy turnovers to date:</label>
+      <label>Copy transactions to date:</label>
       <el-date-picker
         v-model="date"
         type="date"
@@ -16,11 +16,9 @@
     <div class="modal-actions">
       <button class="button button-primary" @click="save()">
           OK
-          <i class="fa fa-check-circle-o"></i>
       </button>
       <button class="button button-cancel" @click="close()">
           Cancel
-          <i class="fa fa-times-circle-o"></i>
       </button>
     </div>
   </modal>

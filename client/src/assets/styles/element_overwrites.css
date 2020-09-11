@@ -21,16 +21,16 @@
 
 .ynab-datepicker > .el-input__inner {
   border-radius: .4em;
-  border: 2px solid #009cc2;
+  border: 2px solid #4495d7;
   padding: .2em .3em;
   height: 1.9em;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
-  -o-text-overflow: ellipsi;
+  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   font-family: 'Lato',Arial,'Helvetica Neue',Helvetica,sans-serif;
-  color: #000;
+  color: #383e41;
   font-size: 13px;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .ynab-datepicker > .el-input__inner-placeholder {
-  color: red;
+  color: #ca481d;
 }
 
 .ynab-datepicker > .el-input__prefix {
@@ -54,7 +54,7 @@
 
 .turnover-row-select > .el-input > .el-input__inner {
   border-radius: .4em;
-  border: 2px solid #009cc2;
+  border: 2px solid #4495d7;
   padding: .2em 1.3em .2em .3em;
   height: 1.9em;
   width: 100%;
@@ -63,7 +63,7 @@
   -o-text-overflow: ellipsi;
   text-overflow: ellipsis;
   font-family: 'Lato',Arial,'Helvetica Neue',Helvetica,sans-serif;
-  color: #000;
+  color: #383e41;
   font-size: 13px;
 }
 
@@ -106,7 +106,7 @@
   font-size: 20px;
   line-height: .75;
   font-weight: bold;
-  border: 1px solid red;
+  border: 1px solid #ca481d;
   outline: none;
   background: #003540;
   position: absolute;
@@ -242,4 +242,12 @@
 
 .field-long > .el-input > .el-input__suffix {
   top: -2px;
+}
+
+.el-select .el-input.is-focus .el-input__inner {
+  border-color:#4495d7!important;
+}
+
+.ynab-datepicker > .el-input__inner:focus {
+  border:2px solid #4495d7!important;
 }

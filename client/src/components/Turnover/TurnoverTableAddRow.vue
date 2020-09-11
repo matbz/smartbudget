@@ -1,14 +1,14 @@
 <template>
 <div class="add-row">
   <div class="ynab-grid-body-row is-editing is-checked ynab-grid-body-row is-checked is-editing is-adding">
-    <div class="ynab-grid-cell ynab-grid-cell-checkbox">
+    <div class="ynab-grid-cell ynab-grid-cell-checkbox acheckbox">
       <div class="ynab-checkbox">
           <button role="checkbox" class="ynab-checkbox-button is-checked">
             <div class="flaticon stroke ynab-checkbox-button-square is-checked"></div>
           </button>
       </div>
     </div>
-    <div class="ynab-grid-cell ynab-grid-cell-notification"></div>
+    <!-- <div class="ynab-grid-cell ynab-grid-cell-notification"></div>
     <div class="ynab-grid-cell ynab-grid-cell-accountName">
       <el-select class="turnover-row-select" placeholder="Account" v-model="turnover.accountId" filterable clearable>
         <el-option
@@ -18,7 +18,7 @@
           :value="item.value">
         </el-option>
       </el-select>
-    </div>
+    </div> -->
     <div class="ynab-grid-cell ynab-grid-cell-date">
       <el-date-picker
         v-model="turnover.turnoverDate"
@@ -29,7 +29,7 @@
         class="ynab-datepicker">
       </el-date-picker>
     </div>
-    <div class="ynab-grid-cell ynab-grid-cell-payeeName">
+    <!-- <div class="ynab-grid-cell ynab-grid-cell-payeeName">
       <el-select class="turnover-row-select" placeholder="Payee" v-model="turnover.payee" filterable clearable allow-create>
         <el-option
           v-for="item in selectDataPayees"
@@ -38,7 +38,7 @@
           :value="item.value">
         </el-option>
       </el-select>
-    </div>
+    </div> -->
     <div class="ynab-grid-cell ynab-grid-cell-subCategoryName">
       <el-select class="turnover-row-select" placeholder="Category" v-model="turnover.categoryId" filterable clearable>
         <el-option-group
@@ -70,14 +70,14 @@
           ></vue-numeric>
       </div>
     </div>
-    <div class="ynab-grid-cell ynab-grid-cell-cleared">
+    <!-- <div class="ynab-grid-cell ynab-grid-cell-cleared">
       <i
         style="color: white; margin-left: -5px"
         class="fa"
         :class="[turnover.source === 'M' ? 'fa-pencil-square-o': 'fa-cloud-upload']"
         :title="[turnover.source === 'M' ? 'Manual': 'Import']"
       ></i>
-    </div>
+    </div> -->
   </div>
   <div class="ynab-grid-actions ynab-grid-body-row is-add-row">
     <div class="ynab-grid-cell ynab-grid-cell-checkbox">&nbsp;</div>

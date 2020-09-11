@@ -6,14 +6,14 @@
         <div class="ynab-grid-body">
             <div class="ynab-grid-body-row-top">
               <div class="ynab-grid-cell ynab-grid-cell-checkbox"></div>
-              <div class="ynab-grid-cell ynab-grid-cell-notification"></div>
-              <div class="ynab-grid-cell ynab-grid-cell-accountName"></div>
+              <!-- <div class="ynab-grid-cell ynab-grid-cell-notification"></div> -->
+              <!-- <div class="ynab-grid-cell ynab-grid-cell-accountName"></div> -->
               <div class="ynab-grid-cell ynab-grid-cell-date"></div>
-              <div class="ynab-grid-cell ynab-grid-cell-payeeName"></div>
+              <!-- <div class="ynab-grid-cell ynab-grid-cell-payeeName"></div> -->
               <div class="ynab-grid-cell ynab-grid-cell-subCategoryName"></div>
               <div class="ynab-grid-cell ynab-grid-cell-memo"></div>
               <div class="ynab-grid-cell ynab-grid-cell-inflow"></div>
-              <div class="ynab-grid-cell ynab-grid-cell-cleared"></div>
+              <!-- <div class="ynab-grid-cell ynab-grid-cell-cleared"></div> -->
             </div>
             <turnover-table-item
               v-for="turnover in turnovers"
@@ -24,10 +24,10 @@
             ></turnover-table-item>
             <div v-if="turnoverSearchstring && total !== 0" class="ynab-grid-body-row-top border-style">
               <div class="ynab-grid-cell ynab-grid-cell-checkbox"></div>
-              <div class="ynab-grid-cell ynab-grid-cell-notification"></div>
-              <div class="ynab-grid-cell ynab-grid-cell-accountName"></div>
+              <!-- <div class="ynab-grid-cell ynab-grid-cell-notification"></div> -->
+              <!-- <div class="ynab-grid-cell ynab-grid-cell-accountName"></div> -->
               <div class="ynab-grid-cell ynab-grid-cell-date"></div>
-              <div class="ynab-grid-cell ynab-grid-cell-payeeName"></div>
+              <!-- <div class="ynab-grid-cell ynab-grid-cell-payeeName"></div> -->
               <div class="ynab-grid-cell ynab-grid-cell-subCategoryName"></div>
               <div class="ynab-grid-cell ynab-grid-cell-memo"></div>
               <div class="ynab-grid-cell ynab-grid-cell-inflow padding-inflow">
@@ -39,18 +39,18 @@
                   {{ total | currency }}
                 </span>
               </div>
-              <div class="ynab-grid-cell ynab-grid-cell-cleared"></div>
+              <!-- <div class="ynab-grid-cell ynab-grid-cell-cleared"></div> -->
             </div>
             <div class="ynab-grid-body-row-bottom" style="height: 30px;">
               <div class="ynab-grid-cell ynab-grid-cell-checkbox"></div>
-              <div class="ynab-grid-cell ynab-grid-cell-notification"></div>
-              <div class="ynab-grid-cell ynab-grid-cell-accountName"></div>
+              <!-- <div class="ynab-grid-cell ynab-grid-cell-notification"></div> -->
+              <!-- <div class="ynab-grid-cell ynab-grid-cell-accountName"></div> -->
               <div class="ynab-grid-cell ynab-grid-cell-date"></div>
-              <div class="ynab-grid-cell ynab-grid-cell-payeeName"></div>
+              <!-- <div class="ynab-grid-cell ynab-grid-cell-payeeName"></div> -->
               <div class="ynab-grid-cell ynab-grid-cell-subCategoryName"></div>
               <div class="ynab-grid-cell ynab-grid-cell-memo"></div>
               <div class="ynab-grid-cell ynab-grid-cell-inflow"></div>
-              <div class="ynab-grid-cell ynab-grid-cell-cleared"></div>
+              <!-- <div class="ynab-grid-cell ynab-grid-cell-cleared"></div> -->
             </div>
           </div>
         </div>
@@ -121,7 +121,7 @@ export default {
 
 <style scoped>
   .border-style {
-    border-top: 2px solid #dfe4e9
+    border-top: 1px solid #d1d1d6;
   }
 
   .padding-inflow {

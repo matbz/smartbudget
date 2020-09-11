@@ -5,33 +5,22 @@
           <div class="accounts-header-total-inner">
             <div class="accounts-header-total-inner-label right-section-headers-count-NaN">
                 {{ accountName }}
-            </div>
-            <div class="arrow"></div>
-          </div>
-        </div>
-        <div class="accounts-header-balances">
-          <div class="accounts-header-balances-cleared">
-            <div class="accounts-header-balances-label">Balance</div>
-              <span class="currency"
-                    :class="[accountBalance < 0 ? 'negative' : '']"
-                >
-                {{ accountBalance | currency }}
-              </span>
+            </div>          
           </div>
         </div>
       </div>
       <div class="accounts-toolbar">
         <div class="accounts-toolbar-left">
           <button @click="addRow()" class="add-transaction button">
-            <i class="fa fa-plus-circle"></i>
-            Add a turnover
+            <i class="fa fa-plus-circle" style="margin-right: .25em"></i>
+            Add Transaction
           </button>
           <button @click="deleteTurnover()" class="accounts-toolbar-edit-transaction button">
-            <i class="fa fa-trash-o"></i>
+            <i class="fa fa-trash-o" style="margin-right: .25em"></i>
             Delete
           </button>
           <button @click="showCopyModal()" class="accounts-toolbar-edit-transaction button">
-            <i class="fa fa-clone"></i>
+            <i class="fa fa-clone" style="margin-right: .25em"></i>
             Copy
           </button>
           <!-- <button @click="showImportModal()" class="accounts-toolbar-file-import-transactions button">
@@ -163,7 +152,7 @@ export default {
     ]),
     accountName() {
       const obj = this.accounts.find(o => o.id === Number(this.accountid));
-      return obj ? obj.name : 'All Accounts';
+      return obj ? obj.name : 'Account';
     },
     accountBalance() {
       const obj = this.accounts.find(o => o.id === Number(this.accountid));
