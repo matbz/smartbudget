@@ -143,7 +143,7 @@ class Account {
       where
         t.account_id in (select id from account where budget_id = ${budgetid}) and
         t.turnover_date >= ${start} and
-        t.turnover_date <= ${end} and
+        t.turnover_date < ${end} and
         t.amount < 0 `.append(whereAppend).append(`
       group by
         t.category_id,
