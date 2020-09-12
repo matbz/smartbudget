@@ -1,4 +1,7 @@
+const Budget = require('../models/Budget');
+const Category = require('../models/Category');
 const CategoryBudgeted = require('../models/CategoryBudgeted');
+const moment = require('moment');
 
 module.exports = {
   async index(req, res) {
@@ -100,27 +103,57 @@ module.exports = {
     }
   },
   async avgSpent(req, res) {
-    console.log(req.params);
-    // const categoryBudgeted = new CategoryBudgeted();
-    // const { budgetid, date} = req.params;
+    const budget = new Budget();
+    const category = new Category();
+    const categoryBudgeted = new CategoryBudgeted();
 
-    // try {
-    //   const budgetedAll = await categoryBudgeted.findByDate(budgetid, date);
-    //   const categories = [];
+    const { budgetid, startdate, enddate} = req.params;
 
-    //   budgetedAll.map(item => {
-    //     categories.push(item.category_id);
-    //     return item.budgeted_date = date
-    //   });
+    try {
+      const cats =  await category.all(budgetid);
+      const resp = await budget.getAvgDate(req.params);
 
-    //   await categoryBudgeted.deleteMultiple(categories, date);
-    //   await categoryBudgeted.createMultiple(budgetedAll);
+      // const months = Math.floor(moment(enddate).diff(moment(resp.tdate), 'months', true) + 1);
 
-    //   res.json(budgetedAll);
-    // } catch (err) {
-    //   res.status(500).json({
-    //    error: 'An error has occured trying to set budgeted last month'
-    //   });
-    // }
+      const months = moment(enddate).diff(moment(resp.tdate), 'months');
+
+      await asyncForEach(cats, async (c) => {
+        if (c.name === "To be Budgeted") {
+
+        } else {
+          req.params.categoryid = c.id;
+          let avg = await budget.budgetedAvgSpentByCategoryId(req.params);
+
+          avg.avgspent/=months;
+          if (avg.avgspent <0 ) avg.avgspent*=-1;
+
+          await categoryBudgeted.findByCategoryIdAndDate(c.id, enddate);
+
+          if (categoryBudgeted.id) {
+            await categoryBudgeted.delete(categoryBudgeted.id);
+          }
+
+          const data = {
+            categoryId: c.id,
+            budgetedDate: enddate,
+            amount: avg.avgspent
+          }
+
+          await categoryBudgeted.create(data);
+        }
+      });
+
+      res.json(req.body);
+    } catch (err) {
+      res.status(500).json({
+       error: 'An error has occured trying to set budgeted last month'
+      });
+    }
   },
 };
+
+async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array)
+  }
+}

@@ -21,6 +21,17 @@ module.exports = {
       });
     }
   },
+  async getDate(req, res) {
+    const budget = new Budget();
+    try {
+      const results = await budget.getAvgDate(req.params);
+      res.json(results);
+    } catch (err) {
+      res.status(500).json({
+       error: 'An error has occured trying to get the date'
+      });
+    }
+  },
   async active(req, res) {
     const budget = new Budget();
     try {
@@ -103,6 +114,9 @@ module.exports = {
     try {
       const res2 = await budget.getAvgDate(req.params);
       req.params.startdate = res2.tdate;
+
+      // const months = Math.floor(moment(req.params.enddate).diff(moment(res2.tdate), 'months', true) + 1);
+
       const months = moment(req.params.enddate).diff(moment(res2.tdate), 'months');
 
       const results = await budget.budgetedAvgSpent(req.params);
@@ -120,6 +134,9 @@ module.exports = {
     try {
       const res2 = await budget.getAvgDate(req.params);
       req.params.startdate = res2.tdate;
+
+      // const months = Math.floor(moment(req.params.enddate).diff(moment(res2.tdate), 'months', true) + 1);
+
       const months = moment(req.params.enddate).diff(moment(res2.tdate), 'months');
 
       const results = await budget.budgetedAvgSpentByCategoryId(req.params);

@@ -220,6 +220,60 @@ class Category {
         console.log(error);
     }
   }
+
+  async deleteReportCats(data) {
+    const {
+      userid,
+      budgetid
+    } = data;
+
+    try {
+      const query = SQL`
+      delete from user_budget_category
+      where user_id = ${userid} and budget_id = ${budgetid}
+      `;
+      return await db.none(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+  async saveReportCats(list) {
+    try {
+      await db.tx(t => {
+        const queries = list.map(l => {
+          const query = SQL`
+          insert into user_budget_category
+          (user_id, budget_id, category_id)
+          values
+          (${l.userid}, ${l.budgetid}, ${l.catid})
+          `;
+          return t.none(query);
+        });
+        return t.batch(queries);
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getReportCats(data) {
+    const {
+      userid,
+      budgetid
+    } = data;
+
+    try {
+      const query = SQL`
+      select *
+      from user_budget_category
+      where user_id = ${userid} and budget_id = ${budgetid}
+      `;
+      return await db.manyOrNone(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
 }
 
 module.exports = Category;

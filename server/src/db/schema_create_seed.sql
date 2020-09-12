@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS "user"(
 	username text unique not null,
 	password text not null,
 	report_startdate date default null,
-  	attempts integer default 0
+  attempts integer default 0
 );
 
 -- budget
@@ -69,6 +69,17 @@ CREATE TABLE IF NOT EXISTS category(
     inflow boolean default false,
 	categorygroup_id integer not null,
 	foreign key (categorygroup_id) references categorygroup(id)
+);
+
+--user_budget_category
+CREATE TABLE IF NOT EXISTS user_budget_category(
+	id serial primary key,
+  user_id integer not null,
+  budget_id integer not null,
+  category_id integer not null,
+  foreign key (user_id) references "user"(id),
+  foreign key (budget_id) references budget(id),
+  foreign key (category_id) references category(id)
 );
 
 --csvmapping

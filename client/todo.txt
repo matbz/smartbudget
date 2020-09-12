@@ -1,15 +1,3 @@
-Budget
-  Avg Spent All Categories Setter
-    avgSpentTotal -> loop avgSpentByCategoryId
 Reports
     Change Header
     Change colors
-    Spending
-        Date picker: Last Months / This year etc
-            fon't factor in recent month when selecting last months / this years in date picker
-            don't factor in not budgeted months
-        Persist selected categories
-        "Filter Categories" -> Group btns
-            Select All
-            Select None
-Transaction popup don't load when switching budgets

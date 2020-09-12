@@ -63,12 +63,12 @@ export default {
           borderWidth: 2,
           borderColor: '#333',
           pointBorderColor: '#333',
-          pointBackgroundColor: '#e5f5f9',
+          pointBackgroundColor: '#fff',
           pointRadius: 5
         }, {
           label: 'Bar Dataset',
           data: [],
-          backgroundColor: 'rgb(44, 173, 191)',
+          backgroundColor: 'rgb(90, 179, 234)',
         }],
         labels: [],
       },
@@ -91,15 +91,15 @@ export default {
         }, {
           text: 'Last 3 months',
           onClick(picker) {
-            const end = new Date();
-            const start = moment().subtract(2, 'month').startOf('month').toDate();
+            const end = moment().subtract(1, 'month').startOf('month').toDate();
+            const start = moment().subtract(3, 'month').startOf('month').toDate();
             picker.$emit('pick', [start, end]);
           }
         }, {
           text: 'Last 12 months',
           onClick(picker) {
-            const end = new Date();
-            const start = moment().subtract(11, 'month').startOf('month').toDate();
+            const end = moment().subtract(1, 'month').startOf('month').toDate();
+            const start = moment().subtract(12, 'month').startOf('month').toDate();
             picker.$emit('pick', [start, end]);
           }
         }, {

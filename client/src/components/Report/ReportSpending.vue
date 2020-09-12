@@ -147,7 +147,7 @@ export default {
           borderWidth: 2,
           borderColor: '#333',
           pointBorderColor: '#333',
-          pointBackgroundColor: '#e5f5f9',
+          pointBackgroundColor: '#fff',
           pointRadius: 5
         }],
         labels: [],
@@ -173,15 +173,15 @@ export default {
         }, {
           text: 'Last 3 months',
           onClick(picker) {
-            const end = new Date();
-            const start = moment().subtract(2, 'month').startOf('month').toDate();
+            const end = moment().subtract(1, 'month').startOf('month').toDate();
+            const start = moment().subtract(3, 'month').startOf('month').toDate();
             picker.$emit('pick', [start, end]);
           }
         }, {
           text: 'Last 12 months',
           onClick(picker) {
-            const end = new Date();
-            const start = moment().subtract(11, 'month').startOf('month').toDate();
+            const end = moment().subtract(1, 'month').startOf('month').toDate();
+            const start = moment().subtract(12, 'month').startOf('month').toDate();
             picker.$emit('pick', [start, end]);
           }
         }, {
@@ -234,8 +234,21 @@ export default {
         moment(this.chartEnddate).toDate(),
       ];
     },
+    async saveCats() {
+      const catarr = [];
+      this.selectedCategories.forEach(c => {
+        const catobj = {};
+        catobj.userid = this.user.id;
+        catobj.budgetid = this.budgetId;
+        catobj.catid = c;
+        catarr.push(catobj);
+      });
+
+      await HTTP.post(`/api/${this.budgetId}/${this.user.id}/categories/reportcats`, catarr);
+    },
     async selectAllCategories() {
       await this.getCategories('all');
+      await this.saveCats();
       await this.prepareData();
       if (this.totalsActive) {
         this.$refs.chartSpendingTotals.update();
@@ -245,6 +258,7 @@ export default {
     },
     async selectActiveCategories() {
       await this.getCategories('active');
+      await this.saveCats();
       await this.prepareData();
       if (this.totalsActive) {
         this.$refs.chartSpendingTotals.update();
@@ -254,6 +268,7 @@ export default {
     },
     async unselectAllCategories() {
       this.selectedCategories = [];
+      await this.saveCats();
       await this.prepareData();
       if (this.totalsActive) {
         this.$refs.chartSpendingTotals.update();
@@ -275,6 +290,7 @@ export default {
       }
     },
     async setCategories(isOpen) {
+      await this.saveCats();
       if (!isOpen) {
         await this.prepareData();
         if (this.totalsActive) {
@@ -315,7 +331,7 @@ export default {
       route += ids;
       const results = await HTTP.get(route);
 
-      this.monthsCount = this.calculateMonthsCount(JSON.parse(JSON.stringify(results.data.totalsByMonth)));
+      this.monthsCount = await this.calculateMonthsCount(JSON.parse(JSON.stringify(results.data.totalsByMonth)));
 
       results.data.totals.forEach(e => {
         this.dataPieChart.datasets[0].data.push(e.amount);
@@ -370,7 +386,7 @@ export default {
         this.dataBarChart.datasets[0].data.push(e);
       });
     },
-    calculateMonthsCount(data) {
+    async calculateMonthsCount(data) {
       const filteredDataByDate = [];
       let date = '';
       data.forEach(o => {
@@ -384,7 +400,8 @@ export default {
         return 1;
       }
 
-      const monthDiff = Math.floor(moment(this.chartEnddate).diff(this.chartStartdate, 'months', true) + 1);
+      const results = await HTTP.get(`/api/date/${this.budgetId}/${this.chartStartdate}/${this.chartEnddate}`);
+      const monthDiff = Math.floor(moment(this.chartEnddate).diff(results.data.tdate, 'months', true) + 1);
       return monthDiff;
     },
     goToRoute(route) {
@@ -432,7 +449,41 @@ export default {
     }
   },
   async created() {
-    await this.getCategories('all');
+    const response = await HTTP.get(`/api/${this.budgetId}/${this.user.id}/categories/reportcats`);
+    response.data.forEach(e => {
+      this.selectedCategories.push(e.category_id);
+    });
+
+    this.selectOptions = [];
+    const results = await HTTP.get(`/api/${this.budgetId}/categories`);
+    const categories = results.data;
+
+    categories.sort((a, b) => {
+      const nameA = a.name.toLowerCase();
+      const nameB = b.name.toLowerCase();
+
+      if (nameA < nameB) {
+        return -1;
+      }
+
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      return 0;
+    });
+
+    categories.forEach(c => {
+      if (c.name === 'To be Budgeted') {
+        return;
+      }
+
+      this.selectOptions.push({
+        value: c.id,
+        label: c.name
+      });
+    });
+
     await this.prepareData();
     if (this.totalsActive) {
       this.$refs.chartSpendingTotals.update();

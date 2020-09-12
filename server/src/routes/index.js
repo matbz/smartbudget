@@ -60,6 +60,10 @@ module.exports = (app) => {
     authRequired,
     BudgetController.budgetedAvgSpentByCategoryId);
 
+  app.get('/api/date/:budgetid/:startdate/:enddate',
+    authRequired,
+    BudgetController.getDate);
+
   app.get('/download', function(req, res) {
     const file = __dirname + '/../../uploads/favicon.png';
     res.download(path.resolve(file), 'favicon.png');
@@ -101,6 +105,14 @@ module.exports = (app) => {
   app.delete('/api/categories/:id',
     authRequired,
     CategoryController.delete);
+
+  app.post('/api/:budgetid/:userid/categories/reportcats',
+    authRequired,
+    CategoryController.saveReportCats);
+
+  app.get('/api/:budgetid/:userid/categories/reportcats',
+    authRequired,
+    CategoryController.getReportCats);
 
    // CategoryGroups
   app.get('/api/categorygroups/:id',

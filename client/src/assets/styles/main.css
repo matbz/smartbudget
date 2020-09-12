@@ -12647,7 +12647,7 @@ bdi {
 
 .button-categories {
   position: absolute;
-  left: 12em;
+  left: 13em;
 }
 
 .button-select-option {
@@ -12666,7 +12666,7 @@ bdi {
 }
 
 .button-select-option-first {
-  margin-left: 5em;
+  margin-left: -2em;
 }
 
 .v--modal {

@@ -219,8 +219,8 @@
 .s-categories {
   opacity: 0;
   position: absolute;
-  left: 12.5em;
-  width: 15em;
+  left: 13.5em;
+  width: 6em;
   z-index: 1000;
 }
 

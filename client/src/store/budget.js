@@ -127,7 +127,14 @@ const budget = {
       try {
         const startdate = moment(budgetDate).subtract(12, 'month').format('YYYYMMDD');
         const response = await HTTP.get(`/api/${getters.budgetId}/budgets/avgspenttotal/${startdate}/${budgetDate}`);
-        commit(SET_AVGSPENT, response.data.avgspent);
+        let avg = 0;
+        if (response.data.avgspent < 0) {
+          avg = response.data.avgspent * -1;
+        } else {
+          avg = response.data.avgspent;
+        }
+
+        commit(SET_AVGSPENT, avg);
       } catch (error) {
         throw new Error(error);
       }

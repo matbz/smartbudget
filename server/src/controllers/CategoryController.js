@@ -98,6 +98,30 @@ module.exports = {
        error: 'An error has occured trying to delete an category'
       });
     }
+  },
+
+  async saveReportCats(req, res) {
+    const category = new Category();
+    try {
+      await category.deleteReportCats(req.params);
+      await category.saveReportCats(req.body);
+      res.json(req.body);
+    } catch (err) {
+      res.status(500).json({
+       error: 'An error has occured trying to update positions of categories'
+      });
+    }
+  },
+
+  async getReportCats(req, res) {
+    const category = new Category();
+    try {
+      res.json(await category.getReportCats(req.params));
+    } catch (err) {
+      res.status(500).json({
+       error: 'An error has occured trying to find an account'
+      });
+    }
   }
 };
 

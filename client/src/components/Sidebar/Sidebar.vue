@@ -86,7 +86,10 @@ export default {
       this.$router.push({ name: 'budget_date', params: { date: this.budgetRouteDate } });
     },
     goToRecentBudget() {
-      this.$router.push({ name: 'budget' });
+      const date = moment(new Date()).format('YYYYMM01');
+      this.$store.dispatch('setBudgetDate', date);
+      this.$router.push({ name: 'budget_date', params: { date: moment(this.budgetDate).format('YYYYMM') } });
+      // this.$router.push({ name: 'budget' });
     },
     addAccount() {
       this.$modal.show('add-account-modal');
@@ -105,6 +108,10 @@ export default {
 
         await this.$store.dispatch('getBudgetId', this.$store.getters.user);
         this.$store.dispatch('getAccounts');
+        this.$store.dispatch('getTurnovers', {
+          start: this.budgetDate,
+          end: moment(this.budgetDate).format('YYYYMM' + moment(this.budgetDate).daysInMonth().toString())
+        });
         this.$store.dispatch('getToBeBudgeted', this.budgetDate);
         this.$store.dispatch('getBudgetedLastMonth', this.budgetDate);
         this.$store.dispatch('getBudgetList', this.budgetDate);
