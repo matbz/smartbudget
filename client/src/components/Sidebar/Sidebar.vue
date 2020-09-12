@@ -109,13 +109,13 @@ export default {
         await this.$store.dispatch('getBudgetId', this.$store.getters.user);
         this.$store.dispatch('getAccounts');
         this.$store.dispatch('getTurnovers', {
-          start: this.budgetDate,
+          start: moment(this.budgetDate).format('YYYYMM01'),
           end: moment(this.budgetDate).format('YYYYMM' + moment(this.budgetDate).daysInMonth().toString())
         });
         this.$store.dispatch('getToBeBudgeted', this.budgetDate);
         this.$store.dispatch('getBudgetedLastMonth', this.budgetDate);
         this.$store.dispatch('getBudgetList', this.budgetDate);
-        this.$router.push({ name: 'budget' });
+        this.$router.push({ name: 'budget_date', params: { date: moment(this.budgetDate).format('YYYYMM') } });
       } else {
         this.$toasted.show('No other budget found.');
       }
