@@ -140,10 +140,10 @@ export default {
       reponse = await HTTP.get(`/api/${this.budgetId}/budgets/avgspent/${this.category.category_id}/${this.startDate}/${this.budgetDate}`);
       if (reponse.data.avgspent < 0) {
         this.avgSpent = reponse.data.avgspent * -1;
+        this.avgSpent = this.avgSpent.toFixed(2);
       } else {
         this.avgSpent = reponse.data.avgspent;
       }
-      this.avgSpent = this.avgSpent.toFixed(2);
       this.$store.dispatch('getGoals', { categoryid: this.category.category_id });
     }
   },
