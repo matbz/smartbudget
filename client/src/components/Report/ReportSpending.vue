@@ -176,6 +176,7 @@ export default {
             const end = moment().subtract(1, 'month').startOf('month').toDate();
             const start = moment().subtract(3, 'month').startOf('month').toDate();
             picker.$emit('pick', [start, end]);
+            console.log(start, end);
           }
         }, {
           text: 'Last 12 months',
@@ -401,7 +402,12 @@ export default {
       }
 
       const results = await HTTP.get(`/api/date/${this.budgetId}/${this.chartStartdate}/${this.chartEnddate}`);
-      const monthDiff = Math.floor(moment(this.chartEnddate).diff(results.data.tdate, 'months', true) + 1);
+      const date2 = moment(results.data.tdate).format('YYYYMM01').toString();
+
+      const results2 = await HTTP.get(`/api/datemax/${this.budgetId}/${this.chartStartdate}/${this.chartEnddate}`);
+      const date3 = moment(moment(results2.data.tdate).format('YYYYMM01').toString());
+
+      const monthDiff = Math.floor(date3.diff(date2, 'months', true) + 1);
       return monthDiff;
     },
     goToRoute(route) {

@@ -113,9 +113,9 @@ module.exports = {
       const cats =  await category.all(budgetid);
       const resp = await budget.getAvgDate(req.params);
 
-      // const months = Math.floor(moment(enddate).diff(moment(resp.tdate), 'months', true) + 1);
+      const months = Math.floor(moment(enddate).diff(moment(resp.tdate), 'months', true) + 1);
 
-      const months = moment(enddate).diff(moment(resp.tdate), 'months');
+      // const months = moment(enddate).diff(moment(resp.tdate), 'months');
 
       await asyncForEach(cats, async (c) => {
         if (c.name === "To be Budgeted") {

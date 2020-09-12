@@ -246,6 +246,31 @@ class Budget {
     }
   }
 
+  async getAvgDateMax(data) {
+    const {
+      budgetid,
+      startdate,
+      enddate
+    } = data;
+
+    try {
+      const query = SQL`
+      select to_char(max(turnover_date), 'yyyymmdd') as tdate
+      from turnover as t
+      inner join account as a on a.id = t.account_id
+      where
+        a.budget_id = ${budgetid} and
+        t.amount < 0 and
+        t.turnover_date <= ${enddate} and
+        t.turnover_date >= ${startdate}
+      `;
+
+      return await db.oneOrNone(query);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
   async getAvgDateCat(data) {
     const {
       categoryid,

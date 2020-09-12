@@ -64,6 +64,10 @@ module.exports = (app) => {
     authRequired,
     BudgetController.getDate);
 
+    app.get('/api/datemax/:budgetid/:startdate/:enddate',
+    authRequired,
+    BudgetController.getDateMax);
+
   app.get('/download', function(req, res) {
     const file = __dirname + '/../../uploads/favicon.png';
     res.download(path.resolve(file), 'favicon.png');
