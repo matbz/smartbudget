@@ -173,15 +173,14 @@ export default {
         }, {
           text: 'Last 3 months',
           onClick(picker) {
-            const end = moment().subtract(1, 'month').startOf('month').toDate();
+            const end = moment().subtract(1, 'month').endOf('month').toDate();
             const start = moment().subtract(3, 'month').startOf('month').toDate();
             picker.$emit('pick', [start, end]);
-            console.log(start, end);
           }
         }, {
           text: 'Last 12 months',
           onClick(picker) {
-            const end = moment().subtract(1, 'month').startOf('month').toDate();
+            const end = moment().subtract(1, 'month').endOf('month').toDate();
             const start = moment().subtract(12, 'month').startOf('month').toDate();
             picker.$emit('pick', [start, end]);
           }
