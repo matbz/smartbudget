@@ -133,7 +133,7 @@ const budget = {
         } else {
           avg = response.data.avgspent;
         }
-
+        avg = avg.toFixed(2);
         commit(SET_AVGSPENT, avg);
       } catch (error) {
         throw new Error(error);

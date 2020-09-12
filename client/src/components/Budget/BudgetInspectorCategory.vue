@@ -143,7 +143,7 @@ export default {
       } else {
         this.avgSpent = reponse.data.avgspent;
       }
-
+      this.avgSpent = this.avgSpent.toFixed(2);
       this.$store.dispatch('getGoals', { categoryid: this.category.category_id });
     }
   },
@@ -193,6 +193,7 @@ export default {
     } else {
       this.avgSpent = reponse.data.avgspent;
     }
+    this.avgSpent = this.avgSpent.toFixed(2);
     this.$store.dispatch('getGoals', { categoryid: this.category.category_id });
   }
 };

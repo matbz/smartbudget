@@ -4116,7 +4116,7 @@ select {
 
 .budget-inspector,.reports-inspector {
     background-color: #f9f8fb;
-    border-left: 1px solid #e1e1e1;
+    border-left: 1px solid #d1d1d6;
     padding: 1em;
     font-size: .8em;
     color: #383e41;
@@ -5092,7 +5092,7 @@ select {
 .button:hover,.button-red:hover,.button-disabled:hover {
     background-color: #3674a7;
     border-color: #3674a7;
-    /* color: #fff; */
+    color: #fff;
 }
 
 .button:hover .flaticon,.button-red:hover .flaticon,.button-disabled:hover .flaticon {
@@ -9117,26 +9117,28 @@ select {
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
     width: 100%;
-    color: #fff;
-    background-color: #383e41;
+    color: #383e41;
+    background-color: #f2f2f7;
     padding: .6em;
+    border-bottom: 1px solid #d1d1d6;
 }
 
 .reports-header button {
-    font-size: .9em;
-    color: #fff;
-    -webkit-border-radius: 1000px;
-    border-radius: 1000px;
-    padding: .4em 1em;
-    margin-right: 1em;
+    font-size: 1.125rem;
+    color: #8e8e93;
+    padding: .4em 0em;
+    margin: .25em 1em .25em .55em;
+    border-bottom: .25rem solid transparent;
 }
 
 .reports-header button:hover {
-    background-color: #16a336
+    color: #383e41;
 }
 
 .reports-header button.active {
-    background-color: #16a336;
+    border-bottom-color: #4495d7;
+    color: #383e41;
+    font-weight: 600;
 }
 
 .reports-container {
@@ -9166,7 +9168,7 @@ select {
     width: 100%;
     font-size: .9em;
     background-color: #fff;
-    border-bottom: 1px solid #dfe4e9;
+    border-bottom: 1px solid #d1d1d6;
     padding: .6em;
 }
 
@@ -9214,24 +9216,28 @@ select {
 
 .reports-spending-toggle button {
     font-size: .85rem;
-    padding: .2rem .7rem;
-    margin-right: .1rem;
-    -webkit-border-radius: 1000px;
-    border-radius: 1000px;
-    color: #009cc2;
+    padding: .4375rem 0;
+    margin-right: 1.25em;
+    color: #636366;
+    border-bottom: .25rem solid transparent
 }
 
 .reports-spending-toggle button .flaticon {
-    color: #009cc2
+    color: #636366
 }
 
-.reports-spending-toggle button.active,.reports-spending-toggle button:hover {
-    color: #fff;
-    background-color: #009cc2;
+.reports-spending-toggle button.active {
+    color: #4495d7;
+    /* background-color: #4495d7; */
+    border-bottom-color: #4495d7;
+}
+
+.reports-spending-toggle button:hover {
+    color: #4495d7;
 }
 
 .reports-spending-toggle button.active .flaticon,.reports-spending-toggle button:hover .flaticon {
-    color: #fff
+    color: #4495d7
 }
 
 .reports-content {
@@ -9939,11 +9945,11 @@ button.income-expense-column:first-child {
 }
 
 .reports-net-worth .positive-net-worth {
-    color: #16a336
+    color: #6d9f38;
 }
 
 .reports-net-worth .negative-net-worth {
-    color: #d33c2d
+    color: #ca481d;
 }
 
 .reports-net-worth .icon-placeholder {
@@ -12656,13 +12662,12 @@ bdi {
   margin-right: .1rem;
   -webkit-border-radius: 1000px;
   border-radius: 1000px;
-  color: #009cc2;
+  color: #4495d7;
   cursor: pointer;
 }
 
 .button-select-option:hover {
-  color: #fff;
-  background-color: #009cc2;
+  color: #3674a7;
 }
 
 .button-select-option-first {
