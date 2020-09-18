@@ -177,6 +177,12 @@ class Category {
         await t.none(query);
 
         query = SQL`
+        delete from user_budget_category
+        where category_id = ${id}
+        `;
+        await t.none(query);
+
+        query = SQL`
         delete from turnover
         where category_id = ${id}
         `;
@@ -236,7 +242,7 @@ class Category {
     } catch (error) {
         console.log(error);
     }
-  }
+  }  
 
   async saveReportCats(list) {
     try {
