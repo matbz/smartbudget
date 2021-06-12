@@ -292,7 +292,7 @@ export default {
       ];
 
       await this.$store.dispatch('setChartDate', dates);
-      this.acts = [];
+
       await this.prepareData();
       if (this.totalsActive) {
         this.$refs.chartSpendingTotals.update();
@@ -312,6 +312,7 @@ export default {
       }
     },
     async prepareData() {
+      this.acts = [];
       this.dataPieChart.datasets[0].data = [];
       this.dataPieChart.labels = [];
       this.dataBarChart.datasets = [{
