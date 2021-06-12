@@ -64,7 +64,7 @@
             <div class="chart">
               <div class="c3">
                 <chart-spending-totals v-if="totalsActive" ref="chartSpendingTotals" :data="dataPieChart"></chart-spending-totals>
-                <chart-spending-trends v-else ref="chartSpendingTrends" :data="dataBarChart"></chart-spending-trends>
+                <chart-spending-trends v-else ref="chartSpendingTrends" :data="dataBarChart" @showact="showActivity"></chart-spending-trends>
               </div>
             </div>
           </div>
@@ -76,6 +76,9 @@
           :monthsCount ="monthsCount"></report-spending-aside>
       </div>
    </div>
+    <div v-for="item in acts" :key="item.name">
+      <modal-activity :name="item.name" :categoryid="item.catid" :categoryname="item.catname" :tdate="item.date"></modal-activity>
+    </div>
   </div>
 </template>
 
@@ -86,16 +89,19 @@ import moment from 'moment';
 import ChartSpendingTotals from './ChartSpendingTotals';
 import ChartSpendingTrends from './ChartSpendingTrends';
 import ReportSpendingAside from './ReportSpendingAside';
+import ModalActivity from './ModalActivity';
 
 export default {
   components: {
     ChartSpendingTotals,
     ChartSpendingTrends,
-    ReportSpendingAside
+    ReportSpendingAside,
+    ModalActivity
   },
   data() {
     const self = this;
     return {
+      acts: [],
       monthsCount: 1,
       totalsActive: false,
       dataPieChart: {
@@ -225,6 +231,9 @@ export default {
     }
   },
   methods: {
+    showActivity(value) {
+      this.$modal.show(value);
+    },
     setActive(value) {
       this.totalsActive = value;
     },
@@ -281,7 +290,9 @@ export default {
         moment(this.dateFilter[0]).format('YYYYMMDD'),
         moment(this.dateFilter[1]).format('YYYYMMDD'),
       ];
-      this.$store.dispatch('setChartDate', dates);
+
+      await this.$store.dispatch('setChartDate', dates);
+
       await this.prepareData();
       if (this.totalsActive) {
         this.$refs.chartSpendingTotals.update();
@@ -347,15 +358,18 @@ export default {
           this.dataBarChart.labels.push(e.date);
         }
       });
-
+      let count = 0;
       categories.forEach((c, index) => {
         this.dataBarChart.datasets.push({
           label: c.name,
           data: [],
+          catid: c.id,
           backgroundColor: this.dataPieChart.datasets[0].backgroundColor[index]
         });
 
         this.dataBarChart.labels.forEach(date => {
+          this.acts.push({ id: count, name: date + c.id, catid: c.id, date: date, catname: c.name });
+          count++;
           let e = results.data.totalsByMonth.find(obj => obj.category_id === c.id && obj.date === date);
           if (e === undefined) {
             e = {

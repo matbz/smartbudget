@@ -63,7 +63,8 @@ export default {
         hover: {
           animationDuration: 0
         },
-        responsiveAnimationDuration: 0
+        responsiveAnimationDuration: 0,
+        onClick: this.clickHandler
       }
     };
   },
@@ -73,6 +74,15 @@ export default {
   methods: {
     update() {
       this.$data._chart.update();
+    },
+    clickHandler(evt) {
+      const c = this._data._chart;
+      const activeElement = c.getElementAtEvent(evt);
+
+      const activePoints = c.getElementsAtEventForMode(evt, 'point', c.options);
+      const firstPoint = activePoints[0];
+      const xLabel = c.data.labels[firstPoint._index];
+      this.$emit('showact', xLabel + c.data.datasets[activeElement[0]._datasetIndex].catid);
     }
   }
 };
